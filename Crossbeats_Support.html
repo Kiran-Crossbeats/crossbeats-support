@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Crossbeats Support Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#06070d;
+  --surface:#10111c;
+  --surface-solid:#10111c;
+  --surface2:#141522;
+  --border:rgba(255,255,255,.08);
+  --border-soft:rgba(255,255,255,.05);
+  --accent:#e8ff00;
+  --accent-dim:#c4d600;
+  --accent2:#00ffe0;
+  --txt:#f2f4ff;
+  --muted:#5d6385;
+  --muted2:#9097b8;
+  --danger:#ff5c5c;
+  --warning:#ffb547;
+  --success:#00ffb4;
+  --r-sm:12px;
+  --r:16px;
+  --r-lg:24px;
+  --r-xl:30px;
+  --shadow:0 20px 60px rgba(0,0,0,.55);
+  --shadow-sm:0 6px 22px rgba(0,0,0,.3);
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',sans-serif;color:var(--txt);background:var(--bg);
+  min-height:100vh;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 55% 45% at 12% 15%, rgba(232,255,0,.06) 0%, transparent 65%),
+    radial-gradient(ellipse 45% 40% at 88% 85%, rgba(0,255,224,.04) 0%, transparent 65%),
+    radial-gradient(ellipse 70% 55% at 50% 45%, rgba(110,90,255,.03) 0%, transparent 70%);
+  pointer-events:none;
+}
+body::after{
+  content:'';position:fixed;inset:0;z-index:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.015) 1px, transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse 95% 95% at 50% 50%, black 25%, transparent 100%);
+  pointer-events:none;
+}
+.orb{
+  position:fixed;border-radius:50%;filter:blur(60px);
+  z-index:0;pointer-events:none;opacity:.45;
+  will-change:transform;transform:translate3d(0,0,0);backface-visibility:hidden;
+}
+.orb-1{width:380px;height:380px;background:radial-gradient(circle, rgba(232,255,0,.12), transparent 70%);top:-100px;left:-80px;animation:float1 24s ease-in-out infinite}
+.orb-2{width:340px;height:340px;background:radial-gradient(circle, rgba(0,255,224,.1), transparent 70%);bottom:-80px;right:-60px;animation:float2 28s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(40px,60px,0)}}
+@keyframes float2{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(-50px,-40px,0)}}
+
+.page{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 20px 70px}
+
+#loginView{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;width:100%;animation:fadeUp .6s var(--ease) both}
+
+.brand{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+.brand-icon{
+  width:54px;height:54px;
+  background:linear-gradient(145deg,var(--accent),var(--accent-dim));
+  border-radius:16px;display:grid;place-items:center;
+  box-shadow:0 0 35px rgba(232,255,0,.5), inset 0 1px 1px rgba(255,255,255,.4);
+  flex-shrink:0;animation:iconPulse 4s ease-in-out infinite;will-change:box-shadow;
+}
+@keyframes iconPulse{
+  0%,100%{box-shadow:0 0 35px rgba(232,255,0,.5), inset 0 1px 1px rgba(255,255,255,.4)}
+  50%{box-shadow:0 0 50px rgba(232,255,0,.7), inset 0 1px 1px rgba(255,255,255,.4)}
+}
+.brand-icon svg{width:27px;height:27px}
+.brand-name{font-family:'Syne',sans-serif;font-size:29px;font-weight:800;letter-spacing:-.6px;line-height:1}
+.brand-name em{font-style:normal;color:var(--accent)}
+.brand-tag{font-size:12px;color:var(--muted2);letter-spacing:.18em;text-transform:uppercase;margin-top:14px;font-weight:500}
+
+.glass{background:rgba(16,17,28,.92);border:1px solid var(--border)}
+
+.login-card{
+  width:100%;max-width:430px;border-radius:var(--r-xl);padding:38px 38px 32px;
+  box-shadow:var(--shadow);position:relative;overflow:hidden;margin-top:30px;
+}
+.login-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg, transparent, rgba(232,255,0,.8), rgba(0,255,224,.8), transparent);
+}
+
+.tab-switcher{
+  display:flex;
+  background:rgba(0,0,0,.3);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:4px;
+  margin-bottom:26px;
+  position:relative;
+}
+.tab-btn{
+  flex:1;
+  padding:11px 16px;
+  background:transparent;
+  border:none;
+  color:var(--muted2);
+  font-family:'Syne',sans-serif;
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:.04em;
+  cursor:pointer;
+  border-radius:10px;
+  transition:color .25s ease;
+  position:relative;
+  z-index:2;
+}
+.tab-btn.active{color:#000}
+.tab-indicator{
+  position:absolute;
+  top:4px;
+  bottom:4px;
+  width:calc(50% - 4px);
+  background:linear-gradient(145deg,var(--accent),var(--accent-dim));
+  border-radius:10px;
+  transition:transform .35s var(--ease);
+  box-shadow:0 4px 14px rgba(232,255,0,.3), inset 0 1px 1px rgba(255,255,255,.4);
+  z-index:1;
+}
+.tab-indicator.right{transform:translateX(100%)}
+
+.login-headline{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;margin-bottom:6px;letter-spacing:-.4px}
+.login-sub{font-size:13px;color:var(--muted2);margin-bottom:26px;font-weight:300;line-height:1.5}
+
+.field{position:relative;margin-bottom:16px}
+.field label,.search-box label,.section-label{
+  display:block;font-size:11px;font-weight:600;color:var(--muted2);
+  letter-spacing:.1em;text-transform:uppercase;margin-bottom:9px;
+}
+.field input{
+  width:100%;padding:14px 46px 14px 17px;
+  background:rgba(0,0,0,.25);border:1.5px solid var(--border);
+  border-radius:var(--r);color:var(--txt);
+  font-family:'DM Sans',sans-serif;font-size:15px;font-weight:400;outline:none;
+  transition:border-color .25s ease, background .25s ease;-webkit-appearance:none;
+}
+.field input::placeholder{color:var(--muted)}
+.field input:focus{border-color:var(--accent);background:rgba(232,255,0,.05);box-shadow:0 0 0 4px rgba(232,255,0,.12)}
+.field input:focus + .field-icon{opacity:.7}
+.field-icon{position:absolute;right:15px;bottom:15px;opacity:.3;pointer-events:none;transition:opacity .25s}
+.field-icon svg{width:18px;height:18px;stroke:var(--txt)}
+
+.field-hint{
+  font-size:11px;color:var(--muted);margin-top:8px;padding-left:2px;
+  font-weight:400;letter-spacing:.02em;
+  display:flex;align-items:center;gap:6px;line-height:1.4;
+}
+.field-hint svg{width:13px;height:13px;stroke:var(--muted);flex-shrink:0;opacity:.7}
+
+.otp-input{
+  width:100%;padding:18px 17px;
+  background:rgba(0,0,0,.25);border:1.5px solid var(--border);
+  border-radius:var(--r);color:var(--txt);
+  font-family:'Courier New', monospace;
+  font-size:24px;font-weight:700;
+  letter-spacing:12px;
+  text-align:center;outline:none;
+  transition:border-color .25s ease, background .25s ease;
+}
+.otp-input:focus{border-color:var(--accent2);background:rgba(0,255,224,.05);box-shadow:0 0 0 4px rgba(0,255,224,.12)}
+.otp-input::placeholder{color:var(--muted);letter-spacing:8px}
+
+.forgot-link{
+  display:block;text-align:right;margin-top:-8px;margin-bottom:8px;
+  font-size:12px;color:var(--accent2);font-weight:500;
+  text-decoration:none;cursor:pointer;
+  transition:color .2s ease;background:none;border:none;padding:0;
+  font-family:'DM Sans',sans-serif;
+}
+.forgot-link:hover{color:var(--accent)}
+
+.back-link{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:12px;color:var(--muted2);font-weight:500;
+  cursor:pointer;margin-bottom:18px;
+  background:none;border:none;padding:0;
+  font-family:'DM Sans',sans-serif;
+  transition:color .2s ease;
+}
+.back-link:hover{color:var(--accent)}
+.back-link svg{width:14px;height:14px}
+
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  width:100%;padding:15px;
+  background:linear-gradient(145deg,var(--accent),var(--accent-dim));
+  color:#000;border:none;border-radius:var(--r);
+  font-family:'Syne',sans-serif;font-size:15px;font-weight:700;letter-spacing:.02em;
+  cursor:pointer;margin-top:8px;
+  transition:transform .2s ease, box-shadow .2s ease;
+  position:relative;overflow:hidden;
+  box-shadow:0 4px 18px rgba(232,255,0,.25), inset 0 1px 1px rgba(255,255,255,.4);
+}
+.btn::before{
+  content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.4), transparent);
+  transition:left .6s var(--ease);
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 36px rgba(232,255,0,.45), inset 0 1px 1px rgba(255,255,255,.4)}
+.btn:hover::before{left:100%}
+.btn:active{transform:translateY(0) scale(.99)}
+.btn:disabled{opacity:.7;cursor:not-allowed;transform:none}
+
+.btn-ghost{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  padding:11px 18px;background:rgba(255,255,255,.03);
+  border:1.5px solid var(--border);border-radius:var(--r-sm);
+  color:var(--muted2);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
+  cursor:pointer;transition:border-color .2s ease, color .2s ease, background .2s ease, transform .2s ease;
+  margin-top:16px;width:100%;
+}
+.btn-ghost:hover{border-color:rgba(232,255,0,.4);color:var(--accent);background:rgba(232,255,0,.05);transform:translateY(-1px)}
+
+.resend-row{
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  margin-top:14px;font-size:12px;color:var(--muted2);
+}
+.resend-btn{
+  background:none;border:none;color:var(--accent2);font-weight:600;
+  cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12px;
+  transition:color .2s ease;padding:0;
+}
+.resend-btn:hover{color:var(--accent)}
+.resend-btn:disabled{color:var(--muted);cursor:not-allowed}
+
+.err-msg{
+  display:flex;align-items:center;gap:9px;
+  background:rgba(255,92,92,.1);border:1px solid rgba(255,92,92,.3);
+  border-radius:var(--r-sm);padding:12px 15px;
+  font-size:13px;color:var(--danger);margin-top:16px;
+  animation:fadeUp .3s var(--ease) both;line-height:1.4;
+}
+.err-msg.warning{background:rgba(255,181,71,.1);border-color:rgba(255,181,71,.35);color:var(--warning)}
+.err-msg.success{background:rgba(0,255,180,.1);border-color:rgba(0,255,180,.3);color:var(--success)}
+.err-msg svg{flex-shrink:0}
+.err-msg.hidden{display:none}
+
+.toast{
+  position:fixed;bottom:30px;left:50%;
+  transform:translate3d(-50%,90px,0);
+  background:var(--surface-solid);
+  border:1px solid rgba(232,255,0,.35);
+  border-radius:50px;padding:13px 24px;
+  font-size:13px;font-weight:500;color:var(--accent);
+  box-shadow:0 10px 44px rgba(0,0,0,.55);
+  z-index:999;display:flex;align-items:center;gap:9px;
+  transition:transform .35s var(--ease), opacity .35s;
+  opacity:0;white-space:nowrap;will-change:transform,opacity;
+}
+.toast.show{transform:translate3d(-50%,0,0);opacity:1}
+
+.auth-form{animation:fadeUp .4s var(--ease) both}
+.auth-form.hidden{display:none}
+
+#dashView{width:100%;max-width:920px;animation:fadeUp .6s var(--ease) both}
+
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 26px;border-radius:var(--r-lg);margin-bottom:26px;
+  box-shadow:var(--shadow-sm);position:relative;overflow:hidden;
+}
+.topbar::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.15), transparent);
+}
+.topbar-left{display:flex;align-items:center;gap:15px}
+.topbar-avatar{
+  width:44px;height:44px;
+  background:linear-gradient(145deg,var(--accent),var(--accent-dim));
+  border-radius:13px;display:grid;place-items:center;
+  font-family:'Syne',sans-serif;font-weight:800;font-size:17px;color:#000;
+  flex-shrink:0;
+  box-shadow:0 0 20px rgba(232,255,0,.3), inset 0 1px 1px rgba(255,255,255,.4);
+}
+.topbar-info .name{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;letter-spacing:-.2px;text-transform:capitalize}
+.topbar-info .role{font-size:12px;color:var(--muted2);font-weight:300;margin-top:1px}
+.topbar-right{display:flex;align-items:center;gap:12px}
+
+.pill{
+  display:inline-flex;align-items:center;gap:7px;padding:7px 14px;
+  background:rgba(0,255,180,.08);border:1px solid rgba(0,255,180,.22);
+  border-radius:50px;font-size:12px;font-weight:600;color:var(--success);letter-spacing:.03em;
+}
+.pill::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--success);box-shadow:0 0 10px var(--success);animation:pulse 2s infinite}
+
+.logout-btn{
+  background:rgba(255,255,255,.03);border:1.5px solid var(--border);color:var(--muted2);
+  border-radius:var(--r-sm);padding:9px 17px;font-size:13px;font-weight:500;cursor:pointer;
+  font-family:'DM Sans',sans-serif;transition:border-color .2s ease, color .2s ease, background .2s ease;
+}
+.logout-btn:hover{border-color:var(--danger);color:var(--danger);background:rgba(255,92,92,.08)}
+
+.search-panel{
+  border-radius:var(--r-lg);padding:30px;box-shadow:var(--shadow);
+  position:relative;overflow:hidden;margin-bottom:26px;
+}
+.search-panel::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg, transparent, rgba(0,255,224,.7), rgba(232,255,0,.7), transparent);
+}
+.panel-title{
+  font-family:'Syne',sans-serif;font-size:19px;font-weight:700;margin-bottom:6px;
+  letter-spacing:-.3px;display:flex;align-items:center;gap:10px;
+}
+.panel-title svg{width:20px;height:20px;stroke:var(--accent)}
+.panel-sub{font-size:13px;color:var(--muted2);margin-bottom:26px;font-weight:300;line-height:1.5}
+
+.section-label{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.section-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
+.section-label .count{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:22px;height:22px;padding:0 8px;
+  background:rgba(232,255,0,.1);border:1px solid rgba(232,255,0,.25);
+  border-radius:50px;color:var(--accent);
+  font-size:11px;font-weight:700;letter-spacing:0;margin-left:-4px;
+}
+
+.cat-grid{display:grid;grid-template-columns:repeat(6, 1fr);gap:12px;margin-bottom:22px}
+@media(max-width:780px){.cat-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:460px){.cat-grid{grid-template-columns:repeat(2,1fr)}}
+
+.cat-card{
+  position:relative;padding:18px 12px 14px;
+  background:rgba(0,0,0,.25);border:1.5px solid var(--border);
+  border-radius:var(--r);cursor:pointer;
+  transition:transform .25s ease, border-color .25s ease, background .25s ease, box-shadow .25s ease;
+  display:flex;flex-direction:column;align-items:center;gap:10px;overflow:hidden;
+}
+.cat-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg, rgba(232,255,0,.08), rgba(0,255,224,.04) 60%, transparent);
+  opacity:0;transition:opacity .25s ease;pointer-events:none;
+}
+.cat-card:hover{border-color:rgba(232,255,0,.3);transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.4), 0 0 24px rgba(232,255,0,.1)}
+.cat-card:hover::before{opacity:1}
+.cat-card:hover .cat-icon-wrap{background:linear-gradient(145deg, rgba(232,255,0,.2), rgba(232,255,0,.05));border-color:rgba(232,255,0,.4)}
+.cat-card:hover .cat-name{color:var(--accent)}
+.cat-card.active{
+  border-color:var(--accent);
+  background:linear-gradient(145deg, rgba(232,255,0,.08), rgba(0,255,224,.03));
+  box-shadow:0 8px 24px rgba(232,255,0,.2), inset 0 1px 1px rgba(255,255,255,.06);
+}
+.cat-card.active::before{opacity:1}
+.cat-card.active .cat-icon-wrap{
+  background:linear-gradient(145deg, var(--accent), var(--accent-dim));
+  border-color:var(--accent);
+  box-shadow:0 4px 16px rgba(232,255,0,.4), inset 0 1px 1px rgba(255,255,255,.4);
+}
+.cat-card.active .cat-icon{filter:grayscale(0) brightness(0)}
+.cat-card.active .cat-name{color:var(--accent);font-weight:700}
+.cat-card.active .cat-check{opacity:1;transform:scale(1)}
+.cat-icon-wrap{
+  width:46px;height:46px;background:rgba(255,255,255,.04);
+  border:1px solid var(--border);border-radius:13px;
+  display:grid;place-items:center;position:relative;z-index:1;
+  transition:background .25s ease, border-color .25s ease;
+}
+.cat-icon{font-size:22px;display:block}
+.cat-name{font-size:12px;font-weight:500;color:var(--muted2);text-align:center;line-height:1.3;position:relative;z-index:1;transition:color .25s ease}
+.cat-check{
+  position:absolute;top:8px;right:8px;
+  width:18px;height:18px;background:var(--accent);border-radius:50%;
+  display:grid;place-items:center;opacity:0;transform:scale(.5);
+  transition:opacity .2s ease, transform .2s ease;z-index:2;
+}
+.cat-check svg{width:11px;height:11px;stroke:#000;stroke-width:3.5}
+
+.product-section{margin-bottom:22px;max-height:0;opacity:0;overflow:hidden;transition:max-height .5s ease, opacity .35s ease, margin-bottom .35s ease}
+.product-section.show{max-height:1500px;opacity:1}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(180px, 1fr));gap:12px}
+
+.product-card{
+  position:relative;padding:16px 14px;
+  background:rgba(0,0,0,.25);border:1.5px solid var(--border);
+  border-radius:var(--r);cursor:pointer;
+  transition:transform .25s ease, border-color .25s ease, background .25s ease, box-shadow .25s ease;
+  display:flex;align-items:center;gap:12px;overflow:hidden;text-align:left;
+  animation:productPop .4s var(--ease) both;
+}
+@keyframes productPop{from{opacity:0;transform:translate3d(0,15px,0) scale(.96)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
+.product-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg, rgba(0,255,224,.08), rgba(232,255,0,.04) 60%, transparent);
+  opacity:0;transition:opacity .25s ease;pointer-events:none;
+}
+.product-card:hover{border-color:rgba(0,255,224,.35);transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.4), 0 0 20px rgba(0,255,224,.1)}
+.product-card:hover::before{opacity:1}
+.product-card:hover .product-icon{background:linear-gradient(145deg, rgba(0,255,224,.2), rgba(0,255,224,.05));border-color:rgba(0,255,224,.4);color:var(--accent2)}
+.product-card:hover .product-name{color:var(--accent2)}
+.product-card:hover .product-arrow{opacity:1;transform:translateX(0)}
+.product-card.active{
+  border-color:var(--accent2);
+  background:linear-gradient(145deg, rgba(0,255,224,.1), rgba(232,255,0,.03));
+  box-shadow:0 8px 24px rgba(0,255,224,.2), inset 0 1px 1px rgba(255,255,255,.06);
+}
+.product-card.active::before{opacity:1}
+.product-card.active .product-icon{
+  background:linear-gradient(145deg, var(--accent2), #00c4ad);
+  border-color:var(--accent2);color:#001a17;
+  box-shadow:0 4px 16px rgba(0,255,224,.4), inset 0 1px 1px rgba(255,255,255,.4);
+}
+.product-card.active .product-name{color:var(--accent2);font-weight:700}
+.product-card.active .product-check{opacity:1;transform:scale(1)}
+.product-icon{
+  width:40px;height:40px;flex-shrink:0;
+  background:rgba(255,255,255,.04);border:1px solid var(--border);
+  border-radius:11px;display:grid;place-items:center;
+  font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--muted2);
+  position:relative;z-index:1;transition:background .25s ease, border-color .25s ease, color .25s ease;
+}
+.product-info{flex:1;min-width:0;position:relative;z-index:1}
+.product-label{font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-bottom:2px}
+.product-name{
+  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:var(--txt);
+  line-height:1.3;transition:color .25s ease;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.product-arrow{opacity:0;transform:translateX(-6px);transition:opacity .25s ease, transform .25s ease;color:var(--accent2);position:relative;z-index:1;flex-shrink:0}
+.product-arrow svg{width:16px;height:16px}
+.product-check{
+  position:absolute;top:8px;right:8px;
+  width:18px;height:18px;background:var(--accent2);border-radius:50%;
+  display:grid;place-items:center;opacity:0;transform:scale(.5);
+  transition:opacity .2s ease, transform .2s ease;z-index:2;
+}
+.product-check svg{width:11px;height:11px;stroke:#001a17;stroke-width:3.5}
+.product-empty{padding:30px 20px;text-align:center;border:1px dashed var(--border);border-radius:var(--r);color:var(--muted);font-size:13px;font-weight:300;grid-column:1/-1}
+
+.search-box{position:relative;margin-bottom:22px}
+.search-box input{
+  width:100%;padding:15px 17px 15px 48px;
+  background:rgba(0,0,0,.25);border:1.5px solid var(--border);
+  border-radius:var(--r);color:var(--txt);
+  font-family:'DM Sans',sans-serif;font-size:15px;outline:none;
+  -webkit-appearance:none;transition:border-color .25s ease, background .25s ease;
+}
+.search-box input::placeholder{color:var(--muted)}
+.search-box input:focus{border-color:var(--accent);background:rgba(232,255,0,.05);box-shadow:0 0 0 4px rgba(232,255,0,.12)}
+.search-box-icon{position:absolute;left:16px;bottom:17px;opacity:.35;pointer-events:none}
+.search-box-icon svg{width:18px;height:18px;stroke:var(--txt)}
+
+.result-card{
+  background:rgba(16,17,28,.92);border:1px solid var(--border);
+  border-radius:var(--r-lg);overflow:hidden;
+  animation:fadeUp .5s var(--ease) both;box-shadow:var(--shadow);
+  margin-bottom:20px;
+}
+.result-header{
+  padding:26px 30px 22px;border-bottom:1px solid var(--border-soft);
+  display:flex;align-items:flex-start;gap:17px;position:relative;
+  background:linear-gradient(180deg, rgba(232,255,0,.03), transparent);
+}
+.result-icon{
+  width:50px;height:50px;
+  background:linear-gradient(145deg, rgba(232,255,0,.15), rgba(232,255,0,.05));
+  border:1px solid rgba(232,255,0,.25);
+  border-radius:15px;display:grid;place-items:center;
+  flex-shrink:0;font-size:24px;
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.1);
+}
+.result-product{font-family:'Syne',sans-serif;font-size:21px;font-weight:700;letter-spacing:-.3px;line-height:1.15;margin-bottom:8px}
+.result-issue{
+  display:inline-flex;align-items:center;gap:6px;padding:6px 14px;
+  background:rgba(232,255,0,.1);border:1px solid rgba(232,255,0,.25);
+  border-radius:50px;font-size:13px;font-weight:500;color:var(--accent);
+}
+.result-issue::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--accent)}
+
+.best-match-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 12px;
+  background:linear-gradient(145deg,var(--accent),var(--accent-dim));
+  color:#000;border-radius:50px;
+  font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:.05em;
+  margin-bottom:10px;
+  box-shadow:0 4px 14px rgba(232,255,0,.3);
+}
+.best-match-badge svg{width:11px;height:11px;stroke:#000;stroke-width:3}
+
+.result-steps{padding:26px 30px 22px}
+.steps-label{
+  font-size:11px;font-weight:600;color:var(--muted2);
+  letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px;
+  display:flex;align-items:center;gap:8px;
+}
+.steps-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg, var(--border), transparent)}
+
+.step{
+  display:flex;align-items:flex-start;gap:16px;padding:16px 20px;
+  background:rgba(0,0,0,.2);border:1px solid var(--border-soft);
+  border-radius:var(--r);margin-bottom:11px;
+  transition:border-color .2s ease, background .2s ease;
+  animation:fadeUp .4s var(--ease) both;position:relative;
+}
+.step:hover{border-color:rgba(232,255,0,.25);background:rgba(232,255,0,.03)}
+.step::before{
+  content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);
+  width:3px;height:0;background:var(--accent);border-radius:0 3px 3px 0;
+  transition:height .25s ease;
+}
+.step:hover::before{height:60%}
+.step-num{
+  width:28px;height:28px;
+  background:linear-gradient(145deg,var(--accent),var(--accent-dim));
+  border-radius:9px;display:grid;place-items:center;
+  font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#000;
+  flex-shrink:0;
+  box-shadow:0 2px 8px rgba(232,255,0,.3), inset 0 1px 1px rgba(255,255,255,.4);
+}
+.step-text{font-size:14px;color:var(--txt);line-height:1.7;padding-top:4px;font-weight:400;white-space:pre-wrap;word-break:break-word}
+.step-text a{
+  color:var(--accent2);text-decoration:none;
+  border-bottom:1px dashed rgba(0,255,224,.4);
+  transition:color .2s, border-color .2s;word-break:break-all;
+}
+.step-text a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.copy-row{padding:0 30px 26px}
+
+.recommend-section{
+  background:rgba(16,17,28,.92);border:1px solid var(--border);
+  border-radius:var(--r-lg);padding:26px 30px;
+  box-shadow:var(--shadow);
+  animation:fadeUp .55s var(--ease) both;
+  margin-bottom:20px;position:relative;overflow:hidden;
+}
+.recommend-section::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg, transparent, rgba(0,255,224,.7), transparent);
+}
+.recommend-title{
+  font-family:'Syne',sans-serif;
+  font-size:16px;font-weight:700;letter-spacing:-.2px;
+  margin-bottom:4px;display:flex;align-items:center;gap:10px;
+}
+.recommend-title svg{width:18px;height:18px;stroke:var(--accent2)}
+.recommend-sub{font-size:13px;color:var(--muted2);font-weight:300;margin-bottom:18px;line-height:1.5}
+.recommend-list{display:flex;flex-direction:column;gap:10px}
+.recommend-item{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 18px;
+  background:rgba(0,0,0,.25);
+  border:1.5px solid var(--border);
+  border-radius:var(--r);cursor:pointer;
+  transition:transform .25s ease, border-color .25s ease, background .25s ease, box-shadow .25s ease;
+  position:relative;overflow:hidden;
+  animation:fadeUp .4s var(--ease) both;text-align:left;
+}
+.recommend-item::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg, rgba(0,255,224,.06), transparent 60%);
+  opacity:0;transition:opacity .25s ease;pointer-events:none;
+}
+.recommend-item:hover{
+  border-color:rgba(0,255,224,.35);transform:translateX(4px);
+  box-shadow:0 8px 24px rgba(0,0,0,.3), 0 0 18px rgba(0,255,224,.1);
+}
+.recommend-item:hover::before{opacity:1}
+.recommend-item:hover .recommend-icon{background:linear-gradient(145deg, rgba(0,255,224,.2), rgba(0,255,224,.05));border-color:rgba(0,255,224,.4);color:var(--accent2)}
+.recommend-item:hover .recommend-text{color:var(--accent2)}
+.recommend-item:hover .recommend-arrow{opacity:1;transform:translateX(0)}
+.recommend-icon{
+  width:36px;height:36px;flex-shrink:0;
+  background:rgba(255,255,255,.04);border:1px solid var(--border);
+  border-radius:10px;display:grid;place-items:center;color:var(--muted2);
+  position:relative;z-index:1;
+  transition:background .25s ease, border-color .25s ease, color .25s ease;
+}
+.recommend-icon svg{width:16px;height:16px}
+.recommend-content{flex:1;min-width:0;position:relative;z-index:1}
+.recommend-label{
+  font-size:10px;color:var(--muted);
+  letter-spacing:.1em;text-transform:uppercase;
+  font-weight:600;margin-bottom:3px;
+  display:flex;align-items:center;gap:8px;
+}
+.recommend-score{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:30px;height:16px;padding:0 6px;
+  background:rgba(0,255,224,.1);border:1px solid rgba(0,255,224,.25);
+  border-radius:50px;color:var(--accent2);
+  font-size:9px;font-weight:700;letter-spacing:0;
+}
+.recommend-text{
+  font-family:'DM Sans',sans-serif;
+  font-size:14px;font-weight:500;color:var(--txt);
+  line-height:1.4;transition:color .25s ease;
+}
+.recommend-arrow{
+  opacity:0;transform:translateX(-6px);
+  transition:opacity .25s ease, transform .25s ease;
+  color:var(--accent2);position:relative;z-index:1;flex-shrink:0;
+}
+.recommend-arrow svg{width:18px;height:18px}
+
+.no-result{
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  padding:54px 30px;color:var(--muted2);text-align:center;
+  animation:fadeUp .4s var(--ease) both;
+}
+.no-result-icon{font-size:42px;opacity:.6;animation:floatIcon 3s ease-in-out infinite}
+@keyframes floatIcon{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-8px,0)}}
+.no-result-title{font-family:'Syne',sans-serif;font-size:19px;font-weight:700;color:var(--muted2)}
+.no-result-sub{font-size:14px;font-weight:300;max-width:320px;line-height:1.5}
+
+.empty-hint{
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  padding:44px 30px;text-align:center;border:1px dashed var(--border);
+  border-radius:var(--r-lg);color:var(--muted);
+  animation:fadeUp .5s var(--ease) both;
+}
+.empty-hint-icon{font-size:36px;opacity:.4}
+.empty-hint-text{font-size:14px;font-weight:300;max-width:340px;line-height:1.6}
+
+.spinner{width:20px;height:20px;border:2.5px solid rgba(0,0,0,.2);border-top-color:#000;border-radius:50%;animation:spin .6s linear infinite}
+
+@keyframes fadeUp{from{opacity:0;transform:translate3d(0,20px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.step:nth-child(1){animation-delay:.04s}
+.step:nth-child(2){animation-delay:.08s}
+.step:nth-child(3){animation-delay:.12s}
+.step:nth-child(4){animation-delay:.16s}
+.step:nth-child(5){animation-delay:.2s}
+.step:nth-child(6){animation-delay:.24s}
+.step:nth-child(7){animation-delay:.28s}
+.step:nth-child(8){animation-delay:.32s}
+
+.recommend-item:nth-child(1){animation-delay:.05s}
+.recommend-item:nth-child(2){animation-delay:.1s}
+.recommend-item:nth-child(3){animation-delay:.15s}
+.recommend-item:nth-child(4){animation-delay:.2s}
+.recommend-item:nth-child(5){animation-delay:.25s}
+.recommend-item:nth-child(6){animation-delay:.3s}
+
+.cat-card{animation:fadeUp .4s var(--ease) both}
+.cat-card:nth-child(1){animation-delay:.04s}
+.cat-card:nth-child(2){animation-delay:.08s}
+.cat-card:nth-child(3){animation-delay:.12s}
+.cat-card:nth-child(4){animation-delay:.16s}
+.cat-card:nth-child(5){animation-delay:.2s}
+.cat-card:nth-child(6){animation-delay:.24s}
+
+.hidden{display:none!important}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .orb{display:none}
+}
+
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:10px;border:2px solid transparent;background-clip:padding-box}
+::-webkit-scrollbar-thumb:hover{background:rgba(232,255,0,.25);background-clip:padding-box}
+::selection{background:rgba(232,255,0,.25);color:#fff}
+</style>
+</head>
+<body>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<div class="page">
+
+  <div id="loginView">
+
+    <div class="brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 18v-6a9 9 0 0118 0v6"/>
+          <path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3z"/>
+          <path d="M3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"/>
+        </svg>
+      </div>
+      <div class="brand-name">Cross<em>beats</em></div>
+    </div>
+    <div class="brand-tag">Support Portal</div>
+
+    <div class="login-card glass">
+
+      <div class="tab-switcher" id="tabSwitcher">
+        <div class="tab-indicator" id="tabIndicator"></div>
+        <button class="tab-btn active" id="tabSignin" onclick="switchTab('signin')">Sign In</button>
+        <button class="tab-btn" id="tabSignup" onclick="switchTab('signup')">Sign Up</button>
+      </div>
+
+      <!-- ============ SIGN-IN FORM ============ -->
+      <div class="auth-form" id="signinForm">
+        <div class="login-headline">Welcome back</div>
+        <div class="login-sub">Sign in with your Crossbeats team account to access the troubleshooting tools.</div>
+
+        <div class="field">
+          <label>Email Address</label>
+          <input id="email" type="email" placeholder="you@crossbeats.com"
+                 autocomplete="email"
+                 onkeydown="if(event.key==='Enter')document.getElementById('password').focus()">
+          <span class="field-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="3"/><path d="M2 8l10 6 10-6"/>
+            </svg>
+          </span>
+        </div>
+
+        <div class="field">
+          <label>Password</label>
+          <input id="password" type="password" placeholder="Enter your password"
+                 autocomplete="current-password"
+                 onkeydown="if(event.key==='Enter')login()">
+          <span class="field-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
+            </svg>
+          </span>
+          <div class="field-hint">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
+            </svg>
+            Minimum 8 characters — letters, numbers, symbols, or any mix
+          </div>
+        </div>
+
+        <button class="forgot-link" onclick="showForgotStep1()">Forgot password?</button>
+
+        <button class="btn" id="loginBtn" onclick="login()">
+          <span>Sign In</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- ============ SIGN-UP FORM ============ -->
+      <div class="auth-form hidden" id="signupForm">
+        <div class="login-headline">Create your account</div>
+        <div class="login-sub">Sign up with your Crossbeats team email to get access to the support portal.</div>
+
+        <div class="field">
+          <label>Email Address</label>
+          <input id="signupEmail" type="email" placeholder="you@crossbeats.com"
+                 autocomplete="email"
+                 onkeydown="if(event.key==='Enter')document.getElementById('signupPassword').focus()">
+          <span class="field-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="3"/><path d="M2 8l10 6 10-6"/>
+            </svg>
+          </span>
+        </div>
+
+        <div class="field">
+          <label>Create Password</label>
+          <input id="signupPassword" type="password" placeholder="Choose a strong password"
+                 autocomplete="new-password"
+                 onkeydown="if(event.key==='Enter')signup()">
+          <span class="field-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
+            </svg>
+          </span>
+          <div class="field-hint">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
+            </svg>
+            Minimum 8 characters — letters, numbers, symbols, or any mix
+          </div>
+        </div>
+
+        <button class="btn" id="signupBtn" onclick="signup()">
+          <span>Create Account</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 5v14M5 12h14"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- ============ FORGOT STEP 1 ============ -->
+      <div class="auth-form hidden" id="forgotStep1">
+        <button class="back-link" onclick="cancelForgot()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Back to sign in
+        </button>
+        <div class="login-headline">Reset your password</div>
+        <div class="login-sub">Enter your email and we'll send a 6-digit verification code to your inbox.</div>
+
+        <div class="field">
+          <label>Email Address</label>
+          <input id="forgotEmail" type="email" placeholder="you@crossbeats.com"
+                 autocomplete="email"
+                 onkeydown="if(event.key==='Enter')requestOTP()">
+          <span class="field-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="3"/><path d="M2 8l10 6 10-6"/>
+            </svg>
+          </span>
+        </div>
+
+        <button class="btn" id="requestOtpBtn" onclick="requestOTP()">
+          <span>Send Verification Code</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- ============ FORGOT STEP 2 ============ -->
+      <div class="auth-form hidden" id="forgotStep2">
+        <button class="back-link" onclick="showForgotStep1()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Use a different email
+        </button>
+        <div class="login-headline">Check your email</div>
+        <div class="login-sub">We sent a 6-digit code to <strong id="sentToEmail" style="color:var(--accent2)"></strong>. It expires in 10 minutes.</div>
+
+        <div class="field">
+          <label>Verification Code</label>
+          <input id="otpInput" type="text" class="otp-input"
+                 maxlength="6" inputmode="numeric" pattern="[0-9]*"
+                 placeholder="● ● ● ● ● ●"
+                 oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+                 onkeydown="if(event.key==='Enter')verifyOTP()">
+        </div>
+
+        <button class="btn" id="verifyOtpBtn" onclick="verifyOTP()">
+          <span>Verify Code</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </button>
+
+        <div class="resend-row">
+          <span>Didn't get the code?</span>
+          <button class="resend-btn" id="resendBtn" onclick="requestOTP(true)">Resend</button>
+        </div>
+      </div>
+
+      <!-- ============ FORGOT STEP 3 ============ -->
+      <div class="auth-form hidden" id="forgotStep3">
+        <div class="login-headline">Set new password</div>
+        <div class="login-sub">Choose a strong password you haven't used before.</div>
+
+        <div class="field">
+          <label>New Password</label>
+          <input id="newPassword" type="password" placeholder="Enter new password"
+                 autocomplete="new-password"
+                 onkeydown="if(event.key==='Enter')document.getElementById('confirmPassword').focus()">
+          <span class="field-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
+            </svg>
+          </span>
+          <div class="field-hint">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
+            </svg>
+            Minimum 8 characters — letters, numbers, symbols, or any mix
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Confirm New Password</label>
+          <input id="confirmPassword" type="password" placeholder="Re-enter new password"
+                 autocomplete="new-password"
+                 onkeydown="if(event.key==='Enter')resetPassword()">
+          <span class="field-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
+            </svg>
+          </span>
+        </div>
+
+        <button class="btn" id="resetBtn" onclick="resetPassword()">
+          <span>Reset Password</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="err-msg hidden" id="msg">
+        <svg id="msgIcon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>
+        </svg>
+        <span id="msgText"></span>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div id="dashView" class="hidden">
+
+    <div class="topbar glass">
+      <div class="topbar-left">
+        <div class="topbar-avatar" id="topbarAvatar">T</div>
+        <div class="topbar-info">
+          <div class="name" id="welcomeName">Team Member</div>
+          <div class="role">Crossbeats Support</div>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="pill">Live</div>
+        <button class="logout-btn" onclick="logout()">Log out</button>
+      </div>
+    </div>
+
+    <div class="search-panel glass">
+      <div class="panel-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+        </svg>
+        Troubleshooting Finder
+      </div>
+      <div class="panel-sub">Pick a category, choose your product, then describe the issue to find the right fix instantly.</div>
+
+      <div class="section-label">Product Category</div>
+      <div class="cat-grid" id="catGrid"></div>
+
+      <div class="product-section" id="productSection">
+        <div class="section-label">
+          <span>Product Model</span>
+          <span class="count" id="productCount">0</span>
+        </div>
+        <div class="product-grid" id="productGrid"></div>
+      </div>
+
+      <div class="search-box">
+        <label>Describe the Issue</label>
+        <input id="search"
+               placeholder="e.g. battery draining, not charging, no sound…"
+               onkeydown="if(event.key==='Enter')findSolution()">
+        <span class="search-box-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+          </svg>
+        </span>
+      </div>
+
+      <button class="btn" id="findBtn" onclick="findSolution()">
+        <span id="findBtnText">Find Solution</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+
+    <div id="result">
+      <div class="empty-hint">
+        <div class="empty-hint-icon">💡</div>
+        <div class="empty-hint-text">Choose a category and product above, then describe the issue to see step-by-step resolution guidance.</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="toast" id="toast">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+    <polyline points="20 6 9 17 4 12"/>
+  </svg>
+  <span id="toastText">Copied to clipboard!</span>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════
+   CONFIG
+   ══════════════════════════════════════════════════════ */
+const DEV = 'kiran@crossbeats.com';
+
+/* Whitelisted non-@crossbeats.com emails (must match Apps Script list) */
+const ALLOWED_EXTERNAL_EMAILS = [
+  'kirankumarsb3201@gmail.com'
+];
+
+const SHEET = '1FdCNEtrHDyVyy2E1yjAXwo_2qy14VIg_qsyo2rGp2m0';
+const AUTH_API = 'https://script.google.com/macros/s/AKfycbx3A3Tajz0-JQp7b23enIChYwwg78Qw2utAYXtL-C3GKXFwXd9XHwhFr1dOUyHVxehp/exec';
+
+const TABS = {
+  "Projectors"    : "1298694583",
+  "Soundbars"     : "425283568",
+  "TWS and AUDIO" : "1223306940",
+  "Lapel mic"     : "1888295190",
+  "Smart Watch"   : "1058835720",
+  "Dash camera"   : "1571909229"
+};
+
+const ICONS = {
+  "Projectors":"📽️","Soundbars":"🔊","TWS and AUDIO":"🎧",
+  "Lapel mic":"🎙️","Smart Watch":"⌚","Dash camera":"📷"
+};
+
+const CAT_NAMES = {
+  "Projectors":"Projectors","Soundbars":"Soundbars","TWS and AUDIO":"TWS / Audio",
+  "Lapel mic":"Lapel Mic","Smart Watch":"Smart Watch","Dash camera":"Dash Cam"
+};
+
+const STOP_WORDS = new Set([
+  'the','a','an','is','it','to','of','in','on','at','for','and','or','but','if',
+  'how','why','what','when','where','who','which','my','your','his','her','its',
+  'i','you','he','she','we','they','me','him','us','them','this','that','these',
+  'those','am','are','was','were','be','been','being','do','does','did','have',
+  'has','had','can','could','will','would','should','shall','may','might','must',
+  'about','from','with','as','by','too','very','so','just','only','also','some',
+  'any','no','not','please','help','need','want','get','got','make','made',
+  'let','know','tell','show','give','find','use','using','plz','pls'
+]);
+
+const BOOST_WORDS = {
+  'not':2,'cant':2,'cannot':2,'wont':2,'doesnt':2,'dont':2,
+  'never':2,'no':1.5,'fail':2,'failed':2,'failing':2,'broken':2
+};
+
+let db = {};
+let activeCategory = null;
+let activeProduct  = null;
+let currentResults = [];
+let forgotEmail    = '';
+let verifiedOtp    = '';
+
+/* ══════════════════════════════════════════════════════
+   EMAIL ALLOWED CHECK
+   ══════════════════════════════════════════════════════ */
+function isEmailAllowed(email) {
+  const e = String(email || '').trim().toLowerCase();
+  if (!e) return false;
+  if (e.endsWith('@crossbeats.com')) return true;
+  if (ALLOWED_EXTERNAL_EMAILS.indexOf(e) !== -1) return true;
+  return false;
+}
+
+/* ══════════════════════════════════════════════════════
+   UTILITIES
+   ══════════════════════════════════════════════════════ */
+function esc(str) {
+  const d = document.createElement('div');
+  d.textContent = String(str || '');
+  return d.innerHTML;
+}
+function escAndLink(str) {
+  let safe = esc(str);
+  safe = safe.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+  return safe;
+}
+function clean(x) { return String(x || '').toLowerCase().replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g,' ').trim(); }
+
+function extractKeywords(text) {
+  const cleaned = clean(text);
+  return cleaned.split(/\s+/).filter(w => w.length > 1 && !STOP_WORDS.has(w));
+}
+
+function setMsg(text, type) {
+  const box  = document.getElementById('msg');
+  const span = document.getElementById('msgText');
+  const icon = document.getElementById('msgIcon');
+
+  if (!text) { box.classList.add('hidden'); return; }
+
+  span.textContent = text;
+  box.classList.remove('hidden', 'warning', 'success');
+
+  if (type === 'warning') {
+    box.classList.add('warning');
+    icon.innerHTML = `
+      <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+      <path d="M12 9v4M12 17h.01"/>`;
+  } else if (type === 'success') {
+    box.classList.add('success');
+    icon.innerHTML = `<polyline points="20 6 9 17 4 12"/>`;
+  } else {
+    icon.innerHTML = `
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M12 8v4M12 16h.01"/>`;
+  }
+}
+
+function setBtnLoading(btnId, loading) {
+  const btn = document.getElementById(btnId);
+  if (loading) {
+    btn.dataset.original = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<div class="spinner"></div>';
+  } else {
+    btn.disabled = false;
+    if (btn.dataset.original) btn.innerHTML = btn.dataset.original;
+  }
+}
+
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastText').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+/* ══════════════════════════════════════════════════════
+   TAB & VIEW SWITCHER
+   ══════════════════════════════════════════════════════ */
+function switchTab(which) {
+  const indicator   = document.getElementById('tabIndicator');
+  const tabSignin   = document.getElementById('tabSignin');
+  const tabSignup   = document.getElementById('tabSignup');
+  const signinForm  = document.getElementById('signinForm');
+  const signupForm  = document.getElementById('signupForm');
+
+  setMsg('');
+  hideAllForgotSteps();
+  document.getElementById('tabSwitcher').classList.remove('hidden');
+
+  if (which === 'signin') {
+    indicator.classList.remove('right');
+    tabSignin.classList.add('active');
+    tabSignup.classList.remove('active');
+    signupForm.classList.add('hidden');
+    signinForm.classList.remove('hidden');
+  } else {
+    indicator.classList.add('right');
+    tabSignup.classList.add('active');
+    tabSignin.classList.remove('active');
+    signinForm.classList.add('hidden');
+    signupForm.classList.remove('hidden');
+  }
+}
+
+function hideAllForgotSteps() {
+  document.getElementById('forgotStep1').classList.add('hidden');
+  document.getElementById('forgotStep2').classList.add('hidden');
+  document.getElementById('forgotStep3').classList.add('hidden');
+}
+
+function hideAuthForms() {
+  document.getElementById('signinForm').classList.add('hidden');
+  document.getElementById('signupForm').classList.add('hidden');
+  hideAllForgotSteps();
+}
+
+/* ══════════════════════════════════════════════════════
+   FORGOT PASSWORD FLOW
+   ══════════════════════════════════════════════════════ */
+function showForgotStep1() {
+  setMsg('');
+  hideAuthForms();
+  document.getElementById('tabSwitcher').classList.add('hidden');
+  document.getElementById('forgotStep1').classList.remove('hidden');
+  setTimeout(() => document.getElementById('forgotEmail').focus(), 100);
+}
+
+function showForgotStep2(email) {
+  setMsg('');
+  hideAuthForms();
+  document.getElementById('tabSwitcher').classList.add('hidden');
+  document.getElementById('sentToEmail').textContent = email;
+  document.getElementById('forgotStep2').classList.remove('hidden');
+  document.getElementById('otpInput').value = '';
+  setTimeout(() => document.getElementById('otpInput').focus(), 100);
+}
+
+function showForgotStep3() {
+  setMsg('');
+  hideAuthForms();
+  document.getElementById('tabSwitcher').classList.add('hidden');
+  document.getElementById('forgotStep3').classList.remove('hidden');
+  document.getElementById('newPassword').value = '';
+  document.getElementById('confirmPassword').value = '';
+  setTimeout(() => document.getElementById('newPassword').focus(), 100);
+}
+
+function cancelForgot() {
+  forgotEmail = '';
+  verifiedOtp = '';
+  document.getElementById('forgotEmail').value = '';
+  document.getElementById('otpInput').value = '';
+  document.getElementById('newPassword').value = '';
+  document.getElementById('confirmPassword').value = '';
+  switchTab('signin');
+}
+
+async function requestOTP(isResend) {
+  const email = isResend
+    ? forgotEmail
+    : document.getElementById('forgotEmail').value.trim().toLowerCase();
+  setMsg('');
+
+  if (!email)                  { setMsg('Please enter your email address'); return; }
+  if (!isEmailAllowed(email))  { setMsg('This email is not allowed. Only @crossbeats.com emails are permitted.'); return; }
+
+  forgotEmail = email;
+
+  const btnId = isResend ? 'resendBtn' : 'requestOtpBtn';
+  if (!isResend) setBtnLoading(btnId, true);
+  else {
+    const rb = document.getElementById('resendBtn');
+    rb.disabled = true;
+    rb.textContent = 'Sending…';
+  }
+
+  try {
+    const result = await callAuthAPI('request_otp', email);
+    if (!result.ok) {
+      setMsg(result.error || 'Could not send code');
+      if (!isResend) setBtnLoading(btnId, false);
+      else {
+        const rb = document.getElementById('resendBtn');
+        rb.disabled = false;
+        rb.textContent = 'Resend';
+      }
+      return;
+    }
+
+    if (isResend) {
+      const rb = document.getElementById('resendBtn');
+      rb.textContent = 'Sent ✓';
+      setMsg('A new code was sent to your email.', 'success');
+      setTimeout(() => {
+        rb.disabled = false;
+        rb.textContent = 'Resend';
+      }, 30000);
+    } else {
+      setBtnLoading(btnId, false);
+      showForgotStep2(email);
+    }
+  } catch (err) {
+    console.error('OTP request error:', err);
+    setMsg('Network error. Please try again.');
+    if (!isResend) setBtnLoading(btnId, false);
+    else {
+      const rb = document.getElementById('resendBtn');
+      rb.disabled = false;
+      rb.textContent = 'Resend';
+    }
+  }
+}
+
+async function verifyOTP() {
+  const otp = document.getElementById('otpInput').value.trim();
+  setMsg('');
+
+  if (!otp)              { setMsg('Please enter the code from your email'); return; }
+  if (otp.length !== 6)  { setMsg('Code must be 6 digits'); return; }
+
+  setBtnLoading('verifyOtpBtn', true);
+
+  try {
+    const result = await callAuthAPI('verify_otp', forgotEmail, null, otp);
+    if (!result.ok) {
+      setMsg(result.error || 'Verification failed');
+      setBtnLoading('verifyOtpBtn', false);
+      return;
+    }
+    verifiedOtp = otp;
+    setBtnLoading('verifyOtpBtn', false);
+    showForgotStep3();
+  } catch (err) {
+    console.error('OTP verify error:', err);
+    setMsg('Network error. Please try again.');
+    setBtnLoading('verifyOtpBtn', false);
+  }
+}
+
+async function resetPassword() {
+  const newPwd     = document.getElementById('newPassword').value;
+  const confirmPwd = document.getElementById('confirmPassword').value;
+  setMsg('');
+
+  if (!newPwd)                { setMsg('Please enter a new password'); return; }
+  if (newPwd.length < 8)      { setMsg(`Password too short (${newPwd.length}/8 characters). Minimum 8 characters required.`, 'warning'); return; }
+  if (newPwd !== confirmPwd)  { setMsg('Passwords do not match. Please re-enter.'); return; }
+
+  setBtnLoading('resetBtn', true);
+
+  try {
+    const result = await callAuthAPI('reset_password', forgotEmail, null, verifiedOtp, newPwd);
+    if (!result.ok) {
+      setMsg(result.error || 'Could not reset password');
+      setBtnLoading('resetBtn', false);
+      return;
+    }
+
+    setMsg('Password reset successful! You can now sign in.', 'success');
+    showToast('Password updated successfully!');
+
+    setTimeout(() => {
+      cancelForgot();
+      document.getElementById('email').value = forgotEmail;
+      document.getElementById('password').focus();
+    }, 1500);
+  } catch (err) {
+    console.error('Reset error:', err);
+    setMsg('Network error. Please try again.');
+    setBtnLoading('resetBtn', false);
+  }
+}
+
+function validatePassword(pwd) {
+  if (pwd.length < 8) {
+    return {
+      valid: false,
+      message: `Password too short (${pwd.length}/8 characters). Your password must be at least 8 characters — letters, numbers, symbols, or any mix.`
+    };
+  }
+  return { valid: true };
+}
+
+async function callAuthAPI(action, email, password, otp, newPassword) {
+  const res = await fetch(AUTH_API, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify({
+      action,
+      email,
+      password: password || '',
+      otp: otp || '',
+      newPassword: newPassword || ''
+    })
+  });
+  if (!res.ok) throw new Error('Network error');
+  return await res.json();
+}
+
+function parseSteps(raw) {
+  if (!raw) return [];
+  const text = String(raw).replace(/\r\n?/g, '\n').trim();
+  const stepMarker = /^[\s]*(?:(?:step\s+)?\d+[\.\):\-]\s+|[•\*►◆◇▪▫]\s+|[-]\s{2,})/i;
+  const lines = text.split('\n');
+  const markerCount = lines.filter(l => stepMarker.test(l)).length;
+  const useMarkers  = markerCount >= 2;
+
+  if (useMarkers) {
+    const stripMarker = /^[\s]*(?:(?:step\s+)?\d+[\.\):\-]\s*|[•\*►◆◇▪▫]\s*|[-]\s{2,})/i;
+    const steps = []; let current = null;
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed) continue;
+      if (stepMarker.test(line)) {
+        if (current) steps.push(current.trim());
+        current = line.replace(stripMarker, '').trim();
+      } else if (current !== null) { current += ' ' + trimmed; }
+      else { current = trimmed; }
+    }
+    if (current) steps.push(current.trim());
+    return steps.filter(s => s.length > 1);
+  }
+
+  const joined = []; let buffer = '';
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (!line) { if (buffer){joined.push(buffer.trim());buffer='';} continue; }
+    if (/^https?:\/\/\S+$/i.test(line)) { if (buffer){joined.push(buffer.trim());buffer='';} joined.push(line); continue; }
+    if (!buffer) { buffer = line; }
+    else {
+      const endsSentence = /[.!?:]\s*$/.test(buffer);
+      const startsNewSentence = /^[A-Z]/.test(line);
+      if (endsSentence && startsNewSentence) { joined.push(buffer.trim()); buffer = line; }
+      else { buffer += ' ' + line; }
+    }
+  }
+  if (buffer) joined.push(buffer.trim());
+
+  const final = [];
+  for (const para of joined) {
+    if (/^https?:\/\/\S+$/i.test(para) || para.length < 80) { final.push(para); continue; }
+    const sentences = para.match(/[^.!?]+[.!?]+(?:\s|$)|[^.!?]+$/g);
+    if (sentences && sentences.length > 1) {
+      sentences.forEach(s => { const t = s.trim(); if (t.length > 3) final.push(t); });
+    } else { final.push(para); }
+  }
+  return final.filter(s => s.length > 1);
+}
+
+function loadSheet(gid) {
+  return new Promise((resolve, reject) => {
+    const cb = 'cb' + Math.random().toString(36).slice(2);
+    const timeout = setTimeout(() => { delete window[cb]; reject(new Error('Sheet load timed out')); }, 10000);
+    window[cb] = (j) => { clearTimeout(timeout); delete window[cb]; resolve(j.table ? j.table.rows || [] : []); };
+    const s = document.createElement('script');
+    s.onerror = () => { clearTimeout(timeout); reject(new Error('Sheet load failed')); };
+    s.src = `https://docs.google.com/spreadsheets/d/${SHEET}/gviz/tq?gid=${gid}&tqx=responseHandler:${cb}`;
+    document.body.appendChild(s);
+  });
+}
+
+async function loadData() {
+  for (const t in TABS) {
+    const rows = await loadSheet(TABS[t]);
+    db[t] = [];
+    rows.forEach(r => {
+      if (!r.c[0] || !r.c[0].v) return;
+      const products = String(r.c[0].v).split(/\n|,/).map(x => x.trim()).filter(Boolean);
+      const issue    = r.c[1]?.v || '';
+      const steps    = r.c[2]?.v || '';
+      products.forEach(p => db[t].push({ product: p, issue, steps }));
+    });
+  }
+  renderCategoryCards();
+}
+
+function renderCategoryCards() {
+  const grid = document.getElementById('catGrid');
+  grid.innerHTML = Object.keys(TABS).map(cat => `
+    <div class="cat-card" data-cat="${esc(cat)}" onclick="selectCategory('${esc(cat)}')">
+      <div class="cat-check">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
+      <div class="cat-icon-wrap"><span class="cat-icon">${ICONS[cat] || '📦'}</span></div>
+      <div class="cat-name">${esc(CAT_NAMES[cat] || cat)}</div>
+    </div>
+  `).join('');
+}
+
+function selectCategory(cat) {
+  activeCategory = cat;
+  activeProduct  = null;
+  document.querySelectorAll('.cat-card').forEach(card => {
+    card.classList.toggle('active', card.dataset.cat === cat);
+  });
+  renderProductCards(cat);
+}
+
+function renderProductCards(cat) {
+  const section = document.getElementById('productSection');
+  const grid    = document.getElementById('productGrid');
+  const count   = document.getElementById('productCount');
+
+  const products = [...new Set((db[cat] || []).map(x => x.product))].sort();
+  count.textContent = products.length;
+
+  if (!products.length) {
+    grid.innerHTML = `<div class="product-empty">No products available in this category yet.</div>`;
+  } else {
+    grid.innerHTML = products.map((p, i) => {
+      const badge = getProductBadge(p);
+      return `
+        <div class="product-card" data-prod="${esc(p)}"
+             style="animation-delay:${0.03 * i}s"
+             onclick="selectProduct(this, '${esc(p).replace(/'/g, "\\'")}')">
+          <div class="product-check">
+            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          <div class="product-icon">${esc(badge)}</div>
+          <div class="product-info">
+            <div class="product-label">Model</div>
+            <div class="product-name" title="${esc(p)}">${esc(p)}</div>
+          </div>
+          <div class="product-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </div>
+        </div>`;
+    }).join('');
+  }
+  section.classList.add('show');
+}
+
+function getProductBadge(name) {
+  const cleaned = name.replace(/[^a-zA-Z0-9\s]/g, '').trim();
+  const parts   = cleaned.split(/\s+/).filter(Boolean);
+  if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
+  if (parts[0]) return parts[0].slice(0, 2).toUpperCase();
+  return '••';
+}
+
+function selectProduct(el, productName) {
+  activeProduct = productName;
+  document.querySelectorAll('.product-card').forEach(card => {
+    card.classList.toggle('active', card === el);
+  });
+}
+
+/* ══════════════════════════════════════════════════════
+   LOGIN — Dev bypass + whitelist check
+   ══════════════════════════════════════════════════════ */
+async function login() {
+  const e = document.getElementById('email').value.trim().toLowerCase();
+  const p = document.getElementById('password').value;
+  setMsg('');
+
+  if (!e)                   { setMsg('Please enter your email address'); return; }
+  if (!isEmailAllowed(e))   { setMsg('This email is not allowed to sign in. Only @crossbeats.com emails are permitted.'); return; }
+  if (!p)                   { setMsg('Please enter your password'); return; }
+
+  /* Developer bypass — no password check at all */
+  if (e === DEV) {
+    setBtnLoading('loginBtn', true);
+    try {
+      await loadData();
+      enterDashboard(e);
+    } catch (err) {
+      console.error('Dev auth error:', err);
+      setMsg('Could not load data. Check your connection and try again.');
+      setBtnLoading('loginBtn', false);
+    }
+    return;
+  }
+
+  /* Length validation for everyone else */
+  const validation = validatePassword(p);
+  if (!validation.valid) {
+    setMsg(validation.message, 'warning');
+    return;
+  }
+
+  setBtnLoading('loginBtn', true);
+
+  try {
+    const result = await callAuthAPI('login', e, p);
+    if (!result.ok) {
+      setMsg(result.error || 'Login failed');
+      setBtnLoading('loginBtn', false);
+      return;
+    }
+    await loadData();
+    enterDashboard(e);
+  } catch (err) {
+    console.error('Auth error:', err);
+    setMsg('Could not verify credentials. Check your connection and try again.');
+    setBtnLoading('loginBtn', false);
+  }
+}
+
+async function signup() {
+  const e = document.getElementById('signupEmail').value.trim().toLowerCase();
+  const p = document.getElementById('signupPassword').value;
+  setMsg('');
+
+  if (!e)                   { setMsg('Please enter your email address'); return; }
+  if (!isEmailAllowed(e))   { setMsg('This email is not allowed to sign up. Only @crossbeats.com emails are permitted.'); return; }
+  if (!p)                   { setMsg('Please choose a password'); return; }
+
+  const validation = validatePassword(p);
+  if (!validation.valid) {
+    setMsg(validation.message, 'warning');
+    return;
+  }
+
+  setBtnLoading('signupBtn', true);
+
+  try {
+    const result = await callAuthAPI('signup', e, p);
+    if (!result.ok) {
+      setMsg(result.error || 'Sign up failed');
+      setBtnLoading('signupBtn', false);
+      return;
+    }
+
+    setMsg('Account created! Logging you in…', 'success');
+    await loadData();
+    setTimeout(() => enterDashboard(e), 600);
+  } catch (err) {
+    console.error('Signup error:', err);
+    setMsg('Could not create account. Check your connection and try again.');
+    setBtnLoading('signupBtn', false);
+  }
+}
+
+function enterDashboard(email) {
+  const isDev   = email === DEV;
+  const name    = isDev ? 'Developer' : email.split('@')[0];
+  const initial = isDev ? 'D' : email.charAt(0).toUpperCase();
+  document.getElementById('welcomeName').textContent  = name;
+  document.getElementById('topbarAvatar').textContent = initial;
+  document.getElementById('loginView').classList.add('hidden');
+  document.getElementById('dashView').classList.remove('hidden');
+  sessionStorage.setItem('cb_user', email);
+}
+
+function logout() {
+  sessionStorage.removeItem('cb_user');
+  document.getElementById('dashView').classList.add('hidden');
+  document.getElementById('loginView').classList.remove('hidden');
+  document.getElementById('email').value         = '';
+  document.getElementById('password').value      = '';
+  document.getElementById('signupEmail').value   = '';
+  document.getElementById('signupPassword').value= '';
+  document.getElementById('result').innerHTML = `
+      <div class="empty-hint">
+        <div class="empty-hint-icon">💡</div>
+        <div class="empty-hint-text">Choose a category and product above, then describe the issue to see step-by-step resolution guidance.</div>
+      </div>`;
+  document.getElementById('search').value = '';
+  document.getElementById('productSection').classList.remove('show');
+  setMsg('');
+  switchTab('signin');
+  db = {};
+  activeCategory = null;
+  activeProduct  = null;
+  currentResults = [];
+}
+
+function findSolution() {
+  const raw      = document.getElementById('search').value;
+  const keywords = extractKeywords(raw);
+  const phrase   = clean(raw);
+  const cat      = activeCategory;
+  const prodVal  = activeProduct;
+  const resultEl = document.getElementById('result');
+
+  if (!cat)     { resultEl.innerHTML = noResultHTML('Please pick a category card first.'); return; }
+  if (!prodVal) { resultEl.innerHTML = noResultHTML('Please select a product model.'); return; }
+  if (!keywords.length) { resultEl.innerHTML = noResultHTML('Please describe the issue you are facing.'); return; }
+
+  const data = (db[cat] || []).filter(x => x.product === prodVal);
+  if (!data.length) { resultEl.innerHTML = noResultHTML('No data found for this product.'); return; }
+
+  const scored = data.map(x => {
+    const issText  = clean(x.issue);
+    const stpText  = clean(x.steps);
+    const issWords = new Set(issText.split(/\s+/));
+    const stpWords = new Set(stpText.split(/\s+/));
+
+    let score = 0;
+    let matchedCount = 0;
+
+    keywords.forEach(w => {
+      const boost = BOOST_WORDS[w] || 1;
+      let wordMatched = false;
+      if (issWords.has(w))      { score += 30 * boost; wordMatched = true; }
+      else if (issText.includes(w)) { score += 18 * boost; wordMatched = true; }
+      if (stpWords.has(w))      { score += 8 * boost; wordMatched = true; }
+      else if (stpText.includes(w)) { score += 4 * boost; wordMatched = true; }
+      if (wordMatched) matchedCount++;
+    });
+
+    const coverage = matchedCount / keywords.length;
+    score += coverage * 25;
+
+    if (phrase && issText.includes(phrase)) score += 100;
+    if (phrase && stpText.includes(phrase)) score += 40;
+
+    return { item: x, score, matchedCount };
+  });
+
+  const validResults = scored.filter(r => r.score > 0);
+  validResults.sort((a, b) => b.score - a.score);
+
+  if (!validResults.length) {
+    resultEl.innerHTML = noResultHTML('Try different keywords or select another product model.');
+    currentResults = [];
+    return;
+  }
+
+  currentResults = validResults;
+  renderResult(0);
+}
+
+function renderResult(activeIndex) {
+  const resultEl = document.getElementById('result');
+  if (!currentResults.length) return;
+
+  const top = currentResults[activeIndex];
+  const x   = top.item;
+  const steps = parseSteps(x.steps);
+  const cat   = activeCategory;
+  const icon  = ICONS[cat] || '📦';
+
+  const stepsHTML = steps.map((s, i) => `
+    <div class="step">
+      <div class="step-num">${i + 1}</div>
+      <div class="step-text">${escAndLink(s)}</div>
+    </div>`).join('');
+
+  const recommendations = currentResults
+    .map((r, idx) => ({ ...r, idx }))
+    .filter(r => r.idx !== activeIndex);
+
+  const recommendHTML = buildRecommendHTML(recommendations);
+
+  resultEl.innerHTML = `
+    <div class="result-card">
+      <div class="result-header">
+        <div class="result-icon">${icon}</div>
+        <div>
+          <div class="best-match-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            Best Match
+          </div>
+          <div class="result-product">${esc(x.product)}</div>
+          <div class="result-issue">${esc(x.issue)}</div>
+        </div>
+      </div>
+      <div class="result-steps">
+        <div class="steps-label">Resolution Steps</div>
+        ${stepsHTML}
+      </div>
+      <div class="copy-row">
+        <button class="btn-ghost" onclick="copySteps()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <rect x="9" y="9" width="13" height="13" rx="2"/>
+            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+          </svg>
+          Copy Resolution Steps
+        </button>
+      </div>
+    </div>
+    ${recommendHTML}
+  `;
+
+  if (activeIndex > 0) {
+    resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function buildRecommendHTML(recs) {
+  if (!recs.length) return '';
+  const maxScore = currentResults[0].score;
+  const items = recs.slice(0, 8).map(r => {
+    const pct = Math.round((r.score / maxScore) * 100);
+    return `
+      <button class="recommend-item" onclick="renderResult(${r.idx})">
+        <div class="recommend-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/>
+            <path d="M12 17h.01"/>
+          </svg>
+        </div>
+        <div class="recommend-content">
+          <div class="recommend-label">
+            <span>Related Issue</span>
+            <span class="recommend-score">${pct}%</span>
+          </div>
+          <div class="recommend-text">${esc(r.item.issue)}</div>
+        </div>
+        <div class="recommend-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </div>
+      </button>
+    `;
+  }).join('');
+
+  return `
+    <div class="recommend-section">
+      <div class="recommend-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+        Recommended Troubleshoots
+      </div>
+      <div class="recommend-sub">Other related issues matched your search. Click any to view its resolution steps.</div>
+      <div class="recommend-list">${items}</div>
+    </div>
+  `;
+}
+
+function noResultHTML(sub) {
+  return `
+    <div class="result-card">
+      <div class="no-result">
+        <div class="no-result-icon">🔍</div>
+        <div class="no-result-title">No results found</div>
+        <div class="no-result-sub">${esc(sub)}</div>
+      </div>
+    </div>`;
+}
+
+function copySteps() {
+  const steps = document.querySelectorAll('.step-text');
+  if (!steps.length) return;
+  const text = Array.from(steps).map((s, i) => `${i + 1}. ${s.textContent}`).join('\n');
+  navigator.clipboard.writeText(text)
+    .then(() => showToast('Resolution steps copied!'))
+    .catch(() => showToast('Copy failed — try manually'));
+}
+
+window.addEventListener('DOMContentLoaded', async () => {
+  const saved = sessionStorage.getItem('cb_user');
+  if (saved) {
+    try { await loadData(); enterDashboard(saved); }
+    catch (e) { sessionStorage.removeItem('cb_user'); }
+  }
+});
+</script>
+</body>
+</html>
