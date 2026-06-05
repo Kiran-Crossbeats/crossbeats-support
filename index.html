@@ -1615,6 +1615,12 @@ function logout() {
   currentResults = [];
 }
 
+/* ══════════════════════════════════════════════════════
+   FIND SOLUTION — IMPROVED MATCHING LOGIC
+   - Heavily favors concise/exact matches
+   - Penalizes bloated multi-issue titles
+   - Phrase-to-issue ratio bonus
+   ══════════════════════════════════════════════════════ */
 function findSolution() {
   const raw      = document.getElementById('search').value;
   const keywords = extractKeywords(raw);
@@ -1630,11 +1636,14 @@ function findSolution() {
   const data = (db[cat] || []).filter(x => x.product === prodVal);
   if (!data.length) { resultEl.innerHTML = noResultHTML('No data found for this product.'); return; }
 
+  const phraseWords = phrase.split(/\s+/).filter(Boolean);
+
   const scored = data.map(x => {
     const issText  = clean(x.issue);
     const stpText  = clean(x.steps);
-    const issWords = new Set(issText.split(/\s+/));
+    const issWords = issText.split(/\s+/).filter(Boolean);
     const stpWords = new Set(stpText.split(/\s+/));
+    const issWordsSet = new Set(issWords);
 
     let score = 0;
     let matchedCount = 0;
@@ -1642,7 +1651,7 @@ function findSolution() {
     keywords.forEach(w => {
       const boost = BOOST_WORDS[w] || 1;
       let wordMatched = false;
-      if (issWords.has(w))      { score += 30 * boost; wordMatched = true; }
+      if (issWordsSet.has(w))      { score += 30 * boost; wordMatched = true; }
       else if (issText.includes(w)) { score += 18 * boost; wordMatched = true; }
       if (stpWords.has(w))      { score += 8 * boost; wordMatched = true; }
       else if (stpText.includes(w)) { score += 4 * boost; wordMatched = true; }
@@ -1652,7 +1661,32 @@ function findSolution() {
     const coverage = matchedCount / keywords.length;
     score += coverage * 25;
 
-    if (phrase && issText.includes(phrase)) score += 100;
+    // ─── PHRASE MATCHING WITH CONCISENESS PREFERENCE ───
+    if (phrase && issText.includes(phrase)) {
+      score += 100;
+
+      // How much of the issue text IS the search phrase? (0 to 1)
+      // Closer to 1 = the issue is essentially just the search phrase = best match
+      const phraseRatio = phrase.length / issText.length;
+      score += phraseRatio * 250;
+
+      // EXACT match — issue text equals search phrase
+      if (issText === phrase) {
+        score += 500;
+      }
+
+      // NEAR-EXACT — issue is search phrase + at most 1 extra word
+      const extraWords = issWords.length - phraseWords.length;
+      if (extraWords >= 0 && extraWords <= 1 && issWords.length <= phraseWords.length + 1) {
+        score += 200;
+      }
+
+      // Penalty for bloated issue titles (multi-issue rows)
+      if (issWords.length > phraseWords.length + 3) {
+        score -= (issWords.length - phraseWords.length - 3) * 8;
+      }
+    }
+
     if (phrase && stpText.includes(phrase)) score += 40;
 
     return { item: x, score, matchedCount };
