@@ -1175,6 +1175,34 @@ body::after {
 .product-card.active .product-name { color: var(--accent2); font-weight: 700; }
 .product-card.active .product-check { opacity: 1; transform: scale(1); }
 
+.product-card.active::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--r);
+  padding: 1.5px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    var(--accent) 60deg,
+    var(--accent-bright) 90deg,
+    var(--accent2) 120deg,
+    transparent 180deg,
+    transparent 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  z-index: 3;
+  animation: borderSpin 3s linear infinite;
+}
+
+@keyframes borderSpin {
+  to { transform: rotate(360deg); }
+}
+
 .product-icon {
   width: 54px;
   height: 54px;
@@ -1233,34 +1261,6 @@ body::after {
 
 .product-card.active .product-icon.has-image img {
   filter: brightness(1.1) contrast(1.05);
-}
-
-.product-card.active::after {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  border-radius: var(--r);
-  padding: 1.5px;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    var(--accent) 60deg,
-    var(--accent-bright) 90deg,
-    var(--accent2) 120deg,
-    transparent 180deg,
-    transparent 360deg
-  );
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-          mask-composite: exclude;
-  pointer-events: none;
-  z-index: 3;
-  animation: borderSpin 3s linear infinite;
-}
-
-@keyframes borderSpin {
-  to { transform: rotate(360deg); }
 }
 
 .product-info {
@@ -2294,7 +2294,7 @@ body::after {
       </div>
     </div>
 
-    <div class="search-panel glass">
+    <div class="search-panel glass" id="searchPanel">
       <div class="panel-title">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
@@ -2336,7 +2336,7 @@ body::after {
         <div class="product-grid" id="productGrid"></div>
       </div>
 
-      <div class="search-box">
+      <div class="search-box" id="issueSearchBox">
         <label for="search">Describe the Issue</label>
         <input id="search" type="text"
                placeholder="e.g. battery draining, not charging, no sound…"
@@ -2476,6 +2476,17 @@ let loadingStageTimer = null;
 let universalDebounceTimer = null;
 let universalHighlightIndex = -1;
 let universalCurrentMatches = [];
+
+/* ═══════════════════════════════════════════════
+   SMOOTH SCROLL HELPER
+   Scrolls an element into view with a top offset
+   so it never hides behind anything.
+   ═══════════════════════════════════════════════ */
+function smoothScrollTo(el, offsetTop) {
+  if (!el) return;
+  const top = el.getBoundingClientRect().top + window.pageYOffset - (offsetTop || 80);
+  window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+}
 
 /* ═══════════════════════════════════════════════
    ORIGINAL BUTTON HTML — preserved so we can
@@ -2949,7 +2960,6 @@ function loadSheet(gid) {
 }
 
 async function loadAllData() {
-  // Auto-discover tabs first, then load data + images in parallel
   await discoverTabs();
   await Promise.all([
     loadSheetData(),
@@ -3075,11 +3085,20 @@ function selectCategory(cat) {
   });
 
   renderProductCards(cat);
+
   document.getElementById('result').innerHTML = `
     <div class="empty-hint">
       <div class="empty-hint-icon">💡</div>
       <div class="empty-hint-text">Now pick a product model and describe your issue.</div>
     </div>`;
+
+  /* ── AUTO-SCROLL: after product section expands, scroll to it ── */
+  setTimeout(() => {
+    const productSection = document.getElementById('productSection');
+    if (productSection) {
+      smoothScrollTo(productSection, 100);
+    }
+  }, 120); /* slight delay lets the CSS transition begin first */
 }
 
 function getProductBadge(name) {
@@ -3147,9 +3166,6 @@ function renderProductCards(cat) {
   }
 
   section.classList.add('show');
-  if (activeProduct) {
-    setTimeout(() => document.getElementById('search').focus(), 300);
-  }
 }
 
 function selectProduct(el, productName) {
@@ -3168,7 +3184,17 @@ function selectProduct(el, productName) {
     </div>`;
   currentResults = [];
 
-  setTimeout(() => document.getElementById('search').focus(), 200);
+  /* ── AUTO-SCROLL: scroll to the issue search box ── */
+  setTimeout(() => {
+    const issueBox = document.getElementById('issueSearchBox');
+    if (issueBox) {
+      smoothScrollTo(issueBox, 100);
+      /* focus after scroll animation settles */
+      setTimeout(() => {
+        document.getElementById('search').focus();
+      }, 450);
+    }
+  }, 100);
 }
 
 /* ═══════════════════════════════════════════════
@@ -3334,27 +3360,26 @@ function clearUniversalSearch() {
 }
 
 function pickUniversalProduct(category, productName) {
-  // Step 1: Set both active states
   activeCategory = category;
   activeProduct = productName;
 
-  // Step 2: Highlight the category card
+  /* Highlight the correct category card */
   document.querySelectorAll('.cat-card').forEach(card => {
     const selected = card.dataset.cat === category;
     card.classList.toggle('active', selected);
     card.setAttribute('aria-pressed', selected ? 'true' : 'false');
   });
 
-  // Step 3: Render product cards (the active product will be highlighted because activeProduct is set)
+  /* Render products (active product will be pre-highlighted) */
   renderProductCards(category);
 
-  // Step 4: Clear universal search
+  /* Clear universal search */
   hideUniversalDropdown();
   const input = document.getElementById('universalSearch');
   input.value = '';
   document.getElementById('universalClear').classList.remove('show');
 
-  // Step 5: Update result area
+  /* Reset result area */
   document.getElementById('result').innerHTML = `
     <div class="empty-hint">
       <div class="empty-hint-icon">🔍</div>
@@ -3362,12 +3387,16 @@ function pickUniversalProduct(category, productName) {
     </div>`;
   currentResults = [];
 
-  // Step 6: Smooth scroll to issue search box and focus it
+  /* ── AUTO-SCROLL: scroll to issue search box ── */
   setTimeout(() => {
-    const issueInput = document.getElementById('search');
-    issueInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    setTimeout(() => issueInput.focus(), 400);
-  }, 250);
+    const issueBox = document.getElementById('issueSearchBox');
+    if (issueBox) {
+      smoothScrollTo(issueBox, 100);
+      setTimeout(() => {
+        document.getElementById('search').focus();
+      }, 450);
+    }
+  }, 280);
 
   showToast(`Selected: ${productName}`);
 }
@@ -3535,15 +3564,15 @@ function enterDashboard(email) {
   document.getElementById('universalSearch').value = '';
   document.getElementById('universalClear').classList.remove('show');
   document.getElementById('productSection').classList.remove('show');
+
+  /* Scroll to top of page when entering dashboard */
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function logout() {
   sessionStorage.removeItem('cb_user');
 
-  // Hide any active loader and stop animations
   hideLoader();
-
-  // Reset ALL auth buttons to their original state
   resetAllAuthButtons();
 
   document.getElementById('dashView').classList.add('hidden');
@@ -3581,6 +3610,9 @@ function logout() {
   forgotEmail    = '';
   verifiedOtp    = '';
   productImageMap = {};
+
+  /* Scroll back to top after logout */
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 /* ═══════════════════════════════════════════════
@@ -3813,9 +3845,10 @@ function renderResult(activeIndex) {
     ${recommendHTML}
   `;
 
-  if (activeIndex > 0) {
-    resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
+  /* ── AUTO-SCROLL: scroll result card into view ── */
+  setTimeout(() => {
+    smoothScrollTo(resultEl, 90);
+  }, 80);
 }
 
 function buildRecommendHTML(recs) {
@@ -3891,7 +3924,6 @@ function copySteps() {
    ═══════════════════════════════════════════════ */
 
 window.addEventListener('DOMContentLoaded', async () => {
-  // Smooth subtitle text transitions
   const subtitleEl = document.getElementById('loadingSubtitleText');
   if (subtitleEl) subtitleEl.style.transition = 'opacity .25s ease';
 
