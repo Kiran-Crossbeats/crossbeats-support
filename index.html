@@ -662,7 +662,7 @@ body::after {
   padding: 30px;
   box-shadow: var(--shadow);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   margin-bottom: 26px;
 }
 
@@ -852,6 +852,242 @@ body::after {
 
 .cat-check svg { width: 11px; height: 11px; stroke: #000; stroke-width: 3.5; }
 
+/* ══════════════════════════════════════════════
+   UNIVERSAL PRODUCT SEARCH BAR + DROPDOWN
+   ══════════════════════════════════════════════ */
+.universal-search-wrap {
+  position: relative;
+  margin: 0 0 24px;
+}
+
+.universal-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 22px 0 16px;
+}
+
+.universal-divider::before,
+.universal-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent);
+}
+
+.universal-divider span {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.universal-input {
+  width: 100%;
+  padding: 15px 46px 15px 48px;
+  background: rgba(0,0,0,.35);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  color: var(--txt);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  outline: none;
+  transition: border-color .3s ease, background .3s ease, box-shadow .3s ease;
+}
+
+.universal-input::placeholder { color: var(--muted); }
+
+.universal-input:focus {
+  border-color: var(--accent);
+  background: rgba(255,106,0,.04);
+  box-shadow: 0 0 0 4px rgba(255,106,0,.08), 0 0 20px rgba(255,106,0,.05);
+}
+
+.universal-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: .4;
+  pointer-events: none;
+  transition: opacity .3s ease;
+}
+
+.universal-input:focus ~ .universal-icon { opacity: .8; color: var(--accent); }
+.universal-icon svg { width: 18px; height: 18px; stroke: var(--txt); }
+
+.universal-clear {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 26px;
+  height: 26px;
+  background: rgba(255,255,255,.06);
+  border: none;
+  border-radius: 50%;
+  color: var(--muted2);
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s ease, color .2s ease;
+}
+
+.universal-clear:hover { background: rgba(255,106,0,.15); color: var(--accent); }
+.universal-clear.show { display: flex; }
+.universal-clear svg { width: 12px; height: 12px; stroke: currentColor; stroke-width: 2.5; }
+
+.universal-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  max-height: 380px;
+  overflow-y: auto;
+  background: rgba(15,15,18,.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,106,0,.18);
+  border-radius: var(--r);
+  box-shadow: 0 20px 60px rgba(0,0,0,.7), 0 0 40px rgba(255,106,0,.08);
+  z-index: 100;
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: opacity .25s ease, transform .25s ease;
+  padding: 6px;
+}
+
+.universal-dropdown.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.universal-dropdown::-webkit-scrollbar { width: 6px; }
+.universal-dropdown::-webkit-scrollbar-thumb { background: rgba(255,106,0,.3); border-radius: 6px; }
+
+.suggestion {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease, transform .2s ease;
+  margin-bottom: 2px;
+}
+
+.suggestion:hover,
+.suggestion.highlighted {
+  background: linear-gradient(90deg, rgba(255,106,0,.1), rgba(255,157,74,.04));
+  border-color: rgba(255,106,0,.25);
+  transform: translateX(3px);
+}
+
+.suggestion-icon {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--muted2);
+  padding: 3px;
+}
+
+.suggestion-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 7px;
+  display: block;
+}
+
+.suggestion-info { flex: 1; min-width: 0; }
+
+.suggestion-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--txt);
+  line-height: 1.3;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.suggestion-name mark {
+  background: rgba(255,106,0,.25);
+  color: var(--accent2);
+  padding: 0 2px;
+  border-radius: 3px;
+}
+
+.suggestion-cat {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--muted2);
+  font-weight: 400;
+}
+
+.suggestion-cat-icon { font-size: 12px; }
+
+.suggestion-arrow {
+  color: var(--muted);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity .2s ease, transform .2s ease;
+  flex-shrink: 0;
+}
+
+.suggestion:hover .suggestion-arrow,
+.suggestion.highlighted .suggestion-arrow {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--accent);
+}
+
+.suggestion-arrow svg { width: 14px; height: 14px; }
+
+.suggestion-empty {
+  padding: 28px 16px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.suggestion-empty-icon {
+  font-size: 28px;
+  opacity: .4;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.suggestion-header {
+  padding: 8px 12px 6px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
 /* ── Product section ── */
 .product-section {
   margin-bottom: 22px;
@@ -868,7 +1104,7 @@ body::after {
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 12px;
 }
 
@@ -882,11 +1118,12 @@ body::after {
   transition: transform .3s var(--ease), border-color .3s ease, background .3s ease, box-shadow .3s ease;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   overflow: hidden;
   text-align: left;
   animation: productPop .4s var(--ease) both;
   outline: none;
+  min-height: 88px;
 }
 
 .product-card:focus-visible {
@@ -939,24 +1176,102 @@ body::after {
 .product-card.active .product-check { opacity: 1; transform: scale(1); }
 
 .product-icon {
-  width: 40px;
-  height: 40px;
+  width: 54px;
+  height: 54px;
   flex-shrink: 0;
   background: rgba(255,255,255,.03);
   border: 1px solid var(--border);
-  border-radius: 11px;
+  border-radius: 13px;
   display: grid;
   place-items: center;
   font-family: 'Syne', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 800;
   color: var(--muted2);
   position: relative;
   z-index: 1;
   transition: background .3s ease, border-color .3s ease, color .3s ease, box-shadow .3s ease;
+  overflow: hidden;
 }
 
-.product-info { flex: 1; min-width: 0; position: relative; z-index: 1; }
+.product-icon.has-image {
+  background: rgba(255,255,255,.05);
+  border-color: rgba(255,255,255,.1);
+  padding: 5px;
+}
+
+.product-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 9px;
+  display: block;
+  transition: transform .35s ease, opacity .3s ease, filter .3s ease;
+  animation: imgFadeIn .4s ease both;
+}
+
+@keyframes imgFadeIn {
+  from { opacity: 0; transform: scale(.85); }
+  to   { opacity: 1; transform: scale(1);  }
+}
+
+.product-card:hover .product-icon img {
+  transform: scale(1.12);
+}
+
+.product-card:hover .product-icon.has-image {
+  border-color: rgba(255,157,74,.5);
+  background: rgba(255,157,74,.06);
+  box-shadow: 0 0 18px rgba(255,157,74,.25);
+}
+
+.product-card.active .product-icon.has-image {
+  background: rgba(255,157,74,.08);
+  border-color: var(--accent2);
+  box-shadow: 0 0 22px rgba(255,157,74,.45), inset 0 1px 1px rgba(255,255,255,.08);
+}
+
+.product-card.active .product-icon.has-image img {
+  filter: brightness(1.1) contrast(1.05);
+}
+
+.product-card.active::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--r);
+  padding: 1.5px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    var(--accent) 60deg,
+    var(--accent-bright) 90deg,
+    var(--accent2) 120deg,
+    transparent 180deg,
+    transparent 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  z-index: 3;
+  animation: borderSpin 3s linear infinite;
+}
+
+@keyframes borderSpin {
+  to { transform: rotate(360deg); }
+}
+
+.product-info {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
 .product-label {
   font-size: 10px;
@@ -964,7 +1279,7 @@ body::after {
   letter-spacing: .1em;
   text-transform: uppercase;
   font-weight: 600;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
 }
 
 .product-name {
@@ -974,9 +1289,12 @@ body::after {
   color: var(--txt);
   line-height: 1.3;
   transition: color .3s ease;
+  white-space: normal;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
 }
 
 .product-arrow {
@@ -987,6 +1305,7 @@ body::after {
   position: relative;
   z-index: 1;
   flex-shrink: 0;
+  align-self: center;
 }
 
 .product-arrow svg { width: 16px; height: 16px; }
@@ -1004,7 +1323,7 @@ body::after {
   opacity: 0;
   transform: scale(.5);
   transition: opacity .25s ease, transform .25s ease;
-  z-index: 2;
+  z-index: 4;
 }
 
 .product-check svg { width: 11px; height: 11px; stroke: #1a0800; stroke-width: 3.5; }
@@ -1470,7 +1789,7 @@ body::after {
   line-height: 1.6;
 }
 
-/* ── Spinner ── */
+/* ── Spinner (button-sized) ── */
 .spinner {
   width: 20px;
   height: 20px;
@@ -1478,6 +1797,190 @@ body::after {
   border-top-color: #000;
   border-radius: 50%;
   animation: spin .6s linear infinite;
+}
+
+/* ══════════════════════════════════════════════
+   FULLSCREEN LOADING OVERLAY
+   ══════════════════════════════════════════════ */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5,5,5,.78);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .35s var(--ease);
+}
+
+.loading-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.loading-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  padding: 42px 50px;
+  background: linear-gradient(145deg, rgba(20,20,24,.95), rgba(12,12,14,.95));
+  border: 1px solid rgba(255,106,0,.18);
+  border-radius: var(--r-xl);
+  box-shadow: 0 30px 90px rgba(0,0,0,.7), 0 0 60px rgba(255,106,0,.15), inset 0 1px 1px rgba(255,255,255,.04);
+  min-width: 280px;
+  max-width: 360px;
+  position: relative;
+  overflow: hidden;
+  animation: loadingCardIn .5s var(--ease) both;
+}
+
+@keyframes loadingCardIn {
+  from { opacity: 0; transform: translateY(20px) scale(.92); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.loading-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,106,0,.9), rgba(255,157,74,.7), transparent);
+}
+
+.loader-rings {
+  position: relative;
+  width: 76px;
+  height: 76px;
+}
+
+.loader-rings::before,
+.loader-rings::after,
+.loader-rings span {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  box-sizing: border-box;
+}
+
+.loader-rings::before {
+  border-top-color: var(--accent);
+  border-right-color: var(--accent);
+  animation: spin 1.1s cubic-bezier(.5,0,.5,1) infinite;
+  box-shadow: 0 0 22px rgba(255,106,0,.45);
+}
+
+.loader-rings::after {
+  inset: 10px;
+  border-top-color: var(--accent2);
+  border-left-color: var(--accent2);
+  animation: spin 1.5s cubic-bezier(.5,0,.5,1) infinite reverse;
+  opacity: .8;
+}
+
+.loader-rings span {
+  inset: 20px;
+  border-top-color: var(--accent-bright);
+  animation: spin 2s linear infinite;
+  opacity: .55;
+}
+
+.loader-core {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  color: var(--accent);
+  text-shadow: 0 0 14px rgba(255,106,0,.6);
+  animation: corePulse 1.8s ease-in-out infinite;
+}
+
+@keyframes corePulse {
+  0%,100% { transform: scale(1); opacity: 1; }
+  50%     { transform: scale(.88); opacity: .65; }
+}
+
+.loading-text {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.loading-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--txt);
+  letter-spacing: -.2px;
+}
+
+.loading-subtitle {
+  font-size: 13px;
+  color: var(--muted2);
+  font-weight: 400;
+  line-height: 1.5;
+  min-height: 19px;
+}
+
+.loading-dots {
+  display: inline-flex;
+  gap: 4px;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+.loading-dots span {
+  width: 4px;
+  height: 4px;
+  background: var(--accent2);
+  border-radius: 50%;
+  animation: dotJump 1.2s infinite;
+}
+
+.loading-dots span:nth-child(2) { animation-delay: .15s; }
+.loading-dots span:nth-child(3) { animation-delay: .3s; }
+
+@keyframes dotJump {
+  0%, 60%, 100% { transform: translateY(0); opacity: .4; }
+  30%           { transform: translateY(-4px); opacity: 1; }
+}
+
+.loading-progress {
+  width: 100%;
+  height: 3px;
+  background: rgba(255,255,255,.05);
+  border-radius: 50px;
+  overflow: hidden;
+  position: relative;
+}
+
+.loading-progress::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--accent-bright), var(--accent2), transparent);
+  border-radius: 50px;
+  animation: progressSlide 1.6s ease-in-out infinite;
+}
+
+@keyframes progressSlide {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(350%); }
 }
 
 /* ── Keyframes ── */
@@ -1517,6 +2020,8 @@ body::after {
 .cat-card:nth-child(4) { animation-delay: .16s; }
 .cat-card:nth-child(5) { animation-delay: .2s; }
 .cat-card:nth-child(6) { animation-delay: .24s; }
+.cat-card:nth-child(7) { animation-delay: .28s; }
+.cat-card:nth-child(8) { animation-delay: .32s; }
 
 .hidden { display: none !important; }
 
@@ -1553,6 +2058,8 @@ body::after {
   .brand-icon { width: 44px; height: 44px; border-radius: 13px; }
   .brand-icon svg { width: 22px; height: 22px; }
   .brand-name { font-size: 24px; }
+  .product-grid { grid-template-columns: 1fr; }
+  .loading-card { padding: 32px 28px; min-width: auto; width: calc(100% - 40px); }
 }
 
 @media (max-width: 380px) {
@@ -1799,6 +2306,28 @@ body::after {
       <div class="section-label">Product Category</div>
       <div class="cat-grid" id="catGrid"></div>
 
+      <!-- Universal product search -->
+      <div class="universal-divider"><span>OR search any product directly</span></div>
+      <div class="universal-search-wrap">
+        <input id="universalSearch" type="text" class="universal-input"
+               placeholder="Type product name… e.g. Lumex Pro"
+               autocomplete="off"
+               oninput="onUniversalSearchInput(event)"
+               onfocus="onUniversalSearchFocus()"
+               onkeydown="onUniversalSearchKey(event)">
+        <span class="universal-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+          </svg>
+        </span>
+        <button class="universal-clear" id="universalClear" onclick="clearUniversalSearch()" aria-label="Clear search">
+          <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+        <div class="universal-dropdown" id="universalDropdown"></div>
+      </div>
+
       <div class="product-section" id="productSection">
         <div class="section-label">
           <span>Product Model</span>
@@ -1838,13 +2367,29 @@ body::after {
   </div>
 </div>
 
+<!-- ═══════════════ FULLSCREEN LOADING OVERLAY ═══════════════ -->
+<div class="loading-overlay" id="loadingOverlay" aria-hidden="true" role="status">
+  <div class="loading-card">
+    <div class="loader-rings">
+      <span></span>
+      <div class="loader-core">C</div>
+    </div>
+    <div class="loading-text">
+      <div class="loading-title" id="loadingTitle">Signing you in</div>
+      <div class="loading-subtitle" id="loadingSubtitle">
+        <span id="loadingSubtitleText">Verifying your credentials</span><span class="loading-dots"><span></span><span></span><span></span></span>
+      </div>
+    </div>
+    <div class="loading-progress"></div>
+  </div>
+</div>
+
 <div class="toast" id="toast">
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
     <polyline points="20 6 9 17 4 12"/>
   </svg>
   <span id="toastText">Copied to clipboard!</span>
 </div>
-
 <script>
 'use strict';
 
@@ -1859,9 +2404,11 @@ const ALLOWED_EXTERNAL_EMAILS = [
 ];
 
 const SHEET = '1FdCNEtrHDyVyy2E1yjAXwo_2qy14VIg_qsyo2rGp2m0';
-const AUTH_API = 'https://script.google.com/macros/s/AKfycbx3A3Tajz0-JQp7b23enIChYwwg78Qw2utAYXtL-C3GKXFwXd9XHwhFr1dOUyHVxehp/exec';
+const AUTH_API = 'https://script.google.com/macros/s/AKfycbw0X5cBa4etRk9fHtSvINkVlhUPVkV88vXoiCrnoQR1vPT6l8ZA2w9NQVo6djszuy4n/exec';
+const DRIVE_FOLDER_ID = '15yJM0NmxtE91kHsD8FM-nUehppd0_VUu';
 
-const TABS = {
+/* ── Fallback TABS (used only if auto-discovery fails) ── */
+const FALLBACK_TABS = {
   "Projectors":    "1298694583",
   "Soundbars":     "425283568",
   "TWS and AUDIO": "1223306940",
@@ -1870,16 +2417,35 @@ const TABS = {
   "Dash camera":   "1571909229"
 };
 
-const ICONS = {
-  "Projectors": "📽️", "Soundbars": "🔊", "TWS and AUDIO": "🎧",
-  "Lapel mic": "🎙️", "Smart Watch": "⌚", "Dash camera": "📷"
-};
+/* ── Smart icon guessing based on tab name keywords ── */
+function guessCategoryIcon(name) {
+  const n = name.toLowerCase();
+  if (/projector|cinema|beam/.test(n))            return '📽️';
+  if (/soundbar|speaker|home theatre|theater/.test(n)) return '🔊';
+  if (/tws|earbud|airpod|bud/.test(n))            return '🎧';
+  if (/audio|headphone|headset/.test(n))          return '🎵';
+  if (/lapel|mic|microphone|recorder/.test(n))    return '🎙️';
+  if (/watch|wearable|band|fitness/.test(n))      return '⌚';
+  if (/dash ?cam|dashboard cam|dash camera/.test(n)) return '📷';
+  if (/camera|cam|action/.test(n))                return '📸';
+  if (/charger|cable|power|adapter/.test(n))      return '🔌';
+  if (/keyboard|key/.test(n))                     return '⌨️';
+  if (/mouse|trackpad/.test(n))                   return '🖱️';
+  if (/router|wifi|network/.test(n))              return '📶';
+  if (/light|lamp|bulb|led/.test(n))              return '💡';
+  if (/phone|mobile/.test(n))                     return '📱';
+  if (/tablet|ipad/.test(n))                      return '📲';
+  if (/tv|television|display|monitor/.test(n))    return '📺';
+  if (/game|console|controller/.test(n))          return '🎮';
+  if (/printer|scan/.test(n))                     return '🖨️';
+  if (/drone|fly/.test(n))                        return '🚁';
+  return '📦';
+}
 
-const CAT_NAMES = {
-  "Projectors": "Projectors", "Soundbars": "Soundbars",
-  "TWS and AUDIO": "TWS / Audio", "Lapel mic": "Lapel Mic",
-  "Smart Watch": "Smart Watch", "Dash camera": "Dash Cam"
-};
+/* These get populated automatically when data loads */
+let TABS = {};
+let ICONS = {};
+let CAT_NAMES = {};
 
 const STOP_WORDS = new Set([
   'the','a','an','is','it','to','of','in','on','at','for','and','or','but','if',
@@ -1905,6 +2471,86 @@ let currentResults = [];
 let forgotEmail    = '';
 let verifiedOtp    = '';
 let debounceTimer  = null;
+let productImageMap = {};
+let loadingStageTimer = null;
+let universalDebounceTimer = null;
+let universalHighlightIndex = -1;
+let universalCurrentMatches = [];
+
+/* ═══════════════════════════════════════════════
+   ORIGINAL BUTTON HTML — preserved so we can
+   always restore them, even after logout
+   ═══════════════════════════════════════════════ */
+const ORIGINAL_BUTTONS = {
+  loginBtn: `
+    <span>Sign In</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5 12h14M12 5l7 7-7 7"/>
+    </svg>`,
+  signupBtn: `
+    <span>Create Account</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 5v14M5 12h14"/>
+    </svg>`,
+  requestOtpBtn: `
+    <span>Send Verification Code</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+    </svg>`,
+  verifyOtpBtn: `
+    <span>Verify Code</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>`,
+  resetBtn: `
+    <span>Reset Password</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>`
+};
+
+/* ═══════════════════════════════════════════════
+   LOADING OVERLAY CONTROLLER
+   ═══════════════════════════════════════════════ */
+
+function showLoader(title, subtitle) {
+  const overlay     = document.getElementById('loadingOverlay');
+  const titleEl     = document.getElementById('loadingTitle');
+  const subtitleEl  = document.getElementById('loadingSubtitleText');
+
+  titleEl.textContent = title || 'Loading';
+
+  clearInterval(loadingStageTimer);
+
+  if (Array.isArray(subtitle) && subtitle.length > 0) {
+    let i = 0;
+    subtitleEl.textContent = subtitle[0];
+    loadingStageTimer = setInterval(() => {
+      i = (i + 1) % subtitle.length;
+      subtitleEl.style.opacity = '0';
+      setTimeout(() => {
+        subtitleEl.textContent = subtitle[i];
+        subtitleEl.style.opacity = '1';
+      }, 180);
+    }, 1700);
+  } else {
+    subtitleEl.style.opacity = '1';
+    subtitleEl.textContent = subtitle || 'Please wait';
+  }
+
+  overlay.classList.add('show');
+  overlay.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function hideLoader() {
+  const overlay = document.getElementById('loadingOverlay');
+  overlay.classList.remove('show');
+  overlay.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  clearInterval(loadingStageTimer);
+  loadingStageTimer = null;
+}
 
 /* ═══════════════════════════════════════════════
    UTILITIES
@@ -1977,14 +2623,26 @@ function setMsg(text, type) {
 function setBtnLoading(btnId, loading) {
   const btn = document.getElementById(btnId);
   if (!btn) return;
+
   if (loading) {
-    btn.dataset.original = btn.innerHTML;
     btn.disabled = true;
     btn.innerHTML = '<div class="spinner"></div>';
   } else {
     btn.disabled = false;
-    if (btn.dataset.original) btn.innerHTML = btn.dataset.original;
+    if (ORIGINAL_BUTTONS[btnId]) {
+      btn.innerHTML = ORIGINAL_BUTTONS[btnId];
+    }
   }
+}
+
+function resetAllAuthButtons() {
+  Object.keys(ORIGINAL_BUTTONS).forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = ORIGINAL_BUTTONS[id];
+    }
+  });
 }
 
 let toastTimer;
@@ -2107,12 +2765,18 @@ async function requestOTP(isResend) {
     rb.textContent = 'Sending…';
   } else {
     setBtnLoading('requestOtpBtn', true);
+    showLoader('Sending code', [
+      'Generating a secure 6-digit code',
+      'Delivering to your inbox',
+      'Almost there'
+    ]);
   }
 
   try {
     const result = await callAuthAPI('request_otp', email);
 
     if (!result.ok) {
+      hideLoader();
       setMsg(result.error || 'Could not send code');
       if (!isResend) setBtnLoading('requestOtpBtn', false);
       else {
@@ -2132,11 +2796,13 @@ async function requestOTP(isResend) {
         rb.textContent = 'Resend';
       }, 30000);
     } else {
+      hideLoader();
       setBtnLoading('requestOtpBtn', false);
       showForgotStep2(email);
     }
   } catch (err) {
     console.error('OTP request error:', err);
+    hideLoader();
     setMsg('Network error. Please try again.');
     if (!isResend) setBtnLoading('requestOtpBtn', false);
     else {
@@ -2161,19 +2827,23 @@ async function verifyOTP() {
   }
 
   setBtnLoading('verifyOtpBtn', true);
+  showLoader('Verifying code', 'Checking your verification code');
 
   try {
     const result = await callAuthAPI('verify_otp', forgotEmail, null, otp);
     if (!result.ok) {
+      hideLoader();
       setMsg(result.error || 'Verification failed');
       setBtnLoading('verifyOtpBtn', false);
       return;
     }
     verifiedOtp = otp;
+    hideLoader();
     setBtnLoading('verifyOtpBtn', false);
     showForgotStep3();
   } catch (err) {
     console.error('OTP verify error:', err);
+    hideLoader();
     setMsg('Network error. Please try again.');
     setBtnLoading('verifyOtpBtn', false);
   }
@@ -2199,15 +2869,22 @@ async function resetPassword() {
   }
 
   setBtnLoading('resetBtn', true);
+  showLoader('Updating password', [
+    'Securing your new password',
+    'Finalizing the update'
+  ]);
 
   try {
     const result = await callAuthAPI('reset_password', forgotEmail, null, verifiedOtp, newPwd);
     if (!result.ok) {
+      hideLoader();
       setMsg(result.error || 'Could not reset password');
       setBtnLoading('resetBtn', false);
       return;
     }
 
+    hideLoader();
+    setBtnLoading('resetBtn', false);
     setMsg('Password reset successful! You can now sign in.', 'success');
     showToast('Password updated successfully!');
 
@@ -2218,6 +2895,7 @@ async function resetPassword() {
     }, 1500);
   } catch (err) {
     console.error('Reset error:', err);
+    hideLoader();
     setMsg('Network error. Please try again.');
     setBtnLoading('resetBtn', false);
   }
@@ -2271,20 +2949,99 @@ function loadSheet(gid) {
 }
 
 async function loadAllData() {
-  const promises = Object.entries(TABS).map(async ([cat, gid]) => {
-    const rows = await loadSheet(gid);
-    db[cat] = [];
-    rows.forEach(r => {
-      if (!r.c || !r.c[0] || !r.c[0].v) return;
-      const products = String(r.c[0].v).split(/\n|,/).map(x => x.trim()).filter(Boolean);
-      const issue = r.c[1]?.v || '';
-      const steps = r.c[2]?.v || '';
-      products.forEach(p => db[cat].push({ product: p, issue, steps }));
-    });
-  });
-
-  await Promise.all(promises);
+  // Auto-discover tabs first, then load data + images in parallel
+  await discoverTabs();
+  await Promise.all([
+    loadSheetData(),
+    loadDriveImages()
+  ]);
   renderCategoryCards();
+}
+
+async function discoverTabs() {
+  try {
+    const res = await fetch(AUTH_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'list_sheet_tabs' })
+    });
+    const result = await res.json();
+    if (result.ok && Array.isArray(result.tabs) && result.tabs.length) {
+      TABS = {};
+      ICONS = {};
+      CAT_NAMES = {};
+      result.tabs.forEach(t => {
+        TABS[t.name] = t.gid;
+        ICONS[t.name] = guessCategoryIcon(t.name);
+        CAT_NAMES[t.name] = t.name;
+      });
+      console.log(`✅ ${result.tabs.length} categories auto-discovered:`, Object.keys(TABS));
+      return;
+    }
+    throw new Error('No tabs in response');
+  } catch (err) {
+    console.warn('⚠️ Tab auto-discovery failed, using fallback list:', err);
+    TABS = { ...FALLBACK_TABS };
+    ICONS = {};
+    CAT_NAMES = {};
+    Object.keys(TABS).forEach(name => {
+      ICONS[name] = guessCategoryIcon(name);
+      CAT_NAMES[name] = name;
+    });
+  }
+}
+
+async function loadSheetData() {
+  const promises = Object.entries(TABS).map(async ([cat, gid]) => {
+    try {
+      const rows = await loadSheet(gid);
+      db[cat] = [];
+      rows.forEach(r => {
+        if (!r.c || !r.c[0] || !r.c[0].v) return;
+        const products = String(r.c[0].v).split(/\n|,/).map(x => x.trim()).filter(Boolean);
+        const issue = r.c[1]?.v || '';
+        const steps = r.c[2]?.v || '';
+        products.forEach(p => db[cat].push({ product: p, issue, steps }));
+      });
+    } catch (err) {
+      console.warn(`Failed loading ${cat}:`, err);
+      db[cat] = [];
+    }
+  });
+  await Promise.all(promises);
+}
+
+async function loadDriveImages() {
+  try {
+    const res = await fetch(AUTH_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        action: 'list_drive_images',
+        folderId: DRIVE_FOLDER_ID
+      })
+    });
+
+    const result = await res.json();
+
+    if (result.ok && Array.isArray(result.files)) {
+      productImageMap = {};
+      result.files.forEach(file => {
+        const productName = file.name
+          .replace(/\.(png|jpg|jpeg|webp|gif|svg)$/i, '')
+          .trim();
+        productImageMap[productName] =
+          `https://drive.google.com/thumbnail?id=${file.id}&sz=w200`;
+      });
+      console.log(
+        `✅ ${Object.keys(productImageMap).length} product images loaded:`,
+        Object.keys(productImageMap)
+      );
+    }
+  } catch (err) {
+    console.warn('⚠️ Could not load Drive images:', err);
+    productImageMap = {};
+  }
 }
 
 /* ═══════════════════════════════════════════════
@@ -2325,6 +3082,31 @@ function selectCategory(cat) {
     </div>`;
 }
 
+function getProductBadge(name) {
+  const cleaned = name.replace(/[^a-zA-Z0-9\s]/g, '').trim();
+  const parts   = cleaned.split(/\s+/).filter(Boolean);
+  if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
+  if (parts[0]) return parts[0].slice(0, 2).toUpperCase();
+  return '••';
+}
+
+function buildProductIcon(productName) {
+  const imgUrl = productImageMap[productName] || null;
+  const badge  = getProductBadge(productName);
+
+  if (imgUrl) {
+    return {
+      html: `<img
+               src="${esc(imgUrl)}"
+               alt="${esc(productName)}"
+               loading="lazy"
+               onerror="this.parentElement.classList.remove('has-image');this.parentElement.textContent='${badge}';">`,
+      hasImage: true
+    };
+  }
+  return { html: esc(badge), hasImage: false };
+}
+
 function renderProductCards(cat) {
   const section = document.getElementById('productSection');
   const grid    = document.getElementById('productGrid');
@@ -2337,19 +3119,20 @@ function renderProductCards(cat) {
     grid.innerHTML = '<div class="product-empty">No products available in this category yet.</div>';
   } else {
     grid.innerHTML = products.map((p, i) => {
-      const badge = getProductBadge(p);
+      const { html: iconHTML, hasImage } = buildProductIcon(p);
+      const isActive = (activeProduct === p);
       return `
-        <div class="product-card" data-prod="${esc(p)}"
+        <div class="product-card${isActive ? ' active' : ''}" data-prod="${esc(p)}"
              style="animation-delay:${0.03 * i}s"
              onclick="selectProduct(this, '${esc(p).replace(/'/g, "\\'")}')"
-             tabindex="0" role="button" aria-pressed="false"
+             tabindex="0" role="button" aria-pressed="${isActive}"
              onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); selectProduct(this, '${esc(p).replace(/'/g, "\\\\'")}'); }">
           <div class="product-check">
             <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="20 6 9 17 4 12"/>
             </svg>
           </div>
-          <div class="product-icon">${esc(badge)}</div>
+          <div class="product-icon${hasImage ? ' has-image' : ''}">${iconHTML}</div>
           <div class="product-info">
             <div class="product-label">Model</div>
             <div class="product-name" title="${esc(p)}">${esc(p)}</div>
@@ -2364,18 +3147,9 @@ function renderProductCards(cat) {
   }
 
   section.classList.add('show');
-  // Auto-focus search after selecting both category and product
   if (activeProduct) {
     setTimeout(() => document.getElementById('search').focus(), 300);
   }
-}
-
-function getProductBadge(name) {
-  const cleaned = name.replace(/[^a-zA-Z0-9\s]/g, '').trim();
-  const parts   = cleaned.split(/\s+/).filter(Boolean);
-  if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
-  if (parts[0]) return parts[0].slice(0, 2).toUpperCase();
-  return '••';
 }
 
 function selectProduct(el, productName) {
@@ -2387,7 +3161,6 @@ function selectProduct(el, productName) {
     card.setAttribute('aria-pressed', selected ? 'true' : 'false');
   });
 
-  // Clear previous result when product changes
   document.getElementById('result').innerHTML = `
     <div class="empty-hint">
       <div class="empty-hint-icon">🔍</div>
@@ -2395,12 +3168,220 @@ function selectProduct(el, productName) {
     </div>`;
   currentResults = [];
 
-  // Focus the search input
   setTimeout(() => document.getElementById('search').focus(), 200);
 }
 
 /* ═══════════════════════════════════════════════
-   AUTH
+   UNIVERSAL PRODUCT SEARCH
+   ═══════════════════════════════════════════════ */
+
+function buildAllProductsIndex() {
+  const arr = [];
+  const seen = new Set();
+  Object.entries(db).forEach(([cat, items]) => {
+    items.forEach(it => {
+      const key = cat + '||' + it.product;
+      if (seen.has(key)) return;
+      seen.add(key);
+      arr.push({ product: it.product, category: cat, lowName: it.product.toLowerCase() });
+    });
+  });
+  return arr;
+}
+
+function onUniversalSearchInput(e) {
+  const v = e.target.value.trim();
+  const clearBtn = document.getElementById('universalClear');
+  clearBtn.classList.toggle('show', v.length > 0);
+
+  clearTimeout(universalDebounceTimer);
+  universalDebounceTimer = setTimeout(() => runUniversalSearch(v), 150);
+}
+
+function onUniversalSearchFocus() {
+  const v = document.getElementById('universalSearch').value.trim();
+  if (v) runUniversalSearch(v);
+}
+
+function onUniversalSearchKey(e) {
+  const dropdown = document.getElementById('universalDropdown');
+  if (!dropdown.classList.contains('show')) return;
+
+  const items = dropdown.querySelectorAll('.suggestion');
+  if (!items.length) return;
+
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    universalHighlightIndex = Math.min(universalHighlightIndex + 1, items.length - 1);
+    updateUniversalHighlight(items);
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    universalHighlightIndex = Math.max(universalHighlightIndex - 1, 0);
+    updateUniversalHighlight(items);
+  } else if (e.key === 'Enter') {
+    e.preventDefault();
+    if (universalHighlightIndex >= 0 && universalCurrentMatches[universalHighlightIndex]) {
+      const m = universalCurrentMatches[universalHighlightIndex];
+      pickUniversalProduct(m.category, m.product);
+    } else if (universalCurrentMatches[0]) {
+      const m = universalCurrentMatches[0];
+      pickUniversalProduct(m.category, m.product);
+    }
+  } else if (e.key === 'Escape') {
+    hideUniversalDropdown();
+    e.target.blur();
+  }
+}
+
+function updateUniversalHighlight(items) {
+  items.forEach((el, i) => el.classList.toggle('highlighted', i === universalHighlightIndex));
+  if (items[universalHighlightIndex]) {
+    items[universalHighlightIndex].scrollIntoView({ block: 'nearest' });
+  }
+}
+
+function runUniversalSearch(query) {
+  const dropdown = document.getElementById('universalDropdown');
+  universalHighlightIndex = -1;
+
+  if (!query) {
+    hideUniversalDropdown();
+    return;
+  }
+
+  const q = query.toLowerCase();
+  const index = buildAllProductsIndex();
+
+  const scored = index.map(item => {
+    let score = 0;
+    if (item.lowName === q) score = 1000;
+    else if (item.lowName.startsWith(q)) score = 500;
+    else if (item.lowName.includes(q)) score = 200;
+    else {
+      const qWords = q.split(/\s+/).filter(Boolean);
+      const nameWords = item.lowName.split(/\s+/);
+      let hits = 0;
+      qWords.forEach(qw => {
+        if (nameWords.some(nw => nw.startsWith(qw))) hits++;
+      });
+      if (hits > 0) score = hits * 50;
+    }
+    return { ...item, score };
+  }).filter(x => x.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 12);
+
+  universalCurrentMatches = scored;
+
+  if (!scored.length) {
+    dropdown.innerHTML = `
+      <div class="suggestion-empty">
+        <span class="suggestion-empty-icon">🔎</span>
+        No products match "<strong>${esc(query)}</strong>"<br>
+        <span style="font-size:11px;opacity:.7">Try a different keyword or pick from categories above</span>
+      </div>`;
+    dropdown.classList.add('show');
+    return;
+  }
+
+  const highlight = (name) => {
+    const lc = name.toLowerCase();
+    const idx = lc.indexOf(q);
+    if (idx === -1) return esc(name);
+    return esc(name.slice(0, idx)) + '<mark>' + esc(name.slice(idx, idx + q.length)) + '</mark>' + esc(name.slice(idx + q.length));
+  };
+
+  dropdown.innerHTML = `<div class="suggestion-header">${scored.length} match${scored.length === 1 ? '' : 'es'} across categories</div>` +
+    scored.map((s, i) => {
+      const imgUrl = productImageMap[s.product] || null;
+      const badge = getProductBadge(s.product);
+      const iconHTML = imgUrl
+        ? `<img src="${esc(imgUrl)}" alt="${esc(s.product)}" loading="lazy" onerror="this.outerHTML='${badge}'">`
+        : badge;
+      const catIcon = ICONS[s.category] || '📦';
+      return `
+        <div class="suggestion" data-i="${i}" onclick="pickUniversalProduct('${esc(s.category).replace(/'/g, "\\'")}', '${esc(s.product).replace(/'/g, "\\'")}')">
+          <div class="suggestion-icon">${iconHTML}</div>
+          <div class="suggestion-info">
+            <div class="suggestion-name">${highlight(s.product)}</div>
+            <div class="suggestion-cat">
+              <span class="suggestion-cat-icon">${catIcon}</span> ${esc(CAT_NAMES[s.category] || s.category)}
+            </div>
+          </div>
+          <div class="suggestion-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </div>
+        </div>`;
+    }).join('');
+
+  dropdown.classList.add('show');
+}
+
+function hideUniversalDropdown() {
+  const dropdown = document.getElementById('universalDropdown');
+  dropdown.classList.remove('show');
+  universalHighlightIndex = -1;
+}
+
+function clearUniversalSearch() {
+  const input = document.getElementById('universalSearch');
+  input.value = '';
+  document.getElementById('universalClear').classList.remove('show');
+  hideUniversalDropdown();
+  input.focus();
+}
+
+function pickUniversalProduct(category, productName) {
+  // Step 1: Set both active states
+  activeCategory = category;
+  activeProduct = productName;
+
+  // Step 2: Highlight the category card
+  document.querySelectorAll('.cat-card').forEach(card => {
+    const selected = card.dataset.cat === category;
+    card.classList.toggle('active', selected);
+    card.setAttribute('aria-pressed', selected ? 'true' : 'false');
+  });
+
+  // Step 3: Render product cards (the active product will be highlighted because activeProduct is set)
+  renderProductCards(category);
+
+  // Step 4: Clear universal search
+  hideUniversalDropdown();
+  const input = document.getElementById('universalSearch');
+  input.value = '';
+  document.getElementById('universalClear').classList.remove('show');
+
+  // Step 5: Update result area
+  document.getElementById('result').innerHTML = `
+    <div class="empty-hint">
+      <div class="empty-hint-icon">🔍</div>
+      <div class="empty-hint-text">Now describe the issue to find step-by-step guidance.</div>
+    </div>`;
+  currentResults = [];
+
+  // Step 6: Smooth scroll to issue search box and focus it
+  setTimeout(() => {
+    const issueInput = document.getElementById('search');
+    issueInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(() => issueInput.focus(), 400);
+  }, 250);
+
+  showToast(`Selected: ${productName}`);
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', (e) => {
+  const wrap = document.querySelector('.universal-search-wrap');
+  if (wrap && !wrap.contains(e.target)) {
+    hideUniversalDropdown();
+  }
+});
+
+/* ═══════════════════════════════════════════════
+   AUTH (with loading overlay)
    ═══════════════════════════════════════════════ */
 
 async function login() {
@@ -2425,18 +3406,27 @@ async function login() {
   /* Developer bypass */
   if (e === DEV) {
     setBtnLoading('loginBtn', true);
+    showLoader('Signing you in', [
+      'Authenticating',
+      'Discovering categories',
+      'Loading product catalog',
+      'Fetching product images',
+      'Setting up your workspace'
+    ]);
     try {
       await loadAllData();
+      hideLoader();
+      setBtnLoading('loginBtn', false);
       enterDashboard(e);
     } catch (err) {
       console.error('Dev auth error:', err);
+      hideLoader();
       setMsg('Could not load data. Check your connection and try again.');
       setBtnLoading('loginBtn', false);
     }
     return;
   }
 
-  /* Length validation */
   const validation = validatePassword(p);
   if (!validation.valid) {
     setMsg(validation.message, 'warning');
@@ -2444,18 +3434,30 @@ async function login() {
   }
 
   setBtnLoading('loginBtn', true);
+  showLoader('Signing you in', [
+    'Verifying your credentials',
+    'Authenticating securely',
+    'Discovering categories',
+    'Loading product catalog',
+    'Fetching product images',
+    'Setting up your workspace'
+  ]);
 
   try {
     const result = await callAuthAPI('login', e, p);
     if (!result.ok) {
+      hideLoader();
       setMsg(result.error || 'Login failed');
       setBtnLoading('loginBtn', false);
       return;
     }
     await loadAllData();
+    hideLoader();
+    setBtnLoading('loginBtn', false);
     enterDashboard(e);
   } catch (err) {
     console.error('Auth error:', err);
+    hideLoader();
     setMsg('Could not verify credentials. Check your connection and try again.');
     setBtnLoading('loginBtn', false);
   }
@@ -2487,19 +3489,29 @@ async function signup() {
   }
 
   setBtnLoading('signupBtn', true);
+  showLoader('Creating your account', [
+    'Setting up your profile',
+    'Securing your credentials',
+    'Loading the support portal',
+    'Almost ready'
+  ]);
 
   try {
     const result = await callAuthAPI('signup', e, p);
     if (!result.ok) {
+      hideLoader();
       setMsg(result.error || 'Sign up failed');
       setBtnLoading('signupBtn', false);
       return;
     }
-    setMsg('Account created! Logging you in…', 'success');
     await loadAllData();
-    setTimeout(() => enterDashboard(e), 600);
+    hideLoader();
+    setBtnLoading('signupBtn', false);
+    setMsg('Account created! Welcome aboard.', 'success');
+    setTimeout(() => enterDashboard(e), 500);
   } catch (err) {
     console.error('Signup error:', err);
+    hideLoader();
     setMsg('Could not create account. Check your connection and try again.');
     setBtnLoading('signupBtn', false);
   }
@@ -2516,22 +3528,38 @@ function enterDashboard(email) {
   document.getElementById('dashView').classList.remove('hidden');
   sessionStorage.setItem('cb_user', email);
 
-  // Reset dashboard state
   activeCategory = null;
   activeProduct  = null;
   currentResults = [];
   document.getElementById('search').value = '';
+  document.getElementById('universalSearch').value = '';
+  document.getElementById('universalClear').classList.remove('show');
   document.getElementById('productSection').classList.remove('show');
 }
 
 function logout() {
   sessionStorage.removeItem('cb_user');
+
+  // Hide any active loader and stop animations
+  hideLoader();
+
+  // Reset ALL auth buttons to their original state
+  resetAllAuthButtons();
+
   document.getElementById('dashView').classList.add('hidden');
   document.getElementById('loginView').classList.remove('hidden');
 
-  ['email', 'password', 'signupEmail', 'signupPassword'].forEach(id =>
-    document.getElementById(id).value = ''
-  );
+  ['email', 'password', 'signupEmail', 'signupPassword',
+   'forgotEmail', 'otpInput', 'newPassword', 'confirmPassword',
+   'universalSearch', 'search']
+    .forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+
+  const ucb = document.getElementById('universalClear');
+  if (ucb) ucb.classList.remove('show');
+  hideUniversalDropdown();
 
   document.getElementById('result').innerHTML = `
     <div class="empty-hint">
@@ -2539,17 +3567,20 @@ function logout() {
       <div class="empty-hint-text">Choose a category and product above, then describe the issue to see step-by-step resolution guidance.</div>
     </div>`;
 
-  document.getElementById('search').value = '';
   document.getElementById('productSection').classList.remove('show');
   setMsg('');
   switchTab('signin');
 
   db = {};
+  TABS = {};
+  ICONS = {};
+  CAT_NAMES = {};
   activeCategory = null;
   activeProduct  = null;
   currentResults = [];
   forgotEmail    = '';
   verifiedOtp    = '';
+  productImageMap = {};
 }
 
 /* ═══════════════════════════════════════════════
@@ -2586,7 +3617,6 @@ function parseSteps(raw) {
     return steps.filter(s => s.length > 1);
   }
 
-  // Fallback: split by sentence / paragraph
   const joined = [];
   let buffer = '';
 
@@ -2861,19 +3891,30 @@ function copySteps() {
    ═══════════════════════════════════════════════ */
 
 window.addEventListener('DOMContentLoaded', async () => {
+  // Smooth subtitle text transitions
+  const subtitleEl = document.getElementById('loadingSubtitleText');
+  if (subtitleEl) subtitleEl.style.transition = 'opacity .25s ease';
+
   const saved = sessionStorage.getItem('cb_user');
   if (saved) {
+    showLoader('Welcome back', [
+      'Restoring your session',
+      'Discovering categories',
+      'Loading product catalog',
+      'Fetching product images'
+    ]);
     try {
       await loadAllData();
+      hideLoader();
       enterDashboard(saved);
     } catch (e) {
       console.error('Session restore failed:', e);
+      hideLoader();
       sessionStorage.removeItem('cb_user');
     }
   }
 });
 
-// Global keyboard shortcut: Escape to reset search
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && !document.getElementById('dashView').classList.contains('hidden')) {
     const search = document.getElementById('search');
@@ -2884,5 +3925,5 @@ document.addEventListener('keydown', (e) => {
   }
 });
 </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a070c5050e0e6115',t:'MTc4MDY3OTIwNA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
