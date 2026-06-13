@@ -25,6 +25,10 @@
   --danger: #ff4d4d;
   --warning: #ffb547;
   --success: #00e68a;
+  --ai: #a78bfa;
+  --ai-dim: #7c3aed;
+  --ai-bright: #c4b5fd;
+  --ai-glow: rgba(167,139,250,.35);
   --r-sm: 12px;
   --r: 16px;
   --r-lg: 24px;
@@ -35,9 +39,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 html { scroll-behavior: smooth; }
-
 body {
   font-family: 'DM Sans', sans-serif;
   color: var(--txt);
@@ -73,7 +75,6 @@ body::after {
   pointer-events: none;
 }
 
-/* ── Orbs ── */
 .orb {
   position: fixed;
   border-radius: 50%;
@@ -91,7 +92,6 @@ body::after {
 @keyframes float2 { 0%,100% { transform: translate3d(0,0,0); } 50% { transform: translate3d(-60px,-50px,0); } }
 @keyframes float3 { 0%,100% { transform: translate3d(-50%,-50%,0) scale(1); } 50% { transform: translate3d(-50%,-50%,0) scale(1.3); } }
 
-/* ── Page ── */
 .page {
   position: relative;
   z-index: 1;
@@ -102,7 +102,6 @@ body::after {
   padding: 40px 20px 70px;
 }
 
-/* ── Glass card ── */
 .glass {
   background: rgba(12,12,14,.94);
   border: 1px solid var(--border);
@@ -110,7 +109,6 @@ body::after {
   -webkit-backdrop-filter: blur(20px);
 }
 
-/* ── Login view ── */
 #loginView {
   display: flex;
   flex-direction: column;
@@ -155,10 +153,7 @@ body::after {
   line-height: 1;
 }
 
-.brand-name em {
-  font-style: normal;
-  color: var(--accent);
-}
+.brand-name em { font-style: normal; color: var(--accent); }
 
 .brand-tag {
   font-size: 12px;
@@ -169,7 +164,6 @@ body::after {
   font-weight: 500;
 }
 
-/* ── Login card ── */
 .login-card {
   width: 100%;
   max-width: 430px;
@@ -185,9 +179,7 @@ body::after {
 .login-card::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(255,106,0,.9), rgba(255,157,74,.7), transparent);
 }
@@ -195,14 +187,11 @@ body::after {
 .login-card::after {
   content: '';
   position: absolute;
-  bottom: 0;
-  left: 20%;
-  right: 20%;
+  bottom: 0; left: 20%; right: 20%;
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(255,106,0,.15), transparent);
 }
 
-/* ── Tab switcher ── */
 .tab-switcher {
   display: flex;
   background: rgba(0,0,0,.45);
@@ -234,8 +223,7 @@ body::after {
 
 .tab-indicator {
   position: absolute;
-  top: 4px;
-  bottom: 4px;
+  top: 4px; bottom: 4px;
   width: calc(50% - 4px);
   background: linear-gradient(145deg, var(--accent), var(--accent-bright));
   border-radius: 10px;
@@ -262,7 +250,6 @@ body::after {
   line-height: 1.5;
 }
 
-/* ── Form fields ── */
 .field { position: relative; margin-bottom: 16px; }
 
 .field label,
@@ -304,8 +291,7 @@ body::after {
 
 .field-icon {
   position: absolute;
-  right: 15px;
-  bottom: 15px;
+  right: 15px; bottom: 15px;
   opacity: .3;
   pointer-events: none;
   transition: opacity .3s;
@@ -328,7 +314,6 @@ body::after {
 
 .field-hint svg { width: 13px; height: 13px; stroke: var(--muted); flex-shrink: 0; opacity: .7; }
 
-/* ── OTP ── */
 .otp-input {
   width: 100%;
   padding: 18px 17px;
@@ -353,7 +338,6 @@ body::after {
 
 .otp-input::placeholder { color: var(--muted); letter-spacing: 8px; }
 
-/* ── Links ── */
 .forgot-link {
   display: block;
   text-align: right;
@@ -390,10 +374,8 @@ body::after {
 }
 
 .back-link:hover { color: var(--accent); }
-
 .back-link svg { width: 14px; height: 14px; }
 
-/* ── Buttons ── */
 .btn {
   display: flex;
   align-items: center;
@@ -420,10 +402,8 @@ body::after {
 .btn::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
   transition: left .7s var(--ease);
 }
@@ -434,9 +414,7 @@ body::after {
 }
 
 .btn:hover::before { left: 100%; }
-
 .btn:active { transform: translateY(0) scale(.99); }
-
 .btn:disabled { opacity: .7; cursor: not-allowed; transform: none; }
 
 .btn-ghost {
@@ -466,7 +444,6 @@ body::after {
   box-shadow: 0 4px 20px rgba(255,106,0,.1);
 }
 
-/* ── Resend row ── */
 .resend-row {
   display: flex;
   align-items: center;
@@ -490,10 +467,8 @@ body::after {
 }
 
 .resend-btn:hover { color: var(--accent); }
-
 .resend-btn:disabled { color: var(--muted); cursor: not-allowed; }
 
-/* ── Messages ── */
 .err-msg {
   display: flex;
   align-items: center;
@@ -514,7 +489,6 @@ body::after {
 .err-msg svg { flex-shrink: 0; }
 .err-msg.hidden { display: none; }
 
-/* ── Toast ── */
 .toast {
   position: fixed;
   bottom: 30px;
@@ -544,21 +518,15 @@ body::after {
   pointer-events: auto;
 }
 
-/* ── Auth forms ── */
-.auth-form {
-  animation: fadeUp .4s var(--ease) both;
-}
-
+.auth-form { animation: fadeUp .4s var(--ease) both; }
 .auth-form.hidden { display: none; }
 
-/* ── Dashboard ── */
 #dashView {
   width: 100%;
   max-width: 920px;
   animation: fadeUp .6s var(--ease) both;
 }
 
-/* ── Top bar ── */
 .topbar {
   display: flex;
   align-items: center;
@@ -576,9 +544,7 @@ body::after {
 .topbar::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(255,106,0,.3), rgba(255,157,74,.2), transparent);
 }
@@ -586,8 +552,7 @@ body::after {
 .topbar-left { display: flex; align-items: center; gap: 15px; }
 
 .topbar-avatar {
-  width: 44px;
-  height: 44px;
+  width: 44px; height: 44px;
   background: linear-gradient(145deg, var(--accent), var(--accent-dim));
   border-radius: 13px;
   display: grid;
@@ -633,8 +598,7 @@ body::after {
 
 .pill::before {
   content: '';
-  width: 7px;
-  height: 7px;
+  width: 7px; height: 7px;
   border-radius: 50%;
   background: var(--success);
   box-shadow: 0 0 10px var(--success);
@@ -656,7 +620,6 @@ body::after {
 
 .logout-btn:hover { border-color: var(--danger); color: var(--danger); background: rgba(255,77,77,.06); }
 
-/* ── Search panel ── */
 .search-panel {
   border-radius: var(--r-lg);
   padding: 30px;
@@ -669,9 +632,7 @@ body::after {
 .search-panel::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(255,106,0,.8), rgba(255,157,74,.6), transparent);
 }
@@ -679,9 +640,7 @@ body::after {
 .search-panel::after {
   content: '';
   position: absolute;
-  bottom: 0;
-  left: 15%;
-  right: 15%;
+  bottom: 0; left: 15%; right: 15%;
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(255,106,0,.1), transparent);
 }
@@ -725,8 +684,7 @@ body::after {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 22px;
-  height: 22px;
+  min-width: 22px; height: 22px;
   padding: 0 8px;
   background: rgba(255,106,0,.08);
   border: 1px solid rgba(255,106,0,.2);
@@ -738,7 +696,6 @@ body::after {
   margin-left: -4px;
 }
 
-/* ── Category grid ── */
 .cat-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -765,10 +722,7 @@ body::after {
   outline: none;
 }
 
-.cat-card:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
+.cat-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 .cat-card::before {
   content: '';
@@ -809,8 +763,7 @@ body::after {
 .cat-card.active .cat-check { opacity: 1; transform: scale(1); }
 
 .cat-icon-wrap {
-  width: 46px;
-  height: 46px;
+  width: 46px; height: 46px;
   background: rgba(255,255,255,.03);
   border: 1px solid var(--border);
   border-radius: 13px;
@@ -836,10 +789,8 @@ body::after {
 
 .cat-check {
   position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 18px;
-  height: 18px;
+  top: 8px; right: 8px;
+  width: 18px; height: 18px;
   background: var(--accent);
   border-radius: 50%;
   display: grid;
@@ -852,13 +803,7 @@ body::after {
 
 .cat-check svg { width: 11px; height: 11px; stroke: #000; stroke-width: 3.5; }
 
-/* ══════════════════════════════════════════════
-   UNIVERSAL PRODUCT SEARCH BAR + DROPDOWN
-   ══════════════════════════════════════════════ */
-.universal-search-wrap {
-  position: relative;
-  margin: 0 0 24px;
-}
+.universal-search-wrap { position: relative; margin: 0 0 24px; }
 
 .universal-divider {
   display: flex;
@@ -923,8 +868,7 @@ body::after {
   right: 12px;
   top: 50%;
   transform: translateY(-50%);
-  width: 26px;
-  height: 26px;
+  width: 26px; height: 26px;
   background: rgba(255,255,255,.06);
   border: none;
   border-radius: 50%;
@@ -943,8 +887,7 @@ body::after {
 .universal-dropdown {
   position: absolute;
   top: calc(100% + 8px);
-  left: 0;
-  right: 0;
+  left: 0; right: 0;
   max-height: 380px;
   overflow-y: auto;
   background: rgba(15,15,18,.98);
@@ -991,8 +934,7 @@ body::after {
 }
 
 .suggestion-icon {
-  width: 42px;
-  height: 42px;
+  width: 42px; height: 42px;
   flex-shrink: 0;
   background: rgba(255,255,255,.04);
   border: 1px solid var(--border);
@@ -1008,8 +950,7 @@ body::after {
 }
 
 .suggestion-icon img {
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   object-fit: contain;
   border-radius: 7px;
   display: block;
@@ -1088,7 +1029,6 @@ body::after {
   text-transform: uppercase;
 }
 
-/* ── Product section ── */
 .product-section {
   margin-bottom: 22px;
   max-height: 0;
@@ -1097,10 +1037,7 @@ body::after {
   transition: max-height .5s ease, opacity .35s ease, margin-bottom .35s ease;
 }
 
-.product-section.show {
-  max-height: 1500px;
-  opacity: 1;
-}
+.product-section.show { max-height: 1500px; opacity: 1; }
 
 .product-grid {
   display: grid;
@@ -1126,10 +1063,7 @@ body::after {
   min-height: 88px;
 }
 
-.product-card:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
+.product-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 @keyframes productPop {
   from { opacity: 0; transform: translate3d(0, 15px, 0) scale(.96); }
@@ -1199,13 +1133,10 @@ body::after {
   animation: borderSpin 3s linear infinite;
 }
 
-@keyframes borderSpin {
-  to { transform: rotate(360deg); }
-}
+@keyframes borderSpin { to { transform: rotate(360deg); } }
 
 .product-icon {
-  width: 54px;
-  height: 54px;
+  width: 54px; height: 54px;
   flex-shrink: 0;
   background: rgba(255,255,255,.03);
   border: 1px solid var(--border);
@@ -1229,8 +1160,7 @@ body::after {
 }
 
 .product-icon img {
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   object-fit: contain;
   border-radius: 9px;
   display: block;
@@ -1240,12 +1170,10 @@ body::after {
 
 @keyframes imgFadeIn {
   from { opacity: 0; transform: scale(.85); }
-  to   { opacity: 1; transform: scale(1);  }
+  to   { opacity: 1; transform: scale(1); }
 }
 
-.product-card:hover .product-icon img {
-  transform: scale(1.12);
-}
+.product-card:hover .product-icon img { transform: scale(1.12); }
 
 .product-card:hover .product-icon.has-image {
   border-color: rgba(255,157,74,.5);
@@ -1259,9 +1187,7 @@ body::after {
   box-shadow: 0 0 22px rgba(255,157,74,.45), inset 0 1px 1px rgba(255,255,255,.08);
 }
 
-.product-card.active .product-icon.has-image img {
-  filter: brightness(1.1) contrast(1.05);
-}
+.product-card.active .product-icon.has-image img { filter: brightness(1.1) contrast(1.05); }
 
 .product-info {
   flex: 1;
@@ -1312,10 +1238,8 @@ body::after {
 
 .product-check {
   position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 18px;
-  height: 18px;
+  top: 8px; right: 8px;
+  width: 18px; height: 18px;
   background: var(--accent2);
   border-radius: 50%;
   display: grid;
@@ -1339,7 +1263,6 @@ body::after {
   grid-column: 1 / -1;
 }
 
-/* ── Search box ── */
 .search-box { position: relative; margin-bottom: 22px; }
 
 .search-box input {
@@ -1366,18 +1289,15 @@ body::after {
 
 .search-box-icon {
   position: absolute;
-  left: 16px;
-  bottom: 17px;
+  left: 16px; bottom: 17px;
   opacity: .35;
   pointer-events: none;
   transition: opacity .3s ease;
 }
 
 .search-box input:focus ~ .search-box-icon { opacity: .7; }
-
 .search-box-icon svg { width: 18px; height: 18px; stroke: var(--txt); }
 
-/* ── Skeleton loading ── */
 .skeleton {
   animation: shimmer 1.6s linear infinite;
   border-radius: var(--r-sm);
@@ -1391,7 +1311,6 @@ body::after {
 
 @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
-/* ── Result card ── */
 .result-card {
   background: rgba(12,12,14,.94);
   border: 1px solid var(--border);
@@ -1416,8 +1335,7 @@ body::after {
 }
 
 .result-icon {
-  width: 50px;
-  height: 50px;
+  width: 50px; height: 50px;
   background: linear-gradient(145deg, rgba(255,106,0,.18), rgba(255,106,0,.05));
   border: 1px solid rgba(255,106,0,.25);
   border-radius: 15px;
@@ -1452,8 +1370,7 @@ body::after {
 
 .result-issue::before {
   content: '';
-  width: 5px;
-  height: 5px;
+  width: 5px; height: 5px;
   border-radius: 50%;
   background: var(--accent);
 }
@@ -1475,6 +1392,429 @@ body::after {
 }
 
 .best-match-badge svg { width: 11px; height: 11px; stroke: #000; stroke-width: 3; }
+
+.ai-result-card {
+  background: rgba(12,12,14,.96);
+  border: 1px solid rgba(167,139,250,.2);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  animation: fadeUp .5s var(--ease) both;
+  box-shadow: var(--shadow), 0 0 60px rgba(167,139,250,.08);
+  margin-bottom: 20px;
+  transition: border-color .3s ease, box-shadow .3s ease;
+  position: relative;
+}
+
+.ai-result-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(167,139,250,.8), rgba(196,181,253,.6), transparent);
+}
+
+.ai-result-card:hover {
+  border-color: rgba(167,139,250,.35);
+  box-shadow: var(--shadow), 0 0 80px rgba(167,139,250,.12);
+}
+
+.ai-header {
+  padding: 26px 30px 22px;
+  border-bottom: 1px solid rgba(167,139,250,.08);
+  display: flex;
+  align-items: flex-start;
+  gap: 17px;
+  position: relative;
+  background: linear-gradient(180deg, rgba(167,139,250,.05), transparent);
+}
+
+.ai-icon-wrap {
+  width: 50px; height: 50px;
+  background: linear-gradient(145deg, rgba(167,139,250,.2), rgba(124,58,237,.08));
+  border: 1px solid rgba(167,139,250,.3);
+  border-radius: 15px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  font-size: 24px;
+  box-shadow: inset 0 1px 1px rgba(255,255,255,.08), 0 0 20px rgba(167,139,250,.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-icon-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(
+    from 0deg,
+    rgba(167,139,250,.3) 0deg,
+    transparent 60deg,
+    rgba(196,181,253,.2) 120deg,
+    transparent 180deg,
+    rgba(167,139,250,.3) 240deg,
+    transparent 300deg,
+    rgba(167,139,250,.3) 360deg
+  );
+  animation: aiIconSpin 4s linear infinite;
+  opacity: .5;
+}
+
+@keyframes aiIconSpin { to { transform: rotate(360deg); } }
+
+.ai-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px;
+  background: linear-gradient(145deg, rgba(167,139,250,.15), rgba(124,58,237,.08));
+  border: 1px solid rgba(167,139,250,.35);
+  color: var(--ai-bright);
+  border-radius: 50px;
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 16px rgba(167,139,250,.2), 0 0 30px rgba(167,139,250,.1);
+  animation: aiBadgePulse 3s ease-in-out infinite;
+}
+
+@keyframes aiBadgePulse {
+  0%,100% { box-shadow: 0 4px 16px rgba(167,139,250,.2), 0 0 30px rgba(167,139,250,.1); }
+  50% { box-shadow: 0 4px 24px rgba(167,139,250,.4), 0 0 50px rgba(167,139,250,.2); }
+}
+
+.ai-badge-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--ai);
+  box-shadow: 0 0 8px var(--ai);
+  animation: aiDotPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes aiDotPulse {
+  0%,100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: .7; }
+}
+
+.ai-product-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -.3px;
+  line-height: 1.15;
+  margin-bottom: 8px;
+  color: var(--txt);
+}
+
+.ai-issue-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(167,139,250,.08);
+  border: 1px solid rgba(167,139,250,.2);
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ai-bright);
+}
+
+.ai-issue-tag::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--ai);
+  box-shadow: 0 0 6px var(--ai);
+  animation: aiDotPulse 1.5s ease-in-out infinite;
+}
+
+.ai-steps-section { padding: 26px 30px 22px; }
+
+.ai-steps-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(167,139,250,.7);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ai-steps-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(167,139,250,.2), transparent);
+}
+
+.ai-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 20px;
+  background: rgba(167,139,250,.03);
+  border: 1px solid rgba(167,139,250,.1);
+  border-radius: var(--r);
+  margin-bottom: 11px;
+  transition: border-color .25s ease, background .25s ease, transform .25s ease, box-shadow .25s ease;
+  animation: fadeUp .4s var(--ease) both;
+  position: relative;
+}
+
+.ai-step:hover {
+  border-color: rgba(167,139,250,.3);
+  background: rgba(167,139,250,.06);
+  transform: translateX(3px);
+  box-shadow: 0 4px 16px rgba(0,0,0,.2);
+}
+
+.ai-step::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px; height: 0;
+  background: var(--ai);
+  border-radius: 0 3px 3px 0;
+  transition: height .3s ease;
+}
+
+.ai-step:hover::before { height: 65%; }
+
+.ai-step-num {
+  width: 28px; height: 28px;
+  background: linear-gradient(145deg, rgba(167,139,250,.3), rgba(124,58,237,.2));
+  border: 1px solid rgba(167,139,250,.4);
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--ai-bright);
+  flex-shrink: 0;
+  box-shadow: 0 2px 10px rgba(167,139,250,.25), inset 0 1px 1px rgba(255,255,255,.1);
+}
+
+.ai-step-text {
+  font-size: 14px;
+  color: var(--txt);
+  line-height: 1.7;
+  padding-top: 4px;
+  font-weight: 400;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.ai-disclaimer {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0 30px 0;
+  padding: 14px 18px;
+  background: rgba(167,139,250,.04);
+  border: 1px solid rgba(167,139,250,.12);
+  border-radius: var(--r-sm);
+  font-size: 12px;
+  color: rgba(167,139,250,.7);
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.ai-disclaimer svg { width: 14px; height: 14px; flex-shrink: 0; margin-top: 1px; stroke: var(--ai); opacity: .7; }
+
+.ai-copy-row { padding: 16px 30px 26px; }
+
+.btn-ghost-ai {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 11px 18px;
+  background: rgba(167,139,250,.04);
+  border: 1.5px solid rgba(167,139,250,.2);
+  border-radius: var(--r-sm);
+  color: rgba(167,139,250,.7);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color .25s ease, color .25s ease, background .25s ease, transform .25s ease;
+  width: 100%;
+}
+
+.btn-ghost-ai:hover {
+  border-color: rgba(167,139,250,.5);
+  color: var(--ai-bright);
+  background: rgba(167,139,250,.08);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(167,139,250,.15);
+}
+
+.ai-loading-card {
+  background: rgba(12,12,14,.96);
+  border: 1px solid rgba(167,139,250,.15);
+  border-radius: var(--r-lg);
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  animation: fadeUp .4s var(--ease) both;
+  box-shadow: var(--shadow), 0 0 40px rgba(167,139,250,.06);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.ai-loading-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(167,139,250,.8), transparent);
+}
+
+.ai-loader-wrap {
+  position: relative;
+  width: 70px; height: 70px;
+}
+
+.ai-loader-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2.5px solid transparent;
+}
+
+.ai-loader-ring:nth-child(1) {
+  border-top-color: var(--ai);
+  border-right-color: rgba(167,139,250,.3);
+  animation: spin 1.2s linear infinite;
+  box-shadow: 0 0 18px rgba(167,139,250,.3);
+}
+
+.ai-loader-ring:nth-child(2) {
+  inset: 10px;
+  border-bottom-color: var(--ai-bright);
+  border-left-color: rgba(196,181,253,.3);
+  animation: spin 1.8s linear infinite reverse;
+}
+
+.ai-loader-ring:nth-child(3) {
+  inset: 20px;
+  border-top-color: rgba(167,139,250,.5);
+  animation: spin 2.4s linear infinite;
+}
+
+.ai-loader-core {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  animation: corePulse 1.8s ease-in-out infinite;
+}
+
+.ai-loading-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ai-bright);
+  text-align: center;
+  letter-spacing: -.2px;
+}
+
+.ai-loading-sub {
+  font-size: 13px;
+  color: var(--muted2);
+  text-align: center;
+  font-weight: 300;
+  line-height: 1.5;
+  max-width: 300px;
+}
+
+.ai-typing-bar {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.ai-typing-bar span {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--ai);
+  animation: aiTyping 1.2s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(167,139,250,.5);
+}
+
+.ai-typing-bar span:nth-child(2) { animation-delay: .2s; background: var(--ai-bright); }
+.ai-typing-bar span:nth-child(3) { animation-delay: .4s; }
+
+@keyframes aiTyping {
+  0%,60%,100% { transform: translateY(0); opacity: .4; }
+  30% { transform: translateY(-8px); opacity: 1; }
+}
+
+.ai-error-card {
+  background: rgba(12,12,14,.96);
+  border: 1px solid rgba(167,139,250,.12);
+  border-radius: var(--r-lg);
+  padding: 36px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+  animation: fadeUp .4s var(--ease) both;
+  margin-bottom: 20px;
+}
+
+.ai-error-icon { font-size: 36px; opacity: .7; }
+
+.ai-error-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--muted2);
+}
+
+.ai-error-sub {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 300;
+  max-width: 320px;
+  line-height: 1.5;
+}
+
+.ai-retry-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 22px;
+  background: rgba(167,139,250,.06);
+  border: 1.5px solid rgba(167,139,250,.2);
+  border-radius: var(--r-sm);
+  color: var(--ai-bright);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .25s ease, border-color .25s ease, transform .25s ease;
+  margin-top: 4px;
+}
+
+.ai-retry-btn:hover {
+  background: rgba(167,139,250,.12);
+  border-color: rgba(167,139,250,.4);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(167,139,250,.15);
+}
 
 .result-steps { padding: 26px 30px 22px; }
 
@@ -1524,8 +1864,7 @@ body::after {
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  width: 3px;
-  height: 0;
+  width: 3px; height: 0;
   background: var(--accent);
   border-radius: 0 3px 3px 0;
   transition: height .3s ease;
@@ -1534,8 +1873,7 @@ body::after {
 .step:hover::before { height: 65%; }
 
 .step-num {
-  width: 28px;
-  height: 28px;
+  width: 28px; height: 28px;
   background: linear-gradient(145deg, var(--accent), var(--accent-dim));
   border-radius: 9px;
   display: grid;
@@ -1570,7 +1908,6 @@ body::after {
 
 .copy-row { padding: 0 30px 26px; }
 
-/* ── Recommended ── */
 .recommend-section {
   background: rgba(12,12,14,.94);
   border: 1px solid var(--border);
@@ -1586,9 +1923,7 @@ body::after {
 .recommend-section::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(255,157,74,.7), transparent);
 }
@@ -1636,10 +1971,7 @@ body::after {
   outline: none;
 }
 
-.recommend-item:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
+.recommend-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 .recommend-item::before {
   content: '';
@@ -1663,8 +1995,7 @@ body::after {
 .recommend-item:hover .recommend-arrow { opacity: 1; transform: translateX(0); }
 
 .recommend-icon {
-  width: 36px;
-  height: 36px;
+  width: 36px; height: 36px;
   flex-shrink: 0;
   background: rgba(255,255,255,.03);
   border: 1px solid var(--border);
@@ -1697,8 +2028,7 @@ body::after {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 30px;
-  height: 16px;
+  min-width: 30px; height: 16px;
   padding: 0 6px;
   background: rgba(255,106,0,.08);
   border: 1px solid rgba(255,106,0,.2);
@@ -1730,7 +2060,6 @@ body::after {
 
 .recommend-arrow svg { width: 18px; height: 18px; }
 
-/* ── No result / Empty states ── */
 .no-result {
   display: flex;
   flex-direction: column;
@@ -1749,8 +2078,8 @@ body::after {
 }
 
 @keyframes floatIcon {
-  0%,100% { transform: translate3d(0, 0, 0); }
-  50% { transform: translate3d(0, -8px, 0); }
+  0%,100% { transform: translate3d(0,0,0); }
+  50% { transform: translate3d(0,-8px,0); }
 }
 
 .no-result-title {
@@ -1789,19 +2118,14 @@ body::after {
   line-height: 1.6;
 }
 
-/* ── Spinner (button-sized) ── */
 .spinner {
-  width: 20px;
-  height: 20px;
+  width: 20px; height: 20px;
   border: 2.5px solid rgba(0,0,0,.2);
   border-top-color: #000;
   border-radius: 50%;
   animation: spin .6s linear infinite;
 }
 
-/* ══════════════════════════════════════════════
-   FULLSCREEN LOADING OVERLAY
-   ══════════════════════════════════════════════ */
 .loading-overlay {
   position: fixed;
   inset: 0;
@@ -1817,10 +2141,7 @@ body::after {
   transition: opacity .35s var(--ease);
 }
 
-.loading-overlay.show {
-  opacity: 1;
-  pointer-events: auto;
-}
+.loading-overlay.show { opacity: 1; pointer-events: auto; }
 
 .loading-card {
   display: flex;
@@ -1847,17 +2168,14 @@ body::after {
 .loading-card::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(255,106,0,.9), rgba(255,157,74,.7), transparent);
 }
 
 .loader-rings {
   position: relative;
-  width: 76px;
-  height: 76px;
+  width: 76px; height: 76px;
 }
 
 .loader-rings::before,
@@ -1942,8 +2260,7 @@ body::after {
 }
 
 .loading-dots span {
-  width: 4px;
-  height: 4px;
+  width: 4px; height: 4px;
   background: var(--accent2);
   border-radius: 50%;
   animation: dotJump 1.2s infinite;
@@ -1969,8 +2286,7 @@ body::after {
 .loading-progress::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
   height: 100%;
   width: 40%;
   background: linear-gradient(90deg, transparent, var(--accent), var(--accent-bright), var(--accent2), transparent);
@@ -1983,7 +2299,6 @@ body::after {
   100% { transform: translateX(350%); }
 }
 
-/* ── Keyframes ── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translate3d(0, 20px, 0); }
   to { opacity: 1; transform: translate3d(0, 0, 0); }
@@ -1996,7 +2311,6 @@ body::after {
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ── Staggered animations ── */
 .step:nth-child(1) { animation-delay: .04s; }
 .step:nth-child(2) { animation-delay: .08s; }
 .step:nth-child(3) { animation-delay: .12s; }
@@ -2005,6 +2319,15 @@ body::after {
 .step:nth-child(6) { animation-delay: .24s; }
 .step:nth-child(7) { animation-delay: .28s; }
 .step:nth-child(8) { animation-delay: .32s; }
+
+.ai-step:nth-child(1) { animation-delay: .04s; }
+.ai-step:nth-child(2) { animation-delay: .09s; }
+.ai-step:nth-child(3) { animation-delay: .14s; }
+.ai-step:nth-child(4) { animation-delay: .19s; }
+.ai-step:nth-child(5) { animation-delay: .24s; }
+.ai-step:nth-child(6) { animation-delay: .29s; }
+.ai-step:nth-child(7) { animation-delay: .34s; }
+.ai-step:nth-child(8) { animation-delay: .39s; }
 
 .recommend-item:nth-child(1) { animation-delay: .05s; }
 .recommend-item:nth-child(2) { animation-delay: .1s; }
@@ -2025,7 +2348,6 @@ body::after {
 
 .hidden { display: none !important; }
 
-/* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: .01ms !important;
@@ -2035,7 +2357,6 @@ body::after {
   .orb { display: none; }
 }
 
-/* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 10px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.06); border-radius: 10px; border: 2px solid transparent; background-clip: padding-box; }
@@ -2043,7 +2364,6 @@ body::after {
 
 ::selection { background: rgba(255,106,0,.3); color: #fff; }
 
-/* ── Mobile refinements ── */
 @media (max-width: 600px) {
   .page { padding: 24px 12px 40px; }
   .login-card { padding: 28px 20px 24px; }
@@ -2060,6 +2380,10 @@ body::after {
   .brand-name { font-size: 24px; }
   .product-grid { grid-template-columns: 1fr; }
   .loading-card { padding: 32px 28px; min-width: auto; width: calc(100% - 40px); }
+  .ai-header { padding: 20px 18px 16px; flex-direction: column; align-items: flex-start; }
+  .ai-steps-section { padding: 20px 18px 16px; }
+  .ai-disclaimer { margin: 0 18px 0; }
+  .ai-copy-row { padding: 16px 18px 20px; }
 }
 
 @media (max-width: 380px) {
@@ -2075,7 +2399,6 @@ body::after {
 
 <div class="page">
 
-  <!-- ═══════════════ LOGIN VIEW ═══════════════ -->
   <div id="loginView">
     <div class="brand">
       <div class="brand-icon">
@@ -2096,7 +2419,6 @@ body::after {
         <button class="tab-btn" id="tabSignup" role="tab" aria-selected="false" onclick="switchTab('signup')">Sign Up</button>
       </div>
 
-      <!-- Sign In -->
       <div class="auth-form" id="signinForm">
         <div class="login-headline">Welcome back</div>
         <div class="login-sub">Sign in with your Crossbeats team account to access the troubleshooting tools.</div>
@@ -2135,7 +2457,6 @@ body::after {
         </button>
       </div>
 
-      <!-- Sign Up -->
       <div class="auth-form hidden" id="signupForm">
         <div class="login-headline">Create your account</div>
         <div class="login-sub">Sign up with your Crossbeats team email to get access to the support portal.</div>
@@ -2173,7 +2494,6 @@ body::after {
         </button>
       </div>
 
-      <!-- Forgot Step 1: Email -->
       <div class="auth-form hidden" id="forgotStep1">
         <button class="back-link" onclick="cancelForgot()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -2201,7 +2521,6 @@ body::after {
         </button>
       </div>
 
-      <!-- Forgot Step 2: OTP -->
       <div class="auth-form hidden" id="forgotStep2">
         <button class="back-link" onclick="showForgotStep1()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -2231,7 +2550,6 @@ body::after {
         </div>
       </div>
 
-      <!-- Forgot Step 3: New Password -->
       <div class="auth-form hidden" id="forgotStep3">
         <div class="login-headline">Set new password</div>
         <div class="login-sub">Choose a strong password you haven't used before.</div>
@@ -2278,7 +2596,6 @@ body::after {
     </div>
   </div>
 
-  <!-- ═══════════════ DASHBOARD VIEW ═══════════════ -->
   <div id="dashView" class="hidden">
     <div class="topbar glass">
       <div class="topbar-left">
@@ -2306,7 +2623,6 @@ body::after {
       <div class="section-label">Product Category</div>
       <div class="cat-grid" id="catGrid"></div>
 
-      <!-- Universal product search -->
       <div class="universal-divider"><span>OR search any product directly</span></div>
       <div class="universal-search-wrap">
         <input id="universalSearch" type="text" class="universal-input"
@@ -2367,7 +2683,6 @@ body::after {
   </div>
 </div>
 
-<!-- ═══════════════ FULLSCREEN LOADING OVERLAY ═══════════════ -->
 <div class="loading-overlay" id="loadingOverlay" aria-hidden="true" role="status">
   <div class="loading-card">
     <div class="loader-rings">
@@ -2390,6 +2705,7 @@ body::after {
   </svg>
   <span id="toastText">Copied to clipboard!</span>
 </div>
+
 <script>
 'use strict';
 
@@ -2407,7 +2723,14 @@ const SHEET = '1FdCNEtrHDyVyy2E1yjAXwo_2qy14VIg_qsyo2rGp2m0';
 const AUTH_API = 'https://script.google.com/macros/s/AKfycbw0X5cBa4etRk9fHtSvINkVlhUPVkV88vXoiCrnoQR1vPT6l8ZA2w9NQVo6djszuy4n/exec';
 const DRIVE_FOLDER_ID = '15yJM0NmxtE91kHsD8FM-nUehppd0_VUu';
 
-/* ── Fallback TABS (used only if auto-discovery fails) ── */
+/* ═══════════════════════════════════════════════
+   GROQ AI CONFIGURATION
+   Fast, free, reliable — uses Llama 3.3 70B
+   ═══════════════════════════════════════════════ */
+const GROQ_API_KEY  = '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';
+const GROQ_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
+const GROQ_MODEL    = 'llama-3.3-70b-versatile';
+
 const FALLBACK_TABS = {
   "Projectors":    "1298694583",
   "Soundbars":     "425283568",
@@ -2417,34 +2740,32 @@ const FALLBACK_TABS = {
   "Dash camera":   "1571909229"
 };
 
-/* ── Smart icon guessing based on tab name keywords ── */
 function guessCategoryIcon(name) {
   const n = name.toLowerCase();
-  if (/projector|cinema|beam/.test(n))            return '📽️';
+  if (/projector|cinema|beam/.test(n))               return '📽️';
   if (/soundbar|speaker|home theatre|theater/.test(n)) return '🔊';
-  if (/tws|earbud|airpod|bud/.test(n))            return '🎧';
-  if (/audio|headphone|headset/.test(n))          return '🎵';
-  if (/lapel|mic|microphone|recorder/.test(n))    return '🎙️';
-  if (/watch|wearable|band|fitness/.test(n))      return '⌚';
+  if (/tws|earbud|airpod|bud/.test(n))               return '🎧';
+  if (/audio|headphone|headset/.test(n))             return '🎵';
+  if (/lapel|mic|microphone|recorder/.test(n))       return '🎙️';
+  if (/watch|wearable|band|fitness/.test(n))         return '⌚';
   if (/dash ?cam|dashboard cam|dash camera/.test(n)) return '📷';
-  if (/camera|cam|action/.test(n))                return '📸';
-  if (/charger|cable|power|adapter/.test(n))      return '🔌';
-  if (/keyboard|key/.test(n))                     return '⌨️';
-  if (/mouse|trackpad/.test(n))                   return '🖱️';
-  if (/router|wifi|network/.test(n))              return '📶';
-  if (/light|lamp|bulb|led/.test(n))              return '💡';
-  if (/phone|mobile/.test(n))                     return '📱';
-  if (/tablet|ipad/.test(n))                      return '📲';
-  if (/tv|television|display|monitor/.test(n))    return '📺';
-  if (/game|console|controller/.test(n))          return '🎮';
-  if (/printer|scan/.test(n))                     return '🖨️';
-  if (/drone|fly/.test(n))                        return '🚁';
+  if (/camera|cam|action/.test(n))                   return '📸';
+  if (/charger|cable|power|adapter/.test(n))         return '🔌';
+  if (/keyboard|key/.test(n))                        return '⌨️';
+  if (/mouse|trackpad/.test(n))                      return '🖱️';
+  if (/router|wifi|network/.test(n))                 return '📶';
+  if (/light|lamp|bulb|led/.test(n))                 return '💡';
+  if (/phone|mobile/.test(n))                        return '📱';
+  if (/tablet|ipad/.test(n))                         return '📲';
+  if (/tv|television|display|monitor/.test(n))       return '📺';
+  if (/game|console|controller/.test(n))             return '🎮';
+  if (/printer|scan/.test(n))                        return '🖨️';
+  if (/drone|fly/.test(n))                           return '🚁';
   return '📦';
 }
 
-/* These get populated automatically when data loads */
-let TABS = {};
-let ICONS = {};
+let TABS     = {};
+let ICONS    = {};
 let CAT_NAMES = {};
 
 const STOP_WORDS = new Set([
@@ -2459,78 +2780,62 @@ const STOP_WORDS = new Set([
 ]);
 
 const BOOST_WORDS = {
-  'not':2, 'cant':2, 'cannot':2, 'wont':2, 'doesnt':2, 'dont':2,
-  'never':2, 'no':1.5, 'fail':2, 'failed':2, 'failing':2, 'broken':2
+  'not':2,'cant':2,'cannot':2,'wont':2,'doesnt':2,'dont':2,
+  'never':2,'no':1.5,'fail':2,'failed':2,'failing':2,'broken':2
 };
 
-/* ── State ── */
-let db = {};
-let activeCategory = null;
-let activeProduct  = null;
-let currentResults = [];
-let forgotEmail    = '';
-let verifiedOtp    = '';
-let debounceTimer  = null;
-let productImageMap = {};
+let db               = {};
+let activeCategory   = null;
+let activeProduct    = null;
+let currentResults   = [];
+let forgotEmail      = '';
+let verifiedOtp      = '';
+let debounceTimer    = null;
+let productImageMap  = {};
 let loadingStageTimer = null;
-let universalDebounceTimer = null;
+let universalDebounceTimer  = null;
 let universalHighlightIndex = -1;
 let universalCurrentMatches = [];
 
-/* ═══════════════════════════════════════════════
-   SMOOTH SCROLL HELPER
-   Scrolls an element into view with a top offset
-   so it never hides behind anything.
-   ═══════════════════════════════════════════════ */
+let lastAiCategory = null;
+let lastAiProduct  = null;
+let lastAiIssue    = null;
+
 function smoothScrollTo(el, offsetTop) {
   if (!el) return;
   const top = el.getBoundingClientRect().top + window.pageYOffset - (offsetTop || 80);
   window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
 }
 
-/* ═══════════════════════════════════════════════
-   ORIGINAL BUTTON HTML — preserved so we can
-   always restore them, even after logout
-   ═══════════════════════════════════════════════ */
 const ORIGINAL_BUTTONS = {
-  loginBtn: `
-    <span>Sign In</span>
+  loginBtn: `<span>Sign In</span>
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
       <path d="M5 12h14M12 5l7 7-7 7"/>
     </svg>`,
-  signupBtn: `
-    <span>Create Account</span>
+  signupBtn: `<span>Create Account</span>
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
       <path d="M12 5v14M5 12h14"/>
     </svg>`,
-  requestOtpBtn: `
-    <span>Send Verification Code</span>
+  requestOtpBtn: `<span>Send Verification Code</span>
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
       <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
     </svg>`,
-  verifyOtpBtn: `
-    <span>Verify Code</span>
+  verifyOtpBtn: `<span>Verify Code</span>
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
       <polyline points="20 6 9 17 4 12"/>
     </svg>`,
-  resetBtn: `
-    <span>Reset Password</span>
+  resetBtn: `<span>Reset Password</span>
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
       <polyline points="20 6 9 17 4 12"/>
     </svg>`
 };
 
-/* ═══════════════════════════════════════════════
-   LOADING OVERLAY CONTROLLER
-   ═══════════════════════════════════════════════ */
-
 function showLoader(title, subtitle) {
-  const overlay     = document.getElementById('loadingOverlay');
-  const titleEl     = document.getElementById('loadingTitle');
-  const subtitleEl  = document.getElementById('loadingSubtitleText');
+  const overlay    = document.getElementById('loadingOverlay');
+  const titleEl    = document.getElementById('loadingTitle');
+  const subtitleEl = document.getElementById('loadingSubtitleText');
 
   titleEl.textContent = title || 'Loading';
-
   clearInterval(loadingStageTimer);
 
   if (Array.isArray(subtitle) && subtitle.length > 0) {
@@ -2563,10 +2868,6 @@ function hideLoader() {
   loadingStageTimer = null;
 }
 
-/* ═══════════════════════════════════════════════
-   UTILITIES
-   ═══════════════════════════════════════════════ */
-
 function esc(str) {
   const d = document.createElement('div');
   d.textContent = String(str || '');
@@ -2584,8 +2885,7 @@ function clean(x) {
 }
 
 function extractKeywords(text) {
-  const cleaned = clean(text);
-  return cleaned.split(/\s+/).filter(w => w.length > 1 && !STOP_WORDS.has(w));
+  return clean(text).split(/\s+/).filter(w => w.length > 1 && !STOP_WORDS.has(w));
 }
 
 function isEmailAllowed(email) {
@@ -2599,27 +2899,19 @@ function validatePassword(pwd) {
   if (pwd.length < 8) {
     return {
       valid: false,
-      message: `Password too short (${pwd.length}/8 characters). Your password must be at least 8 characters — letters, numbers, symbols, or any mix.`
+      message: `Password too short (${pwd.length}/8 characters). Your password must be at least 8 characters.`
     };
   }
   return { valid: true };
 }
 
-/* ── Message / Toast ── */
 function setMsg(text, type) {
   const box  = document.getElementById('msg');
   const span = document.getElementById('msgText');
   const icon = document.getElementById('msgIcon');
-
-  if (!text) {
-    box.classList.add('hidden');
-    box.classList.remove('warning', 'success');
-    return;
-  }
-
+  if (!text) { box.classList.add('hidden'); box.classList.remove('warning','success'); return; }
   span.textContent = text;
-  box.classList.remove('hidden', 'warning', 'success');
-
+  box.classList.remove('hidden','warning','success');
   if (type === 'warning') {
     box.classList.add('warning');
     icon.innerHTML = '<path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><path d="M12 9v4M12 17h.01"/>';
@@ -2634,25 +2926,19 @@ function setMsg(text, type) {
 function setBtnLoading(btnId, loading) {
   const btn = document.getElementById(btnId);
   if (!btn) return;
-
   if (loading) {
     btn.disabled = true;
     btn.innerHTML = '<div class="spinner"></div>';
   } else {
     btn.disabled = false;
-    if (ORIGINAL_BUTTONS[btnId]) {
-      btn.innerHTML = ORIGINAL_BUTTONS[btnId];
-    }
+    if (ORIGINAL_BUTTONS[btnId]) btn.innerHTML = ORIGINAL_BUTTONS[btnId];
   }
 }
 
 function resetAllAuthButtons() {
   Object.keys(ORIGINAL_BUTTONS).forEach(id => {
     const btn = document.getElementById(id);
-    if (btn) {
-      btn.disabled = false;
-      btn.innerHTML = ORIGINAL_BUTTONS[id];
-    }
+    if (btn) { btn.disabled = false; btn.innerHTML = ORIGINAL_BUTTONS[id]; }
   });
 }
 
@@ -2665,16 +2951,12 @@ function showToast(msg) {
   toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
 }
 
-/* ═══════════════════════════════════════════════
-   TAB SWITCHING
-   ═══════════════════════════════════════════════ */
-
 function switchTab(which) {
-  const indicator   = document.getElementById('tabIndicator');
-  const tabSignin   = document.getElementById('tabSignin');
-  const tabSignup   = document.getElementById('tabSignup');
-  const signinForm  = document.getElementById('signinForm');
-  const signupForm  = document.getElementById('signupForm');
+  const indicator  = document.getElementById('tabIndicator');
+  const tabSignin  = document.getElementById('tabSignin');
+  const tabSignup  = document.getElementById('tabSignup');
+  const signinForm = document.getElementById('signinForm');
+  const signupForm = document.getElementById('signupForm');
 
   setMsg('');
   hideAllForgotSteps();
@@ -2682,50 +2964,38 @@ function switchTab(which) {
 
   if (which === 'signin') {
     indicator.classList.remove('right');
-    tabSignin.classList.add('active');
-    tabSignin.setAttribute('aria-selected', 'true');
-    tabSignup.classList.remove('active');
-    tabSignup.setAttribute('aria-selected', 'false');
-    signupForm.classList.add('hidden');
-    signinForm.classList.remove('hidden');
+    tabSignin.classList.add('active'); tabSignin.setAttribute('aria-selected','true');
+    tabSignup.classList.remove('active'); tabSignup.setAttribute('aria-selected','false');
+    signupForm.classList.add('hidden'); signinForm.classList.remove('hidden');
   } else {
     indicator.classList.add('right');
-    tabSignup.classList.add('active');
-    tabSignup.setAttribute('aria-selected', 'true');
-    tabSignin.classList.remove('active');
-    tabSignin.setAttribute('aria-selected', 'false');
-    signinForm.classList.add('hidden');
-    signupForm.classList.remove('hidden');
+    tabSignup.classList.add('active'); tabSignup.setAttribute('aria-selected','true');
+    tabSignin.classList.remove('active'); tabSignin.setAttribute('aria-selected','false');
+    signinForm.classList.add('hidden'); signupForm.classList.remove('hidden');
   }
 }
 
 function hideAllForgotSteps() {
-  ['forgotStep1', 'forgotStep2', 'forgotStep3'].forEach(id =>
+  ['forgotStep1','forgotStep2','forgotStep3'].forEach(id =>
     document.getElementById(id).classList.add('hidden')
   );
 }
 
 function hideAuthForms() {
-  ['signinForm', 'signupForm', 'forgotStep1', 'forgotStep2', 'forgotStep3'].forEach(id =>
+  ['signinForm','signupForm','forgotStep1','forgotStep2','forgotStep3'].forEach(id =>
     document.getElementById(id).classList.add('hidden')
   );
 }
 
-/* ═══════════════════════════════════════════════
-   FORGOT PASSWORD FLOW
-   ═══════════════════════════════════════════════ */
-
 function showForgotStep1() {
-  setMsg('');
-  hideAuthForms();
+  setMsg(''); hideAuthForms();
   document.getElementById('tabSwitcher').classList.add('hidden');
   document.getElementById('forgotStep1').classList.remove('hidden');
   setTimeout(() => document.getElementById('forgotEmail').focus(), 100);
 }
 
 function showForgotStep2(email) {
-  setMsg('');
-  hideAuthForms();
+  setMsg(''); hideAuthForms();
   document.getElementById('tabSwitcher').classList.add('hidden');
   document.getElementById('sentToEmail').textContent = email;
   document.getElementById('forgotStep2').classList.remove('hidden');
@@ -2734,8 +3004,7 @@ function showForgotStep2(email) {
 }
 
 function showForgotStep3() {
-  setMsg('');
-  hideAuthForms();
+  setMsg(''); hideAuthForms();
   document.getElementById('tabSwitcher').classList.add('hidden');
   document.getElementById('forgotStep3').classList.remove('hidden');
   document.getElementById('newPassword').value = '';
@@ -2744,9 +3013,8 @@ function showForgotStep3() {
 }
 
 function cancelForgot() {
-  forgotEmail = '';
-  verifiedOtp = '';
-  ['forgotEmail', 'otpInput', 'newPassword', 'confirmPassword'].forEach(id =>
+  forgotEmail = ''; verifiedOtp = '';
+  ['forgotEmail','otpInput','newPassword','confirmPassword'].forEach(id =>
     document.getElementById(id).value = ''
   );
   switchTab('signin');
@@ -2758,202 +3026,100 @@ async function requestOTP(isResend) {
     : document.getElementById('forgotEmail').value.trim().toLowerCase();
 
   setMsg('');
-
-  if (!email) {
-    setMsg('Please enter your email address');
-    return;
-  }
-  if (!isEmailAllowed(email)) {
-    setMsg('This email is not allowed. Only @crossbeats.com emails are permitted.');
-    return;
-  }
+  if (!email) { setMsg('Please enter your email address'); return; }
+  if (!isEmailAllowed(email)) { setMsg('Only @crossbeats.com emails are permitted.'); return; }
 
   forgotEmail = email;
 
   if (isResend) {
     const rb = document.getElementById('resendBtn');
-    rb.disabled = true;
-    rb.textContent = 'Sending…';
+    rb.disabled = true; rb.textContent = 'Sending…';
   } else {
     setBtnLoading('requestOtpBtn', true);
-    showLoader('Sending code', [
-      'Generating a secure 6-digit code',
-      'Delivering to your inbox',
-      'Almost there'
-    ]);
+    showLoader('Sending code', ['Generating a secure 6-digit code','Delivering to your inbox','Almost there']);
   }
 
   try {
     const result = await callAuthAPI('request_otp', email);
-
     if (!result.ok) {
-      hideLoader();
-      setMsg(result.error || 'Could not send code');
+      hideLoader(); setMsg(result.error || 'Could not send code');
       if (!isResend) setBtnLoading('requestOtpBtn', false);
-      else {
-        const rb = document.getElementById('resendBtn');
-        rb.disabled = false;
-        rb.textContent = 'Resend';
-      }
+      else { const rb = document.getElementById('resendBtn'); rb.disabled = false; rb.textContent = 'Resend'; }
       return;
     }
-
     if (isResend) {
       const rb = document.getElementById('resendBtn');
-      rb.textContent = 'Sent ✓';
-      setMsg('A new code was sent to your email.', 'success');
-      setTimeout(() => {
-        rb.disabled = false;
-        rb.textContent = 'Resend';
-      }, 30000);
+      rb.textContent = 'Sent ✓'; setMsg('A new code was sent to your email.','success');
+      setTimeout(() => { rb.disabled = false; rb.textContent = 'Resend'; }, 30000);
     } else {
-      hideLoader();
-      setBtnLoading('requestOtpBtn', false);
+      hideLoader(); setBtnLoading('requestOtpBtn', false);
       showForgotStep2(email);
     }
   } catch (err) {
-    console.error('OTP request error:', err);
-    hideLoader();
-    setMsg('Network error. Please try again.');
+    hideLoader(); setMsg('Network error. Please try again.');
     if (!isResend) setBtnLoading('requestOtpBtn', false);
-    else {
-      const rb = document.getElementById('resendBtn');
-      rb.disabled = false;
-      rb.textContent = 'Resend';
-    }
+    else { const rb = document.getElementById('resendBtn'); rb.disabled = false; rb.textContent = 'Resend'; }
   }
 }
 
 async function verifyOTP() {
   const otp = document.getElementById('otpInput').value.trim();
   setMsg('');
-
-  if (!otp) {
-    setMsg('Please enter the code from your email');
-    return;
-  }
-  if (otp.length !== 6) {
-    setMsg('Code must be 6 digits');
-    return;
-  }
+  if (!otp) { setMsg('Please enter the code from your email'); return; }
+  if (otp.length !== 6) { setMsg('Code must be 6 digits'); return; }
 
   setBtnLoading('verifyOtpBtn', true);
-  showLoader('Verifying code', 'Checking your verification code');
+  showLoader('Verifying code','Checking your verification code');
 
   try {
     const result = await callAuthAPI('verify_otp', forgotEmail, null, otp);
-    if (!result.ok) {
-      hideLoader();
-      setMsg(result.error || 'Verification failed');
-      setBtnLoading('verifyOtpBtn', false);
-      return;
-    }
-    verifiedOtp = otp;
-    hideLoader();
-    setBtnLoading('verifyOtpBtn', false);
-    showForgotStep3();
+    if (!result.ok) { hideLoader(); setMsg(result.error || 'Verification failed'); setBtnLoading('verifyOtpBtn', false); return; }
+    verifiedOtp = otp; hideLoader(); setBtnLoading('verifyOtpBtn', false); showForgotStep3();
   } catch (err) {
-    console.error('OTP verify error:', err);
-    hideLoader();
-    setMsg('Network error. Please try again.');
-    setBtnLoading('verifyOtpBtn', false);
+    hideLoader(); setMsg('Network error. Please try again.'); setBtnLoading('verifyOtpBtn', false);
   }
 }
 
 async function resetPassword() {
   const newPwd     = document.getElementById('newPassword').value;
   const confirmPwd = document.getElementById('confirmPassword').value;
-
   setMsg('');
-
-  if (!newPwd) {
-    setMsg('Please enter a new password');
-    return;
-  }
-  if (newPwd.length < 8) {
-    setMsg(`Password too short (${newPwd.length}/8 characters). Minimum 8 characters required.`, 'warning');
-    return;
-  }
-  if (newPwd !== confirmPwd) {
-    setMsg('Passwords do not match. Please re-enter.');
-    return;
-  }
+  if (!newPwd) { setMsg('Please enter a new password'); return; }
+  if (newPwd.length < 8) { setMsg(`Password too short (${newPwd.length}/8 characters).`,'warning'); return; }
+  if (newPwd !== confirmPwd) { setMsg('Passwords do not match.'); return; }
 
   setBtnLoading('resetBtn', true);
-  showLoader('Updating password', [
-    'Securing your new password',
-    'Finalizing the update'
-  ]);
+  showLoader('Updating password',['Securing your new password','Finalizing the update']);
 
   try {
     const result = await callAuthAPI('reset_password', forgotEmail, null, verifiedOtp, newPwd);
-    if (!result.ok) {
-      hideLoader();
-      setMsg(result.error || 'Could not reset password');
-      setBtnLoading('resetBtn', false);
-      return;
-    }
-
-    hideLoader();
-    setBtnLoading('resetBtn', false);
-    setMsg('Password reset successful! You can now sign in.', 'success');
+    if (!result.ok) { hideLoader(); setMsg(result.error || 'Could not reset password'); setBtnLoading('resetBtn', false); return; }
+    hideLoader(); setBtnLoading('resetBtn', false);
+    setMsg('Password reset successful! You can now sign in.','success');
     showToast('Password updated successfully!');
-
-    setTimeout(() => {
-      cancelForgot();
-      document.getElementById('email').value = forgotEmail;
-      document.getElementById('password').focus();
-    }, 1500);
+    setTimeout(() => { cancelForgot(); document.getElementById('email').value = forgotEmail; document.getElementById('password').focus(); }, 1500);
   } catch (err) {
-    console.error('Reset error:', err);
-    hideLoader();
-    setMsg('Network error. Please try again.');
-    setBtnLoading('resetBtn', false);
+    hideLoader(); setMsg('Network error. Please try again.'); setBtnLoading('resetBtn', false);
   }
 }
 
-/* ── Auth API ── */
 async function callAuthAPI(action, email, password, otp, newPassword) {
   const res = await fetch(AUTH_API, {
     method: 'POST',
     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify({
-      action,
-      email,
-      password: password || '',
-      otp: otp || '',
-      newPassword: newPassword || ''
-    })
+    body: JSON.stringify({ action, email, password: password || '', otp: otp || '', newPassword: newPassword || '' })
   });
-
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return await res.json();
 }
 
-/* ═══════════════════════════════════════════════
-   DATA LOADING
-   ═══════════════════════════════════════════════ */
-
 function loadSheet(gid) {
   return new Promise((resolve, reject) => {
     const cb = 'cb' + Math.random().toString(36).slice(2);
-    const timeout = setTimeout(() => {
-      delete window[cb];
-      reject(new Error('Sheet load timed out'));
-    }, 12000);
-
-    window[cb] = (j) => {
-      clearTimeout(timeout);
-      delete window[cb];
-      resolve(j.table ? j.table.rows || [] : []);
-    };
-
+    const timeout = setTimeout(() => { delete window[cb]; reject(new Error('Timed out')); }, 12000);
+    window[cb] = (j) => { clearTimeout(timeout); delete window[cb]; resolve(j.table ? j.table.rows || [] : []); };
     const s = document.createElement('script');
-    s.onerror = () => {
-      clearTimeout(timeout);
-      delete window[cb];
-      reject(new Error('Sheet load failed'));
-    };
+    s.onerror = () => { clearTimeout(timeout); delete window[cb]; reject(new Error('Load failed')); };
     s.src = `https://docs.google.com/spreadsheets/d/${SHEET}/gviz/tq?gid=${gid}&tqx=responseHandler:${cb}`;
     document.body.appendChild(s);
   });
@@ -2961,10 +3127,7 @@ function loadSheet(gid) {
 
 async function loadAllData() {
   await discoverTabs();
-  await Promise.all([
-    loadSheetData(),
-    loadDriveImages()
-  ]);
+  await Promise.all([loadSheetData(), loadDriveImages()]);
   renderCategoryCards();
 }
 
@@ -2977,27 +3140,18 @@ async function discoverTabs() {
     });
     const result = await res.json();
     if (result.ok && Array.isArray(result.tabs) && result.tabs.length) {
-      TABS = {};
-      ICONS = {};
-      CAT_NAMES = {};
+      TABS = {}; ICONS = {}; CAT_NAMES = {};
       result.tabs.forEach(t => {
         TABS[t.name] = t.gid;
         ICONS[t.name] = guessCategoryIcon(t.name);
         CAT_NAMES[t.name] = t.name;
       });
-      console.log(`✅ ${result.tabs.length} categories auto-discovered:`, Object.keys(TABS));
       return;
     }
-    throw new Error('No tabs in response');
-  } catch (err) {
-    console.warn('⚠️ Tab auto-discovery failed, using fallback list:', err);
-    TABS = { ...FALLBACK_TABS };
-    ICONS = {};
-    CAT_NAMES = {};
-    Object.keys(TABS).forEach(name => {
-      ICONS[name] = guessCategoryIcon(name);
-      CAT_NAMES[name] = name;
-    });
+    throw new Error('No tabs');
+  } catch {
+    TABS = { ...FALLBACK_TABS }; ICONS = {}; CAT_NAMES = {};
+    Object.keys(TABS).forEach(name => { ICONS[name] = guessCategoryIcon(name); CAT_NAMES[name] = name; });
   }
 }
 
@@ -3013,10 +3167,7 @@ async function loadSheetData() {
         const steps = r.c[2]?.v || '';
         products.forEach(p => db[cat].push({ product: p, issue, steps }));
       });
-    } catch (err) {
-      console.warn(`Failed loading ${cat}:`, err);
-      db[cat] = [];
-    }
+    } catch { db[cat] = []; }
   });
   await Promise.all(promises);
 }
@@ -3026,48 +3177,25 @@ async function loadDriveImages() {
     const res = await fetch(AUTH_API, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({
-        action: 'list_drive_images',
-        folderId: DRIVE_FOLDER_ID
-      })
+      body: JSON.stringify({ action: 'list_drive_images', folderId: DRIVE_FOLDER_ID })
     });
-
     const result = await res.json();
-
     if (result.ok && Array.isArray(result.files)) {
       productImageMap = {};
       result.files.forEach(file => {
-        const productName = file.name
-          .replace(/\.(png|jpg|jpeg|webp|gif|svg)$/i, '')
-          .trim();
-        productImageMap[productName] =
-          `https://drive.google.com/thumbnail?id=${file.id}&sz=w200`;
+        const productName = file.name.replace(/\.(png|jpg|jpeg|webp|gif|svg)$/i, '').trim();
+        productImageMap[productName] = `https://drive.google.com/thumbnail?id=${file.id}&sz=w200`;
       });
-      console.log(
-        `✅ ${Object.keys(productImageMap).length} product images loaded:`,
-        Object.keys(productImageMap)
-      );
     }
-  } catch (err) {
-    console.warn('⚠️ Could not load Drive images:', err);
-    productImageMap = {};
-  }
+  } catch { productImageMap = {}; }
 }
-
-/* ═══════════════════════════════════════════════
-   RENDERING
-   ═══════════════════════════════════════════════ */
 
 function renderCategoryCards() {
   const grid = document.getElementById('catGrid');
   grid.innerHTML = Object.keys(TABS).map(cat => `
     <div class="cat-card" data-cat="${esc(cat)}" onclick="selectCategory('${esc(cat)}')" tabindex="0" role="button" aria-pressed="false"
-         onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); selectCategory('${esc(cat)}'); }">
-      <div class="cat-check">
-        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="20 6 9 17 4 12"/>
-        </svg>
-      </div>
+         onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectCategory('${esc(cat)}');}">
+      <div class="cat-check"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
       <div class="cat-icon-wrap"><span class="cat-icon">${ICONS[cat] || '📦'}</span></div>
       <div class="cat-name">${esc(CAT_NAMES[cat] || cat)}</div>
     </div>
@@ -3077,33 +3205,22 @@ function renderCategoryCards() {
 function selectCategory(cat) {
   activeCategory = cat;
   activeProduct  = null;
-
   document.querySelectorAll('.cat-card').forEach(card => {
-    const selected = card.dataset.cat === cat;
-    card.classList.toggle('active', selected);
-    card.setAttribute('aria-pressed', selected ? 'true' : 'false');
+    const sel = card.dataset.cat === cat;
+    card.classList.toggle('active', sel);
+    card.setAttribute('aria-pressed', sel ? 'true' : 'false');
   });
-
   renderProductCards(cat);
-
   document.getElementById('result').innerHTML = `
     <div class="empty-hint">
       <div class="empty-hint-icon">💡</div>
       <div class="empty-hint-text">Now pick a product model and describe your issue.</div>
     </div>`;
-
-  /* ── AUTO-SCROLL: after product section expands, scroll to it ── */
-  setTimeout(() => {
-    const productSection = document.getElementById('productSection');
-    if (productSection) {
-      smoothScrollTo(productSection, 100);
-    }
-  }, 120); /* slight delay lets the CSS transition begin first */
+  setTimeout(() => smoothScrollTo(document.getElementById('productSection'), 100), 120);
 }
 
 function getProductBadge(name) {
-  const cleaned = name.replace(/[^a-zA-Z0-9\s]/g, '').trim();
-  const parts   = cleaned.split(/\s+/).filter(Boolean);
+  const parts = name.replace(/[^a-zA-Z0-9\s]/g, '').trim().split(/\s+/).filter(Boolean);
   if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
   if (parts[0]) return parts[0].slice(0, 2).toUpperCase();
   return '••';
@@ -3112,13 +3229,9 @@ function getProductBadge(name) {
 function buildProductIcon(productName) {
   const imgUrl = productImageMap[productName] || null;
   const badge  = getProductBadge(productName);
-
   if (imgUrl) {
     return {
-      html: `<img
-               src="${esc(imgUrl)}"
-               alt="${esc(productName)}"
-               loading="lazy"
+      html: `<img src="${esc(imgUrl)}" alt="${esc(productName)}" loading="lazy"
                onerror="this.parentElement.classList.remove('has-image');this.parentElement.textContent='${badge}';">`,
       hasImage: true
     };
@@ -3127,11 +3240,11 @@ function buildProductIcon(productName) {
 }
 
 function renderProductCards(cat) {
-  const section = document.getElementById('productSection');
-  const grid    = document.getElementById('productGrid');
-  const count   = document.getElementById('productCount');
-
+  const section  = document.getElementById('productSection');
+  const grid     = document.getElementById('productGrid');
+  const count    = document.getElementById('productCount');
   const products = [...new Set((db[cat] || []).map(x => x.product))].sort();
+
   count.textContent = products.length;
 
   if (!products.length) {
@@ -3143,14 +3256,10 @@ function renderProductCards(cat) {
       return `
         <div class="product-card${isActive ? ' active' : ''}" data-prod="${esc(p)}"
              style="animation-delay:${0.03 * i}s"
-             onclick="selectProduct(this, '${esc(p).replace(/'/g, "\\'")}')"
+             onclick="selectProduct(this,'${esc(p).replace(/'/g,"\\'")}')"
              tabindex="0" role="button" aria-pressed="${isActive}"
-             onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); selectProduct(this, '${esc(p).replace(/'/g, "\\\\'")}'); }">
-          <div class="product-check">
-            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"/>
-            </svg>
-          </div>
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectProduct(this,'${esc(p).replace(/'/g,"\\'")}');}">
+          <div class="product-check"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
           <div class="product-icon${hasImage ? ' has-image' : ''}">${iconHTML}</div>
           <div class="product-info">
             <div class="product-label">Model</div>
@@ -3164,46 +3273,33 @@ function renderProductCards(cat) {
         </div>`;
     }).join('');
   }
-
   section.classList.add('show');
 }
 
 function selectProduct(el, productName) {
   activeProduct = productName;
-
   document.querySelectorAll('.product-card').forEach(card => {
-    const selected = card === el;
-    card.classList.toggle('active', selected);
-    card.setAttribute('aria-pressed', selected ? 'true' : 'false');
+    const sel = card === el;
+    card.classList.toggle('active', sel);
+    card.setAttribute('aria-pressed', sel ? 'true' : 'false');
   });
-
   document.getElementById('result').innerHTML = `
     <div class="empty-hint">
       <div class="empty-hint-icon">🔍</div>
       <div class="empty-hint-text">Now describe the issue to find step-by-step guidance.</div>
     </div>`;
   currentResults = [];
-
-  /* ── AUTO-SCROLL: scroll to the issue search box ── */
   setTimeout(() => {
     const issueBox = document.getElementById('issueSearchBox');
     if (issueBox) {
       smoothScrollTo(issueBox, 100);
-      /* focus after scroll animation settles */
-      setTimeout(() => {
-        document.getElementById('search').focus();
-      }, 450);
+      setTimeout(() => document.getElementById('search').focus(), 450);
     }
   }, 100);
 }
 
-/* ═══════════════════════════════════════════════
-   UNIVERSAL PRODUCT SEARCH
-   ═══════════════════════════════════════════════ */
-
 function buildAllProductsIndex() {
-  const arr = [];
-  const seen = new Set();
+  const arr = []; const seen = new Set();
   Object.entries(db).forEach(([cat, items]) => {
     items.forEach(it => {
       const key = cat + '||' + it.product;
@@ -3217,9 +3313,7 @@ function buildAllProductsIndex() {
 
 function onUniversalSearchInput(e) {
   const v = e.target.value.trim();
-  const clearBtn = document.getElementById('universalClear');
-  clearBtn.classList.toggle('show', v.length > 0);
-
+  document.getElementById('universalClear').classList.toggle('show', v.length > 0);
   clearTimeout(universalDebounceTimer);
   universalDebounceTimer = setTimeout(() => runUniversalSearch(v), 150);
 }
@@ -3232,10 +3326,8 @@ function onUniversalSearchFocus() {
 function onUniversalSearchKey(e) {
   const dropdown = document.getElementById('universalDropdown');
   if (!dropdown.classList.contains('show')) return;
-
   const items = dropdown.querySelectorAll('.suggestion');
   if (!items.length) return;
-
   if (e.key === 'ArrowDown') {
     e.preventDefault();
     universalHighlightIndex = Math.min(universalHighlightIndex + 1, items.length - 1);
@@ -3246,38 +3338,25 @@ function onUniversalSearchKey(e) {
     updateUniversalHighlight(items);
   } else if (e.key === 'Enter') {
     e.preventDefault();
-    if (universalHighlightIndex >= 0 && universalCurrentMatches[universalHighlightIndex]) {
-      const m = universalCurrentMatches[universalHighlightIndex];
-      pickUniversalProduct(m.category, m.product);
-    } else if (universalCurrentMatches[0]) {
-      const m = universalCurrentMatches[0];
-      pickUniversalProduct(m.category, m.product);
-    }
+    const m = universalCurrentMatches[universalHighlightIndex] || universalCurrentMatches[0];
+    if (m) pickUniversalProduct(m.category, m.product);
   } else if (e.key === 'Escape') {
-    hideUniversalDropdown();
-    e.target.blur();
+    hideUniversalDropdown(); e.target.blur();
   }
 }
 
 function updateUniversalHighlight(items) {
   items.forEach((el, i) => el.classList.toggle('highlighted', i === universalHighlightIndex));
-  if (items[universalHighlightIndex]) {
-    items[universalHighlightIndex].scrollIntoView({ block: 'nearest' });
-  }
+  if (items[universalHighlightIndex]) items[universalHighlightIndex].scrollIntoView({ block: 'nearest' });
 }
 
 function runUniversalSearch(query) {
   const dropdown = document.getElementById('universalDropdown');
   universalHighlightIndex = -1;
-
-  if (!query) {
-    hideUniversalDropdown();
-    return;
-  }
+  if (!query) { hideUniversalDropdown(); return; }
 
   const q = query.toLowerCase();
   const index = buildAllProductsIndex();
-
   const scored = index.map(item => {
     let score = 0;
     if (item.lowName === q) score = 1000;
@@ -3285,34 +3364,22 @@ function runUniversalSearch(query) {
     else if (item.lowName.includes(q)) score = 200;
     else {
       const qWords = q.split(/\s+/).filter(Boolean);
-      const nameWords = item.lowName.split(/\s+/);
       let hits = 0;
-      qWords.forEach(qw => {
-        if (nameWords.some(nw => nw.startsWith(qw))) hits++;
-      });
+      qWords.forEach(qw => { if (item.lowName.split(/\s+/).some(nw => nw.startsWith(qw))) hits++; });
       if (hits > 0) score = hits * 50;
     }
     return { ...item, score };
-  }).filter(x => x.score > 0)
-    .sort((a, b) => b.score - a.score)
-    .slice(0, 12);
+  }).filter(x => x.score > 0).sort((a, b) => b.score - a.score).slice(0, 12);
 
   universalCurrentMatches = scored;
 
   if (!scored.length) {
-    dropdown.innerHTML = `
-      <div class="suggestion-empty">
-        <span class="suggestion-empty-icon">🔎</span>
-        No products match "<strong>${esc(query)}</strong>"<br>
-        <span style="font-size:11px;opacity:.7">Try a different keyword or pick from categories above</span>
-      </div>`;
-    dropdown.classList.add('show');
-    return;
+    dropdown.innerHTML = `<div class="suggestion-empty"><span class="suggestion-empty-icon">🔎</span>No products match "<strong>${esc(query)}</strong>"</div>`;
+    dropdown.classList.add('show'); return;
   }
 
   const highlight = (name) => {
-    const lc = name.toLowerCase();
-    const idx = lc.indexOf(q);
+    const lc = name.toLowerCase(); const idx = lc.indexOf(q);
     if (idx === -1) return esc(name);
     return esc(name.slice(0, idx)) + '<mark>' + esc(name.slice(idx, idx + q.length)) + '</mark>' + esc(name.slice(idx + q.length));
   };
@@ -3320,25 +3387,18 @@ function runUniversalSearch(query) {
   dropdown.innerHTML = `<div class="suggestion-header">${scored.length} match${scored.length === 1 ? '' : 'es'} across categories</div>` +
     scored.map((s, i) => {
       const imgUrl = productImageMap[s.product] || null;
-      const badge = getProductBadge(s.product);
+      const badge  = getProductBadge(s.product);
       const iconHTML = imgUrl
         ? `<img src="${esc(imgUrl)}" alt="${esc(s.product)}" loading="lazy" onerror="this.outerHTML='${badge}'">`
         : badge;
-      const catIcon = ICONS[s.category] || '📦';
       return `
-        <div class="suggestion" data-i="${i}" onclick="pickUniversalProduct('${esc(s.category).replace(/'/g, "\\'")}', '${esc(s.product).replace(/'/g, "\\'")}')">
+        <div class="suggestion" data-i="${i}" onclick="pickUniversalProduct('${esc(s.category).replace(/'/g,"\\'")}','${esc(s.product).replace(/'/g,"\\'")}')">
           <div class="suggestion-icon">${iconHTML}</div>
           <div class="suggestion-info">
             <div class="suggestion-name">${highlight(s.product)}</div>
-            <div class="suggestion-cat">
-              <span class="suggestion-cat-icon">${catIcon}</span> ${esc(CAT_NAMES[s.category] || s.category)}
-            </div>
+            <div class="suggestion-cat"><span class="suggestion-cat-icon">${ICONS[s.category] || '📦'}</span> ${esc(CAT_NAMES[s.category] || s.category)}</div>
           </div>
-          <div class="suggestion-arrow">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </div>
+          <div class="suggestion-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
         </div>`;
     }).join('');
 
@@ -3346,8 +3406,7 @@ function runUniversalSearch(query) {
 }
 
 function hideUniversalDropdown() {
-  const dropdown = document.getElementById('universalDropdown');
-  dropdown.classList.remove('show');
+  document.getElementById('universalDropdown').classList.remove('show');
   universalHighlightIndex = -1;
 }
 
@@ -3361,267 +3420,131 @@ function clearUniversalSearch() {
 
 function pickUniversalProduct(category, productName) {
   activeCategory = category;
-  activeProduct = productName;
-
-  /* Highlight the correct category card */
+  activeProduct  = productName;
   document.querySelectorAll('.cat-card').forEach(card => {
-    const selected = card.dataset.cat === category;
-    card.classList.toggle('active', selected);
-    card.setAttribute('aria-pressed', selected ? 'true' : 'false');
+    const sel = card.dataset.cat === category;
+    card.classList.toggle('active', sel);
+    card.setAttribute('aria-pressed', sel ? 'true' : 'false');
   });
-
-  /* Render products (active product will be pre-highlighted) */
   renderProductCards(category);
-
-  /* Clear universal search */
   hideUniversalDropdown();
-  const input = document.getElementById('universalSearch');
-  input.value = '';
+  document.getElementById('universalSearch').value = '';
   document.getElementById('universalClear').classList.remove('show');
-
-  /* Reset result area */
   document.getElementById('result').innerHTML = `
     <div class="empty-hint">
       <div class="empty-hint-icon">🔍</div>
       <div class="empty-hint-text">Now describe the issue to find step-by-step guidance.</div>
     </div>`;
   currentResults = [];
-
-  /* ── AUTO-SCROLL: scroll to issue search box ── */
   setTimeout(() => {
     const issueBox = document.getElementById('issueSearchBox');
-    if (issueBox) {
-      smoothScrollTo(issueBox, 100);
-      setTimeout(() => {
-        document.getElementById('search').focus();
-      }, 450);
-    }
+    if (issueBox) { smoothScrollTo(issueBox, 100); setTimeout(() => document.getElementById('search').focus(), 450); }
   }, 280);
-
   showToast(`Selected: ${productName}`);
 }
 
-// Close dropdown when clicking outside
 document.addEventListener('click', (e) => {
   const wrap = document.querySelector('.universal-search-wrap');
-  if (wrap && !wrap.contains(e.target)) {
-    hideUniversalDropdown();
-  }
+  if (wrap && !wrap.contains(e.target)) hideUniversalDropdown();
 });
-
-/* ═══════════════════════════════════════════════
-   AUTH (with loading overlay)
-   ═══════════════════════════════════════════════ */
 
 async function login() {
   const e = document.getElementById('email').value.trim().toLowerCase();
   const p = document.getElementById('password').value;
-
   setMsg('');
+  if (!e) { setMsg('Please enter your email address'); return; }
+  if (!isEmailAllowed(e)) { setMsg('Only @crossbeats.com emails are permitted.'); return; }
+  if (!p) { setMsg('Please enter your password'); return; }
 
-  if (!e) {
-    setMsg('Please enter your email address');
-    return;
-  }
-  if (!isEmailAllowed(e)) {
-    setMsg('This email is not allowed to sign in. Only @crossbeats.com emails are permitted.');
-    return;
-  }
-  if (!p) {
-    setMsg('Please enter your password');
-    return;
-  }
-
-  /* Developer bypass */
   if (e === DEV) {
     setBtnLoading('loginBtn', true);
-    showLoader('Signing you in', [
-      'Authenticating',
-      'Discovering categories',
-      'Loading product catalog',
-      'Fetching product images',
-      'Setting up your workspace'
-    ]);
-    try {
-      await loadAllData();
-      hideLoader();
-      setBtnLoading('loginBtn', false);
-      enterDashboard(e);
-    } catch (err) {
-      console.error('Dev auth error:', err);
-      hideLoader();
-      setMsg('Could not load data. Check your connection and try again.');
-      setBtnLoading('loginBtn', false);
-    }
+    showLoader('Signing you in', ['Authenticating','Discovering categories','Loading product catalog','Fetching product images','Setting up your workspace']);
+    try { await loadAllData(); hideLoader(); setBtnLoading('loginBtn', false); enterDashboard(e); }
+    catch (err) { hideLoader(); setMsg('Could not load data. Check your connection.'); setBtnLoading('loginBtn', false); }
     return;
   }
 
   const validation = validatePassword(p);
-  if (!validation.valid) {
-    setMsg(validation.message, 'warning');
-    return;
-  }
+  if (!validation.valid) { setMsg(validation.message, 'warning'); return; }
 
   setBtnLoading('loginBtn', true);
-  showLoader('Signing you in', [
-    'Verifying your credentials',
-    'Authenticating securely',
-    'Discovering categories',
-    'Loading product catalog',
-    'Fetching product images',
-    'Setting up your workspace'
-  ]);
-
+  showLoader('Signing you in', ['Verifying your credentials','Discovering categories','Loading product catalog','Fetching product images','Setting up your workspace']);
   try {
     const result = await callAuthAPI('login', e, p);
-    if (!result.ok) {
-      hideLoader();
-      setMsg(result.error || 'Login failed');
-      setBtnLoading('loginBtn', false);
-      return;
-    }
-    await loadAllData();
-    hideLoader();
-    setBtnLoading('loginBtn', false);
-    enterDashboard(e);
+    if (!result.ok) { hideLoader(); setMsg(result.error || 'Login failed'); setBtnLoading('loginBtn', false); return; }
+    await loadAllData(); hideLoader(); setBtnLoading('loginBtn', false); enterDashboard(e);
   } catch (err) {
-    console.error('Auth error:', err);
-    hideLoader();
-    setMsg('Could not verify credentials. Check your connection and try again.');
-    setBtnLoading('loginBtn', false);
+    hideLoader(); setMsg('Could not verify credentials. Check your connection.'); setBtnLoading('loginBtn', false);
   }
 }
 
 async function signup() {
   const e = document.getElementById('signupEmail').value.trim().toLowerCase();
   const p = document.getElementById('signupPassword').value;
-
   setMsg('');
-
-  if (!e) {
-    setMsg('Please enter your email address');
-    return;
-  }
-  if (!isEmailAllowed(e)) {
-    setMsg('This email is not allowed to sign up. Only @crossbeats.com emails are permitted.');
-    return;
-  }
-  if (!p) {
-    setMsg('Please choose a password');
-    return;
-  }
+  if (!e) { setMsg('Please enter your email address'); return; }
+  if (!isEmailAllowed(e)) { setMsg('Only @crossbeats.com emails are permitted.'); return; }
+  if (!p) { setMsg('Please choose a password'); return; }
 
   const validation = validatePassword(p);
-  if (!validation.valid) {
-    setMsg(validation.message, 'warning');
-    return;
-  }
+  if (!validation.valid) { setMsg(validation.message, 'warning'); return; }
 
   setBtnLoading('signupBtn', true);
-  showLoader('Creating your account', [
-    'Setting up your profile',
-    'Securing your credentials',
-    'Loading the support portal',
-    'Almost ready'
-  ]);
-
+  showLoader('Creating your account', ['Setting up your profile','Securing your credentials','Loading the support portal','Almost ready']);
   try {
     const result = await callAuthAPI('signup', e, p);
-    if (!result.ok) {
-      hideLoader();
-      setMsg(result.error || 'Sign up failed');
-      setBtnLoading('signupBtn', false);
-      return;
-    }
-    await loadAllData();
-    hideLoader();
-    setBtnLoading('signupBtn', false);
-    setMsg('Account created! Welcome aboard.', 'success');
+    if (!result.ok) { hideLoader(); setMsg(result.error || 'Sign up failed'); setBtnLoading('signupBtn', false); return; }
+    await loadAllData(); hideLoader(); setBtnLoading('signupBtn', false);
+    setMsg('Account created! Welcome aboard.','success');
     setTimeout(() => enterDashboard(e), 500);
   } catch (err) {
-    console.error('Signup error:', err);
-    hideLoader();
-    setMsg('Could not create account. Check your connection and try again.');
-    setBtnLoading('signupBtn', false);
+    hideLoader(); setMsg('Could not create account. Check your connection.'); setBtnLoading('signupBtn', false);
   }
 }
 
 function enterDashboard(email) {
-  const isDev   = email === DEV;
-  const name    = isDev ? 'Developer' : email.split('@')[0];
+  const isDev  = email === DEV;
+  const name   = isDev ? 'Developer' : email.split('@')[0];
   const initial = isDev ? 'D' : email.charAt(0).toUpperCase();
-
   document.getElementById('welcomeName').textContent  = name;
   document.getElementById('topbarAvatar').textContent = initial;
   document.getElementById('loginView').classList.add('hidden');
   document.getElementById('dashView').classList.remove('hidden');
   sessionStorage.setItem('cb_user', email);
-
-  activeCategory = null;
-  activeProduct  = null;
-  currentResults = [];
+  activeCategory = null; activeProduct = null; currentResults = [];
   document.getElementById('search').value = '';
   document.getElementById('universalSearch').value = '';
   document.getElementById('universalClear').classList.remove('show');
   document.getElementById('productSection').classList.remove('show');
-
-  /* Scroll to top of page when entering dashboard */
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function logout() {
   sessionStorage.removeItem('cb_user');
-
-  hideLoader();
-  resetAllAuthButtons();
-
+  hideLoader(); resetAllAuthButtons();
   document.getElementById('dashView').classList.add('hidden');
   document.getElementById('loginView').classList.remove('hidden');
-
-  ['email', 'password', 'signupEmail', 'signupPassword',
-   'forgotEmail', 'otpInput', 'newPassword', 'confirmPassword',
-   'universalSearch', 'search']
-    .forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.value = '';
-    });
-
-  const ucb = document.getElementById('universalClear');
-  if (ucb) ucb.classList.remove('show');
+  ['email','password','signupEmail','signupPassword','forgotEmail','otpInput',
+   'newPassword','confirmPassword','universalSearch','search']
+    .forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  document.getElementById('universalClear').classList.remove('show');
   hideUniversalDropdown();
-
   document.getElementById('result').innerHTML = `
     <div class="empty-hint">
       <div class="empty-hint-icon">💡</div>
-      <div class="empty-hint-text">Choose a category and product above, then describe the issue to see step-by-step resolution guidance.</div>
+      <div class="empty-hint-text">Choose a category and product above, then describe the issue.</div>
     </div>`;
-
   document.getElementById('productSection').classList.remove('show');
-  setMsg('');
-  switchTab('signin');
-
-  db = {};
-  TABS = {};
-  ICONS = {};
-  CAT_NAMES = {};
-  activeCategory = null;
-  activeProduct  = null;
-  currentResults = [];
-  forgotEmail    = '';
-  verifiedOtp    = '';
-  productImageMap = {};
-
-  /* Scroll back to top after logout */
+  setMsg(''); switchTab('signin');
+  db = {}; TABS = {}; ICONS = {}; CAT_NAMES = {};
+  activeCategory = null; activeProduct = null; currentResults = [];
+  forgotEmail = ''; verifiedOtp = ''; productImageMap = {};
+  lastAiCategory = null; lastAiProduct = null; lastAiIssue = null;
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-/* ═══════════════════════════════════════════════
-   STEP PARSING
-   ═══════════════════════════════════════════════ */
-
 function parseSteps(raw) {
   if (!raw) return [];
-
   const text = String(raw).replace(/\r\n?/g, '\n').trim();
   const stepMarker = /^[\s]*(?:(?:step\s+)?\d+[\.\):\-]\s+|[•\*►◆◇▪▫]\s+|[-]\s{2,})/i;
   const lines = text.split('\n');
@@ -3630,74 +3553,45 @@ function parseSteps(raw) {
 
   if (useMarkers) {
     const stripMarker = /^[\s]*(?:(?:step\s+)?\d+[\.\):\-]\s*|[•\*►◆◇▪▫]\s*|[-]\s{2,})/i;
-    const steps = [];
-    let current = null;
-
+    const steps = []; let current = null;
     for (const line of lines) {
       const trimmed = line.trim();
       if (!trimmed) continue;
       if (stepMarker.test(line)) {
         if (current) steps.push(current.trim());
         current = line.replace(stripMarker, '').trim();
-      } else if (current !== null) {
-        current += ' ' + trimmed;
-      } else {
-        current = trimmed;
-      }
+      } else if (current !== null) { current += ' ' + trimmed; }
+      else { current = trimmed; }
     }
     if (current) steps.push(current.trim());
     return steps.filter(s => s.length > 1);
   }
 
-  const joined = [];
-  let buffer = '';
-
+  const joined = []; let buffer = '';
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim();
-    if (!line) {
-      if (buffer) { joined.push(buffer.trim()); buffer = ''; }
-      continue;
-    }
-    if (/^https?:\/\/\S+$/i.test(line)) {
-      if (buffer) { joined.push(buffer.trim()); buffer = ''; }
-      joined.push(line);
-      continue;
-    }
-    if (!buffer) {
-      buffer = line;
-    } else {
+    if (!line) { if (buffer) { joined.push(buffer.trim()); buffer = ''; } continue; }
+    if (/^https?:\/\/\S+$/i.test(line)) { if (buffer) { joined.push(buffer.trim()); buffer = ''; } joined.push(line); continue; }
+    if (!buffer) { buffer = line; }
+    else {
       const endsSentence = /[.!?:]\s*$/.test(buffer);
       const startsNewSentence = /^[A-Z]/.test(line);
-      if (endsSentence && startsNewSentence) {
-        joined.push(buffer.trim());
-        buffer = line;
-      } else {
-        buffer += ' ' + line;
-      }
+      if (endsSentence && startsNewSentence) { joined.push(buffer.trim()); buffer = line; }
+      else { buffer += ' ' + line; }
     }
   }
   if (buffer) joined.push(buffer.trim());
 
   const final = [];
   for (const para of joined) {
-    if (/^https?:\/\/\S+$/i.test(para) || para.length < 80) {
-      final.push(para);
-      continue;
-    }
+    if (/^https?:\/\/\S+$/i.test(para) || para.length < 80) { final.push(para); continue; }
     const sentences = para.match(/[^.!?]+[.!?]+(?:\s|$)|[^.!?]+$/g);
     if (sentences && sentences.length > 1) {
       sentences.forEach(s => { const t = s.trim(); if (t.length > 3) final.push(t); });
-    } else {
-      final.push(para);
-    }
+    } else { final.push(para); }
   }
-
   return final.filter(s => s.length > 1);
 }
-
-/* ═══════════════════════════════════════════════
-   SEARCH & RESULTS
-   ═══════════════════════════════════════════════ */
 
 function debouncedFind() {
   clearTimeout(debounceTimer);
@@ -3712,46 +3606,31 @@ function findSolution() {
   const prodVal  = activeProduct;
   const resultEl = document.getElementById('result');
 
-  if (!cat) {
-    resultEl.innerHTML = noResultHTML('Please pick a category card first.');
-    return;
-  }
-  if (!prodVal) {
-    resultEl.innerHTML = noResultHTML('Please select a product model.');
-    return;
-  }
-  if (!keywords.length) {
-    resultEl.innerHTML = noResultHTML('Please describe the issue you are facing.');
-    return;
-  }
+  if (!cat)     { resultEl.innerHTML = noResultHTML('Please pick a category card first.'); return; }
+  if (!prodVal) { resultEl.innerHTML = noResultHTML('Please select a product model.'); return; }
+  if (!keywords.length) { resultEl.innerHTML = noResultHTML('Please describe the issue you are facing.'); return; }
 
   const data = (db[cat] || []).filter(x => x.product === prodVal);
   if (!data.length) {
-    resultEl.innerHTML = noResultHTML('No data found for this product.');
+    triggerAI(cat, prodVal, raw);
     return;
   }
 
   const phraseWords = phrase.split(/\s+/).filter(Boolean);
-
   const scored = data.map(x => {
     const issText  = clean(x.issue);
     const stpText  = clean(x.steps);
     const issWords = issText.split(/\s+/).filter(Boolean);
     const stpWords = new Set(stpText.split(/\s+/));
     const issWordsSet = new Set(issWords);
-
-    let score = 0;
-    let matchedCount = 0;
+    let score = 0; let matchedCount = 0;
 
     keywords.forEach(w => {
-      const boost = BOOST_WORDS[w] || 1;
-      let wordMatched = false;
-
-      if (issWordsSet.has(w))       { score += 30 * boost; wordMatched = true; }
+      const boost = BOOST_WORDS[w] || 1; let wordMatched = false;
+      if (issWordsSet.has(w)) { score += 30 * boost; wordMatched = true; }
       else if (issText.includes(w)) { score += 18 * boost; wordMatched = true; }
-      if (stpWords.has(w))          { score += 8 * boost; wordMatched = true; }
+      if (stpWords.has(w)) { score += 8 * boost; wordMatched = true; }
       else if (stpText.includes(w)) { score += 4 * boost; wordMatched = true; }
-
       if (wordMatched) matchedCount++;
     });
 
@@ -3763,16 +3642,10 @@ function findSolution() {
       const phraseRatio = phrase.length / issText.length;
       score += phraseRatio * 250;
       if (issText === phrase) score += 500;
-
       const extraWords = issWords.length - phraseWords.length;
-      if (extraWords >= 0 && extraWords <= 1 && issWords.length <= phraseWords.length + 1) {
-        score += 200;
-      }
-      if (issWords.length > phraseWords.length + 3) {
-        score -= (issWords.length - phraseWords.length - 3) * 8;
-      }
+      if (extraWords >= 0 && extraWords <= 1 && issWords.length <= phraseWords.length + 1) score += 200;
+      if (issWords.length > phraseWords.length + 3) score -= (issWords.length - phraseWords.length - 3) * 8;
     }
-
     if (phrase && stpText.includes(phrase)) score += 40;
 
     return { item: x, score, matchedCount };
@@ -3782,8 +3655,7 @@ function findSolution() {
   validResults.sort((a, b) => b.score - a.score);
 
   if (!validResults.length) {
-    resultEl.innerHTML = noResultHTML('Try different keywords or select another product model.');
-    currentResults = [];
+    triggerAI(cat, prodVal, raw);
     return;
   }
 
@@ -3794,7 +3666,6 @@ function findSolution() {
 function renderResult(activeIndex) {
   const resultEl = document.getElementById('result');
   if (!currentResults.length) return;
-
   const top   = currentResults[activeIndex];
   const x     = top.item;
   const steps = parseSteps(x.steps);
@@ -3807,10 +3678,7 @@ function renderResult(activeIndex) {
       <div class="step-text">${escAndLink(s)}</div>
     </div>`).join('');
 
-  const recommendations = currentResults
-    .map((r, idx) => ({ ...r, idx }))
-    .filter(r => r.idx !== activeIndex);
-
+  const recommendations = currentResults.map((r, idx) => ({ ...r, idx })).filter(r => r.idx !== activeIndex);
   const recommendHTML = buildRecommendHTML(recommendations);
 
   resultEl.innerHTML = `
@@ -3819,9 +3687,7 @@ function renderResult(activeIndex) {
         <div class="result-icon">${icon}</div>
         <div>
           <div class="best-match-badge">
-            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
             Best Match
           </div>
           <div class="result-product">${esc(x.product)}</div>
@@ -3844,18 +3710,12 @@ function renderResult(activeIndex) {
     </div>
     ${recommendHTML}
   `;
-
-  /* ── AUTO-SCROLL: scroll result card into view ── */
-  setTimeout(() => {
-    smoothScrollTo(resultEl, 90);
-  }, 80);
+  setTimeout(() => smoothScrollTo(resultEl, 90), 80);
 }
 
 function buildRecommendHTML(recs) {
   if (!recs.length) return '';
-
   const maxScore = currentResults[0].score;
-
   const items = recs.slice(0, 8).map(r => {
     const pct = Math.round((r.score / maxScore) * 100);
     return `
@@ -3863,24 +3723,15 @@ function buildRecommendHTML(recs) {
         <div class="recommend-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"/>
-            <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/>
-            <path d="M12 17h.01"/>
+            <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>
           </svg>
         </div>
         <div class="recommend-content">
-          <div class="recommend-label">
-            <span>Related Issue</span>
-            <span class="recommend-score">${pct}%</span>
-          </div>
+          <div class="recommend-label"><span>Related Issue</span><span class="recommend-score">${pct}%</span></div>
           <div class="recommend-text">${esc(r.item.issue)}</div>
         </div>
-        <div class="recommend-arrow">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </div>
-      </button>
-    `;
+        <div class="recommend-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </button>`;
   }).join('');
 
   return `
@@ -3893,8 +3744,7 @@ function buildRecommendHTML(recs) {
       </div>
       <div class="recommend-sub">Other related issues matched your search. Click any to view its resolution steps.</div>
       <div class="recommend-list">${items}</div>
-    </div>
-  `;
+    </div>`;
 }
 
 function noResultHTML(sub) {
@@ -3909,19 +3759,247 @@ function noResultHTML(sub) {
 }
 
 function copySteps() {
-  const steps = document.querySelectorAll('.step-text');
+  const steps = document.querySelectorAll('.step-text, .ai-step-text');
   if (!steps.length) return;
-
   const text = Array.from(steps).map((s, i) => `${i + 1}. ${s.textContent}`).join('\n');
-
   navigator.clipboard.writeText(text)
     .then(() => showToast('Resolution steps copied!'))
     .catch(() => showToast('Copy failed — try manually'));
 }
 
-/* ═══════════════════════════════════════════════
-   INIT
-   ═══════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════
+   GROQ AI ENGINE — Fast & reliable
+   ═══════════════════════════════════════════════════════════ */
+
+function buildAIContext(category, product) {
+  const entries = (db[category] || []).filter(x => x.product === product);
+  const catEntries = (db[category] || []).slice(0, 20);
+
+  let knowledgeBlock = '';
+
+  if (entries.length > 0) {
+    knowledgeBlock += `\nKnown issues and resolutions for ${product}:\n`;
+    entries.forEach((e, i) => {
+      if (e.issue && e.steps) {
+        knowledgeBlock += `\nIssue ${i + 1}: ${e.issue}\nResolution: ${e.steps}\n`;
+      }
+    });
+  }
+
+  if (catEntries.length > 0) {
+    knowledgeBlock += `\nAdditional ${category} troubleshooting context:\n`;
+    catEntries.slice(0, 10).forEach((e) => {
+      if (e.issue && e.steps && e.product !== product) {
+        knowledgeBlock += `- ${e.product}: ${e.issue} → ${e.steps.split('\n')[0]}\n`;
+      }
+    });
+  }
+
+  return knowledgeBlock;
+}
+
+async function triggerAI(category, product, issueText) {
+  const resultEl = document.getElementById('result');
+
+  lastAiCategory = category;
+  lastAiProduct  = product;
+  lastAiIssue    = issueText;
+
+  resultEl.innerHTML = `
+    <div class="ai-loading-card">
+      <div class="ai-loader-wrap">
+        <div class="ai-loader-ring"></div>
+        <div class="ai-loader-ring"></div>
+        <div class="ai-loader-ring"></div>
+        <div class="ai-loader-core">✦</div>
+      </div>
+      <div class="ai-loading-title">AI is thinking…</div>
+      <div class="ai-loading-sub">No exact match found in the database. Our AI is analyzing all known ${esc(category)} troubleshooting data to generate a custom solution for your <strong style="color:var(--ai-bright)">${esc(product)}</strong>.</div>
+      <div class="ai-typing-bar"><span></span><span></span><span></span></div>
+    </div>`;
+
+  setTimeout(() => smoothScrollTo(resultEl, 90), 80);
+
+  try {
+    const context = buildAIContext(category, product);
+    const catName = CAT_NAMES[category] || category;
+
+    const systemPrompt = `You are an expert Crossbeats support technician. Crossbeats makes consumer electronics: projectors, soundbars, TWS earbuds, audio products, lapel mics, smart watches, dash cameras, and more.
+
+Your job: give clear, accurate, step-by-step troubleshooting guidance.
+
+STRICT RULES:
+- Respond with ONLY numbered steps (1. 2. 3. etc.) — nothing else
+- Each step must be concise but actionable (1-2 short sentences)
+- Provide between 4 and 7 steps
+- NO introduction, NO conclusion, NO explanation outside the steps
+- Never say "I" or "As an AI"
+- Focus on practical fixes a support agent can walk a customer through
+- Always mention factory reset only as a LAST resort step
+- Use the knowledge base below as your primary reference
+
+KNOWLEDGE BASE:
+${context}`;
+
+    const userMessage = `Product: ${product}
+Category: ${catName}
+Customer's reported issue: ${issueText}
+
+Generate numbered troubleshooting steps for this exact issue now.`;
+
+    const response = await fetch(GROQ_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${GROQ_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: GROQ_MODEL,
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user',   content: userMessage }
+        ],
+        temperature: 0.6,
+        max_tokens: 800,
+        top_p: 0.9
+      })
+    });
+
+    if (!response.ok) {
+      const errBody = await response.text();
+      console.error('Groq API error:', response.status, errBody);
+      throw new Error(`Groq API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const aiText = data.choices?.[0]?.message?.content || '';
+
+    console.log('✅ Groq AI Response:', aiText);
+
+    if (!aiText || aiText.trim().length < 20) throw new Error('Empty AI response');
+
+    renderAIResult(category, product, issueText, aiText.trim());
+
+  } catch (err) {
+    console.error('AI error:', err);
+    renderAIError(category, product, issueText);
+  }
+}
+
+function renderAIResult(category, product, issueText, rawText) {
+  const resultEl = document.getElementById('result');
+  const steps    = parseAISteps(rawText);
+  const catIcon  = ICONS[category] || '📦';
+
+  if (!steps.length) {
+    renderAIError(category, product, issueText);
+    return;
+  }
+
+  const stepsHTML = steps.map((s, i) => `
+    <div class="ai-step">
+      <div class="ai-step-num">${i + 1}</div>
+      <div class="ai-step-text">${escAndLink(s)}</div>
+    </div>`).join('');
+
+  resultEl.innerHTML = `
+    <div class="ai-result-card">
+      <div class="ai-header">
+        <div class="ai-icon-wrap">${catIcon}</div>
+        <div>
+          <div class="ai-badge">
+            <div class="ai-badge-dot"></div>
+            ✦ AI Generated Response
+          </div>
+          <div class="ai-product-name">${esc(product)}</div>
+          <div class="ai-issue-tag">${esc(issueText)}</div>
+        </div>
+      </div>
+
+      <div class="ai-steps-section">
+        <div class="ai-steps-label">AI-Suggested Resolution Steps</div>
+        ${stepsHTML}
+      </div>
+
+      <div class="ai-disclaimer">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 8v4M12 16h.01"/>
+        </svg>
+        <span>This response was <strong>generated by AI (Groq · Llama 3.3)</strong> because no exact match was found in the Crossbeats knowledge base. Steps are based on general product knowledge and similar troubleshoots. Verify before sharing with customers.</span>
+      </div>
+
+      <div class="ai-copy-row">
+        <button class="btn-ghost-ai" onclick="copySteps()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2"/>
+            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+          </svg>
+          Copy AI Steps
+        </button>
+      </div>
+    </div>`;
+
+  setTimeout(() => smoothScrollTo(resultEl, 90), 80);
+}
+
+function renderAIError(category, product, issueText) {
+  const resultEl = document.getElementById('result');
+  resultEl.innerHTML = `
+    <div class="ai-error-card">
+      <div class="ai-error-icon">🤖</div>
+      <div class="ai-error-title">AI Unavailable</div>
+      <div class="ai-error-sub">
+        No troubleshoot was found in the database and the AI assistant could not be reached right now.
+        This may be a temporary network issue. Please try again or rephrase your issue description.
+      </div>
+      <button class="ai-retry-btn" onclick="triggerAI('${esc(category).replace(/'/g,"\\'")}','${esc(product).replace(/'/g,"\\'")}','${esc(issueText).replace(/'/g,"\\'")}')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="23 4 23 10 17 10"/>
+          <path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/>
+        </svg>
+        Retry AI
+      </button>
+    </div>`;
+  setTimeout(() => smoothScrollTo(resultEl, 90), 80);
+}
+
+function parseAISteps(raw) {
+  if (!raw) return [];
+  const lines = raw.replace(/\r\n?/g, '\n').split('\n');
+  const steps  = [];
+
+  const numberedPattern = /^\s*\d+[\.\)]\s+(.+)/;
+  const bulletPattern   = /^\s*[•\*\-►▪]\s+(.+)/;
+
+  let buffer = null;
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed) { if (buffer) { steps.push(buffer); buffer = null; } continue; }
+
+    const numMatch    = numberedPattern.exec(line);
+    const bulletMatch = bulletPattern.exec(line);
+
+    if (numMatch || bulletMatch) {
+      if (buffer) steps.push(buffer);
+      buffer = (numMatch ? numMatch[1] : bulletMatch[1]).trim();
+    } else if (buffer !== null) {
+      buffer += ' ' + trimmed;
+    } else {
+      if (trimmed.length > 15) steps.push(trimmed);
+    }
+  }
+
+  if (buffer) steps.push(buffer);
+
+  if (!steps.length && raw.trim().length > 30) {
+    const sentences = raw.match(/[^.!?]+[.!?]+(?:\s|$)|[^.!?]+$/g) || [];
+    sentences.forEach(s => { const t = s.trim(); if (t.length > 15) steps.push(t); });
+  }
+
+  return steps.filter(s => s.length > 5).slice(0, 8);
+}
 
 window.addEventListener('DOMContentLoaded', async () => {
   const subtitleEl = document.getElementById('loadingSubtitleText');
@@ -3929,20 +4007,12 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   const saved = sessionStorage.getItem('cb_user');
   if (saved) {
-    showLoader('Welcome back', [
-      'Restoring your session',
-      'Discovering categories',
-      'Loading product catalog',
-      'Fetching product images'
-    ]);
+    showLoader('Welcome back', ['Restoring your session','Discovering categories','Loading product catalog','Fetching product images']);
     try {
-      await loadAllData();
-      hideLoader();
-      enterDashboard(saved);
+      await loadAllData(); hideLoader(); enterDashboard(saved);
     } catch (e) {
       console.error('Session restore failed:', e);
-      hideLoader();
-      sessionStorage.removeItem('cb_user');
+      hideLoader(); sessionStorage.removeItem('cb_user');
     }
   }
 });
@@ -3950,10 +4020,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && !document.getElementById('dashView').classList.contains('hidden')) {
     const search = document.getElementById('search');
-    if (document.activeElement === search) {
-      search.blur();
-      e.preventDefault();
-    }
+    if (document.activeElement === search) { search.blur(); e.preventDefault(); }
   }
 });
 </script>
