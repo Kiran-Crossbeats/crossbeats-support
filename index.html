@@ -13,10 +13,6 @@
   inherits: false;
 }
 
-@keyframes rotateGradient {
-  to { --angle: 360deg; }
-}
-
 :root {
   --bg: #050505;
   --surface: #0c0c0e;
@@ -560,7 +556,6 @@ body::after {
   font-weight: 500;
   cursor: pointer;
   transition: border-color .25s ease, color .25s ease, background .25s ease, transform .25s ease;
-  margin-top: 16px;
   width: 100%;
 }
 
@@ -716,7 +711,7 @@ body::after {
   margin-top: 1px;
 }
 
-.topbar-right { display: flex; align-items: center; gap: 12px; }
+.topbar-right { display: flex; align-items: center; gap: 10px; }
 
 .pill {
   display: inline-flex;
@@ -741,61 +736,27 @@ body::after {
   animation: pulse 2s infinite;
 }
 
-/* ── TOPBAR SYNC DATA BUTTON ── */
-.sync-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
+.sync-btn, .logout-btn {
   background: rgba(255,255,255,.02);
   border: 1.5px solid var(--border);
   color: var(--muted2);
   border-radius: var(--r-sm);
   padding: 9px 14px;
-  font-size: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
-  transition: border-color .25s ease, color .25s ease, background .25s ease, transform .25s ease;
-}
-
-:root.light .sync-btn {
-  background: rgba(0,0,0,.03);
-}
-
-.sync-btn:hover {
-  border-color: rgba(255,106,0,.45);
-  color: var(--accent);
-  background: rgba(255,106,0,.06);
-  transform: translateY(-1px);
-}
-
-.sync-btn svg {
-  width: 14px;
-  height: 14px;
-  transition: transform .5s ease;
-}
-
-.sync-btn.spinning svg {
-  animation: spin .8s linear infinite;
-}
-
-.logout-btn {
-  background: rgba(255,255,255,.02);
-  border: 1.5px solid var(--border);
-  color: var(--muted2);
-  border-radius: var(--r-sm);
-  padding: 9px 17px;
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
   font-family: 'DM Sans', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   transition: border-color .25s ease, color .25s ease, background .25s ease;
 }
 
-:root.light .logout-btn {
+:root.light .sync-btn, :root.light .logout-btn {
   background: rgba(0,0,0,.03);
 }
 
+.sync-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(255,106,0,.06); }
 .logout-btn:hover { border-color: var(--danger); color: var(--danger); background: rgba(255,77,77,.06); }
 
 .search-panel {
@@ -842,84 +803,6 @@ body::after {
   margin-bottom: 26px;
   font-weight: 300;
   line-height: 1.5;
-}
-
-/* ── ACTIVE SELECTION BREADCRUMB BAR ── */
-.active-breadcrumb {
-  position: sticky;
-  top: 14px;
-  z-index: 45;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 11px 16px;
-  margin-bottom: 22px;
-  background: rgba(18,18,22,.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,106,0,.3);
-  border-radius: var(--r);
-  box-shadow: 0 10px 30px rgba(0,0,0,.45), 0 0 20px rgba(255,106,0,.08);
-  animation: fadeUp .3s var(--ease) both;
-}
-
-:root.light .active-breadcrumb {
-  background: rgba(255,255,255,.94);
-  box-shadow: 0 10px 30px rgba(0,0,0,.08), 0 0 20px rgba(255,106,0,.06);
-}
-
-.bc-path {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--txt);
-  flex-wrap: wrap;
-}
-
-.bc-cat {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--muted2);
-}
-
-.bc-sep {
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.bc-prod {
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  color: var(--accent2);
-}
-
-.bc-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.bc-change-btn {
-  padding: 5px 11px;
-  background: rgba(255,106,0,.1);
-  border: 1px solid rgba(255,106,0,.25);
-  border-radius: 8px;
-  color: var(--accent);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background .2s ease, border-color .2s ease, transform .2s ease;
-}
-
-.bc-change-btn:hover {
-  background: rgba(255,106,0,.18);
-  border-color: var(--accent);
-  transform: translateY(-1px);
 }
 
 .section-label {
@@ -1104,7 +987,7 @@ body::after {
 
 .universal-input {
   width: 100%;
-  padding: 15px 96px 15px 48px;
+  padding: 15px 80px 15px 48px;
   background: rgba(0,0,0,.35);
   border: 1.5px solid var(--border);
   border-radius: var(--r);
@@ -1145,29 +1028,22 @@ body::after {
   right: 14px;
   top: 50%;
   transform: translateY(-50%);
-  padding: 4px 8px;
+  padding: 3px 8px;
   font-size: 10px;
-  font-weight: 600;
   font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
   color: var(--muted2);
   background: rgba(255,255,255,.05);
   border: 1px solid var(--border);
   border-radius: 6px;
   pointer-events: none;
-  transition: opacity .2s ease;
 }
 
-:root.light .kbd-hint {
-  background: rgba(0,0,0,.04);
-}
-
-.universal-input:focus ~ .kbd-hint {
-  opacity: 0;
-}
+:root.light .kbd-hint { background: rgba(0,0,0,.04); }
 
 .universal-clear {
   position: absolute;
-  right: 12px;
+  right: 44px;
   top: 50%;
   transform: translateY(-50%);
   width: 26px; height: 26px;
@@ -1180,7 +1056,6 @@ body::after {
   align-items: center;
   justify-content: center;
   transition: background .2s ease, color .2s ease;
-  z-index: 2;
 }
 
 :root.light .universal-clear {
@@ -1189,7 +1064,6 @@ body::after {
 
 .universal-clear:hover { background: rgba(255,106,0,.15); color: var(--accent); }
 .universal-clear.show { display: flex; }
-.universal-clear.show ~ .kbd-hint { display: none; }
 .universal-clear svg { width: 12px; height: 12px; stroke: currentColor; stroke-width: 2.5; }
 
 .universal-dropdown {
@@ -1434,7 +1308,6 @@ body::after {
 .product-card.active .product-name { color: var(--accent2); font-weight: 700; }
 .product-card.active .product-check { opacity: 1; transform: scale(1); }
 
-/* ── TRUE ANIMATED CONIC BORDER (@property) ── */
 .product-card.active::after {
   content: '';
   position: absolute;
@@ -1458,6 +1331,8 @@ body::after {
   z-index: 3;
   animation: rotateGradient 3s linear infinite;
 }
+
+@keyframes rotateGradient { to { --angle: 360deg; } }
 
 .product-icon {
   width: 54px; height: 54px;
@@ -1601,11 +1476,11 @@ body::after {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
   animation: fadeUp .35s var(--ease) both;
 }
 
-.quick-chips-label {
+.quick-chips-header {
   width: 100%;
   font-size: 10px;
   font-weight: 700;
@@ -1616,24 +1491,21 @@ body::after {
 }
 
 .quick-chip {
-  padding: 7px 14px;
+  padding: 7px 13px;
   background: rgba(255,255,255,.03);
-  border: 1.5px solid var(--border);
+  border: 1px solid var(--border);
   border-radius: 50px;
   color: var(--muted2);
   font-family: 'DM Sans', sans-serif;
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
-  transition: border-color .2s ease, color .2s ease, background .2s ease, transform .2s ease;
+  transition: all .2s ease;
 }
 
-:root.light .quick-chip {
-  background: rgba(0,0,0,.03);
-}
+:root.light .quick-chip { background: rgba(0,0,0,.03); }
 
-.quick-chip:hover,
-.quick-chip.active {
+.quick-chip:hover, .quick-chip.active {
   border-color: var(--accent);
   color: var(--accent);
   background: rgba(255,106,0,.08);
@@ -1678,28 +1550,6 @@ body::after {
 
 .search-box input:focus ~ .search-box-icon { opacity: .7; }
 .search-box-icon svg { width: 18px; height: 18px; stroke: var(--txt); }
-
-.skeleton {
-  animation: shimmer 1.6s linear infinite;
-  border-radius: var(--r-sm);
-  background: linear-gradient(90deg,
-    rgba(255,255,255,.04) 25%,
-    rgba(255,255,255,.08) 37%,
-    rgba(255,255,255,.04) 63%
-  );
-  background-size: 200% 100%;
-}
-
-:root.light .skeleton {
-  background: linear-gradient(90deg,
-    rgba(0,0,0,.04) 25%,
-    rgba(0,0,0,.08) 37%,
-    rgba(0,0,0,.04) 63%
-  );
-  background-size: 200% 100%;
-}
-
-@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
 .result-card {
   background: rgba(12,12,14,.94);
@@ -1937,7 +1787,7 @@ body::after {
 .ai-steps-label {
   font-size: 11px;
   font-weight: 600;
-  color: rgba(167,139,250,.7);
+  color: rgba(167,139,250,.85);
   letter-spacing: .12em;
   text-transform: uppercase;
   margin-bottom: 18px;
@@ -2007,7 +1857,6 @@ body::after {
   color: var(--ai-bright);
   flex-shrink: 0;
   box-shadow: 0 2px 10px rgba(167,139,250,.25), inset 0 1px 1px rgba(255,255,255,.1);
-  transition: background .25s ease, color .25s ease, border-color .25s ease;
 }
 
 :root.light .ai-step-num { color: var(--ai-dim); }
@@ -2032,7 +1881,7 @@ body::after {
   border: 1px solid rgba(167,139,250,.12);
   border-radius: var(--r-sm);
   font-size: 12px;
-  color: rgba(167,139,250,.7);
+  color: rgba(167,139,250,.85);
   line-height: 1.5;
   font-weight: 400;
 }
@@ -2041,48 +1890,7 @@ body::after {
 
 .ai-disclaimer svg { width: 14px; height: 14px; flex-shrink: 0; margin-top: 1px; stroke: var(--ai); opacity: .7; }
 
-.ai-sources {
-  margin: 14px 30px 0;
-  padding: 12px 16px;
-  background: rgba(167,139,250,.03);
-  border: 1px solid rgba(167,139,250,.1);
-  border-radius: var(--r-sm);
-  font-size: 11px;
-  color: var(--muted2);
-}
-
-.ai-sources-title {
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .08em;
-  color: var(--ai-bright);
-  margin-bottom: 6px;
-}
-
-:root.light .ai-sources-title { color: var(--ai-dim); }
-
-.ai-sources-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.ai-source-link {
-  color: var(--accent2);
-  text-decoration: none;
-  background: rgba(255,157,74,.08);
-  border: 1px solid rgba(255,157,74,.2);
-  padding: 3px 9px;
-  border-radius: 50px;
-  transition: background .2s ease, color .2s ease;
-}
-
-.ai-source-link:hover {
-  background: rgba(255,157,74,.16);
-  color: var(--accent);
-}
-
-.ai-copy-row {
+.ai-copy-row, .copy-row {
   padding: 16px 30px 26px;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -2230,7 +2038,7 @@ body::after {
 
 .ai-error-card {
   background: rgba(12,12,14,.96);
-  border: 1px solid rgba(167,139,250,.12);
+  border: 1px solid rgba(167,139,250,.18);
   border-radius: var(--r-lg);
   padding: 36px 30px;
   display: flex;
@@ -2246,20 +2054,20 @@ body::after {
   background: rgba(255,255,255,.96);
 }
 
-.ai-error-icon { font-size: 36px; opacity: .7; }
+.ai-error-icon { font-size: 36px; opacity: .85; }
 
 .ai-error-title {
   font-family: 'Syne', sans-serif;
   font-size: 17px;
   font-weight: 700;
-  color: var(--muted2);
+  color: var(--txt);
 }
 
 .ai-error-sub {
   font-size: 13px;
-  color: var(--muted);
+  color: var(--muted2);
   font-weight: 300;
-  max-width: 340px;
+  max-width: 360px;
   line-height: 1.5;
 }
 
@@ -2267,14 +2075,14 @@ body::after {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 11px 22px;
-  background: rgba(167,139,250,.06);
-  border: 1.5px solid rgba(167,139,250,.2);
+  padding: 12px 24px;
+  background: rgba(167,139,250,.1);
+  border: 1.5px solid rgba(167,139,250,.35);
   border-radius: var(--r-sm);
   color: var(--ai-bright);
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Syne', sans-serif;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 700;
   cursor: pointer;
   transition: background .25s ease, border-color .25s ease, transform .25s ease;
   margin-top: 4px;
@@ -2283,13 +2091,13 @@ body::after {
 :root.light .ai-retry-btn { color: var(--ai-dim); }
 
 .ai-retry-btn:hover {
-  background: rgba(167,139,250,.12);
-  border-color: rgba(167,139,250,.4);
+  background: rgba(167,139,250,.18);
+  border-color: rgba(167,139,250,.6);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(167,139,250,.15);
+  box-shadow: 0 6px 20px rgba(167,139,250,.2);
 }
 
-.result-steps { padding: 26px 30px 22px; }
+.result-steps { padding: 26px 30px 10px; }
 
 .steps-label {
   font-size: 11px;
@@ -2355,26 +2163,21 @@ body::after {
 
 .step:hover::before { height: 65%; }
 
-/* ── INTERACTIVE STEP CHECKLIST COMPLETED STATE ── */
-.step.done,
-.ai-step.done {
-  opacity: .58;
-  border-color: rgba(0,230,138,.28);
+/* ── INTERACTIVE CHECKABLE STEP STATES ── */
+.step.done, .ai-step.done {
+  opacity: .55;
+  border-color: rgba(0,230,138,.3);
   background: rgba(0,230,138,.04);
 }
-
-.step.done .step-num,
-.ai-step.done .ai-step-num {
+.step.done .step-num, .ai-step.done .ai-step-num {
   background: var(--success);
   border-color: var(--success);
   color: #000;
   box-shadow: 0 2px 10px rgba(0,230,138,.35);
 }
-
-.step.done .step-text,
-.ai-step.done .ai-step-text {
+.step.done .step-text, .ai-step.done .ai-step-text {
   text-decoration: line-through;
-  text-decoration-color: rgba(138,138,154,.45);
+  text-decoration-color: rgba(255,255,255,.3);
 }
 
 .step-num {
@@ -2389,7 +2192,6 @@ body::after {
   color: #000;
   flex-shrink: 0;
   box-shadow: 0 2px 10px rgba(255,106,0,.35), inset 0 1px 1px rgba(255,255,255,.3);
-  transition: background .25s ease, color .25s ease, box-shadow .25s ease;
 }
 
 .step-text {
@@ -2402,8 +2204,7 @@ body::after {
   word-break: break-word;
 }
 
-.step-text a,
-.ai-step-text a {
+.step-text a, .ai-step-text a {
   color: var(--accent2);
   text-decoration: none;
   border-bottom: 1px dashed rgba(255,157,74,.4);
@@ -2411,20 +2212,7 @@ body::after {
   word-break: break-all;
 }
 
-.step-text a:hover,
-.ai-step-text a:hover { color: var(--accent); border-bottom-color: var(--accent); }
-
-/* ── DUAL COPY BUTTONS ── */
-.copy-row {
-  padding: 0 30px 26px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.copy-row .btn-ghost {
-  margin-top: 0;
-}
+.step-text a:hover, .ai-step-text a:hover { color: var(--accent); border-bottom-color: var(--accent); }
 
 .recommend-section {
   background: rgba(12,12,14,.94);
@@ -2858,41 +2646,6 @@ body::after {
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
-.step:nth-child(1) { animation-delay: .04s; }
-.step:nth-child(2) { animation-delay: .08s; }
-.step:nth-child(3) { animation-delay: .12s; }
-.step:nth-child(4) { animation-delay: .16s; }
-.step:nth-child(5) { animation-delay: .2s; }
-.step:nth-child(6) { animation-delay: .24s; }
-.step:nth-child(7) { animation-delay: .28s; }
-.step:nth-child(8) { animation-delay: .32s; }
-
-.ai-step:nth-child(1) { animation-delay: .04s; }
-.ai-step:nth-child(2) { animation-delay: .09s; }
-.ai-step:nth-child(3) { animation-delay: .14s; }
-.ai-step:nth-child(4) { animation-delay: .19s; }
-.ai-step:nth-child(5) { animation-delay: .24s; }
-.ai-step:nth-child(6) { animation-delay: .29s; }
-.ai-step:nth-child(7) { animation-delay: .34s; }
-.ai-step:nth-child(8) { animation-delay: .39s; }
-
-.recommend-item:nth-child(1) { animation-delay: .05s; }
-.recommend-item:nth-child(2) { animation-delay: .1s; }
-.recommend-item:nth-child(3) { animation-delay: .15s; }
-.recommend-item:nth-child(4) { animation-delay: .2s; }
-.recommend-item:nth-child(5) { animation-delay: .25s; }
-.recommend-item:nth-child(6) { animation-delay: .3s; }
-
-.cat-card { animation: fadeUp .4s var(--ease) both; }
-.cat-card:nth-child(1) { animation-delay: .04s; }
-.cat-card:nth-child(2) { animation-delay: .08s; }
-.cat-card:nth-child(3) { animation-delay: .12s; }
-.cat-card:nth-child(4) { animation-delay: .16s; }
-.cat-card:nth-child(5) { animation-delay: .2s; }
-.cat-card:nth-child(6) { animation-delay: .24s; }
-.cat-card:nth-child(7) { animation-delay: .28s; }
-.cat-card:nth-child(8) { animation-delay: .32s; }
-
 .hidden { display: none !important; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2918,9 +2671,8 @@ body::after {
   .page { padding: 24px 12px 40px; }
   .login-card { padding: 28px 20px 24px; }
   .result-header { padding: 20px 18px 16px; flex-direction: column; align-items: flex-start; }
-  .result-steps { padding: 20px 18px 16px; }
-  .copy-row, .ai-copy-row { padding: 0 18px 20px; grid-template-columns: 1fr; }
-  .ai-copy-row { padding-top: 16px; }
+  .result-steps { padding: 20px 18px 10px; }
+  .copy-row, .ai-copy-row { padding: 14px 18px 20px; grid-template-columns: 1fr; }
   .recommend-section { padding: 20px 18px; }
   .recommend-item { padding: 12px 14px; }
   .topbar { padding: 14px 18px; }
@@ -2934,13 +2686,7 @@ body::after {
   .ai-header { padding: 20px 18px 16px; flex-direction: column; align-items: flex-start; }
   .ai-steps-section { padding: 20px 18px 16px; }
   .ai-disclaimer { margin: 0 18px 0; }
-  .ai-sources { margin: 14px 18px 0; }
   .theme-toggle-wrap { top: 12px; right: 12px; }
-  .kbd-hint { display: none; }
-}
-
-@media (max-width: 380px) {
-  .product-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -2949,7 +2695,7 @@ body::after {
 <!-- THEME TOGGLE -->
 <div class="theme-toggle-wrap" aria-label="Toggle theme">
   <span class="theme-icon" id="themeIconMoon">🌙</span>
-  <button class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" aria-label="Toggle dark/light mode" title="Toggle dark/light mode">
+  <button class="theme-toggle" id="themeToggleBtn" type="button" onclick="window.toggleTheme()" aria-label="Toggle dark/light mode" title="Toggle dark/light mode">
     <div class="theme-toggle-knob" id="themeKnob"></div>
   </button>
   <span class="theme-icon" id="themeIconSun">☀️</span>
@@ -2977,8 +2723,8 @@ body::after {
     <div class="login-card glass" id="loginCard">
       <div class="tab-switcher" id="tabSwitcher" role="tablist">
         <div class="tab-indicator" id="tabIndicator"></div>
-        <button class="tab-btn active" id="tabSignin" role="tab" aria-selected="true" onclick="switchTab('signin')">Sign In</button>
-        <button class="tab-btn" id="tabSignup" role="tab" aria-selected="false" onclick="switchTab('signup')">Sign Up</button>
+        <button class="tab-btn active" id="tabSignin" type="button" role="tab" aria-selected="true" onclick="window.switchTab('signin')">Sign In</button>
+        <button class="tab-btn" id="tabSignup" type="button" role="tab" aria-selected="false" onclick="window.switchTab('signup')">Sign Up</button>
       </div>
 
       <div class="auth-form" id="signinForm">
@@ -2997,7 +2743,7 @@ body::after {
         <div class="field">
           <label for="password">Password</label>
           <input id="password" type="password" placeholder="Enter your password" autocomplete="current-password"
-                 onkeydown="if(event.key==='Enter')login()">
+                 onkeydown="if(event.key==='Enter')window.login()">
           <span class="field-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
@@ -3010,8 +2756,8 @@ body::after {
             Minimum 8 characters — letters, numbers, symbols, or any mix
           </div>
         </div>
-        <button class="forgot-link" onclick="showForgotStep1()">Forgot password?</button>
-        <button class="btn" id="loginBtn" onclick="login()">
+        <button class="forgot-link" type="button" onclick="window.showForgotStep1()">Forgot password?</button>
+        <button class="btn" id="loginBtn" type="button" onclick="window.login()">
           <span>Sign In</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -3035,7 +2781,7 @@ body::after {
         <div class="field">
           <label for="signupPassword">Create Password</label>
           <input id="signupPassword" type="password" placeholder="Choose a strong password" autocomplete="new-password"
-                 onkeydown="if(event.key==='Enter')signup()">
+                 onkeydown="if(event.key==='Enter')window.signup()">
           <span class="field-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
@@ -3048,7 +2794,7 @@ body::after {
             Minimum 8 characters — letters, numbers, symbols, or any mix
           </div>
         </div>
-        <button class="btn" id="signupBtn" onclick="signup()">
+        <button class="btn" id="signupBtn" type="button" onclick="window.signup()">
           <span>Create Account</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 5v14M5 12h14"/>
@@ -3057,7 +2803,7 @@ body::after {
       </div>
 
       <div class="auth-form hidden" id="forgotStep1">
-        <button class="back-link" onclick="cancelForgot()">
+        <button class="back-link" type="button" onclick="window.cancelForgot()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M19 12H5M12 19l-7-7 7-7"/>
           </svg>
@@ -3068,14 +2814,14 @@ body::after {
         <div class="field">
           <label for="forgotEmail">Email Address</label>
           <input id="forgotEmail" type="email" placeholder="you@crossbeats.com" autocomplete="email"
-                 onkeydown="if(event.key==='Enter')requestOTP()">
+                 onkeydown="if(event.key==='Enter')window.requestOTP(false)">
           <span class="field-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <rect x="2" y="4" width="20" height="16" rx="3"/><path d="M2 8l10 6 10-6"/>
             </svg>
           </span>
         </div>
-        <button class="btn" id="requestOtpBtn" onclick="requestOTP()">
+        <button class="btn" id="requestOtpBtn" type="button" onclick="window.requestOTP(false)">
           <span>Send Verification Code</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
@@ -3084,7 +2830,7 @@ body::after {
       </div>
 
       <div class="auth-form hidden" id="forgotStep2">
-        <button class="back-link" onclick="showForgotStep1()">
+        <button class="back-link" type="button" onclick="window.showForgotStep1()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M19 12H5M12 19l-7-7 7-7"/>
           </svg>
@@ -3098,9 +2844,9 @@ body::after {
                  maxlength="6" inputmode="numeric" pattern="[0-9]*"
                  placeholder="● ● ● ● ● ●"
                  oninput="this.value=this.value.replace(/[^0-9]/g,'')"
-                 onkeydown="if(event.key==='Enter')verifyOTP()">
+                 onkeydown="if(event.key==='Enter')window.verifyOTP()">
         </div>
-        <button class="btn" id="verifyOtpBtn" onclick="verifyOTP()">
+        <button class="btn" id="verifyOtpBtn" type="button" onclick="window.verifyOTP()">
           <span>Verify Code</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="20 6 9 17 4 12"/>
@@ -3108,7 +2854,7 @@ body::after {
         </button>
         <div class="resend-row">
           <span>Didn't get the code?</span>
-          <button class="resend-btn" id="resendBtn" onclick="requestOTP(true)">Resend</button>
+          <button class="resend-btn" id="resendBtn" type="button" onclick="window.requestOTP(true)">Resend</button>
         </div>
       </div>
 
@@ -3134,14 +2880,14 @@ body::after {
         <div class="field">
           <label for="confirmPassword">Confirm New Password</label>
           <input id="confirmPassword" type="password" placeholder="Re-enter new password" autocomplete="new-password"
-                 onkeydown="if(event.key==='Enter')resetPassword()">
+                 onkeydown="if(event.key==='Enter')window.resetPassword()">
           <span class="field-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
             </svg>
           </span>
         </div>
-        <button class="btn" id="resetBtn" onclick="resetPassword()">
+        <button class="btn" id="resetBtn" type="button" onclick="window.resetPassword()">
           <span>Reset Password</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="20 6 9 17 4 12"/>
@@ -3169,15 +2915,13 @@ body::after {
       </div>
       <div class="topbar-right">
         <div class="pill">Live</div>
-        <button class="sync-btn" id="syncBtn" onclick="syncSheetData()" title="Sync latest Google Sheet rows & Drive images">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="23 4 23 10 17 10"/>
-            <polyline points="1 20 1 14 7 14"/>
-            <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+        <button class="sync-btn" type="button" onclick="window.syncPortalData()" title="Sync latest Sheet & Drive data">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/>
           </svg>
-          <span>Sync Data</span>
+          Sync
         </button>
-        <button class="logout-btn" onclick="logout()">Log out</button>
+        <button class="logout-btn" type="button" onclick="window.logout()">Log out</button>
       </div>
     </div>
 
@@ -3188,21 +2932,9 @@ body::after {
         </svg>
         Troubleshooting Finder
       </div>
-      <div class="panel-sub">Pick a category, choose your product, then describe the issue to find the right fix instantly.</div>
+      <div class="panel-sub">Pick a category, choose your product, then click a common issue or describe the problem to find the right fix.</div>
 
-      <!-- ACTIVE SELECTION BREADCRUMB BAR -->
-      <div class="active-breadcrumb hidden" id="activeBreadcrumb">
-        <div class="bc-path">
-          <span class="bc-cat" id="bcCat"></span>
-          <span class="bc-sep" id="bcSep">›</span>
-          <span class="bc-prod" id="bcProd">Select a product</span>
-        </div>
-        <div class="bc-actions">
-          <button type="button" class="bc-change-btn" onclick="scrollToSelector()">Change</button>
-        </div>
-      </div>
-
-      <div class="section-label" id="catSectionLabel">Product Category</div>
+      <div class="section-label">Product Category</div>
       <div class="cat-grid" id="catGrid"></div>
 
       <div class="universal-divider"><span>OR search any product directly</span></div>
@@ -3210,20 +2942,20 @@ body::after {
         <input id="universalSearch" type="text" class="universal-input"
                placeholder="Type product name… e.g. Lumex Pro"
                autocomplete="off"
-               oninput="onUniversalSearchInput(event)"
-               onfocus="onUniversalSearchFocus()"
-               onkeydown="onUniversalSearchKey(event)">
+               oninput="window.onUniversalSearchInput(event)"
+               onfocus="window.onUniversalSearchFocus()"
+               onkeydown="window.onUniversalSearchKey(event)">
         <span class="universal-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
           </svg>
         </span>
-        <button class="universal-clear" id="universalClear" onclick="clearUniversalSearch()" aria-label="Clear search">
+        <button class="universal-clear" id="universalClear" type="button" onclick="window.clearUniversalSearch()" aria-label="Clear search">
           <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path d="M18 6L6 18M6 6l12 12"/>
           </svg>
         </button>
-        <span class="kbd-hint">/ or Ctrl+K</span>
+        <span class="kbd-hint" title="Press / anywhere to jump here">/</span>
         <div class="universal-dropdown" id="universalDropdown"></div>
       </div>
 
@@ -3235,7 +2967,6 @@ body::after {
         <div class="product-grid" id="productGrid"></div>
       </div>
 
-      <!-- ZERO-TYPING QUICK ISSUE CHIPS -->
       <div id="quickChips" class="quick-chips-wrap hidden"></div>
 
       <div class="search-box" id="issueSearchBox">
@@ -3243,8 +2974,8 @@ body::after {
         <input id="search" type="text"
                placeholder="e.g. battery draining, not charging, no sound…"
                autocomplete="off"
-               oninput="debouncedFind()"
-               onkeydown="if(event.key==='Enter')findSolution()">
+               oninput="window.debouncedFind()"
+               onkeydown="if(event.key==='Enter')window.findSolution(false)">
         <span class="search-box-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
@@ -3252,7 +2983,7 @@ body::after {
         </span>
       </div>
 
-      <button class="btn" id="findBtn" onclick="findSolution()">
+      <button class="btn" id="findBtn" type="button" onclick="window.findSolution(false)">
         <span id="findBtnText">Find Solution</span>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -3313,7 +3044,6 @@ function toggleTheme() {
 /* ═══════════════════════════════════════════════
    CONFIGURATION
    ═══════════════════════════════════════════════ */
-
 const DEV = 'kiran@crossbeats.com';
 
 const ALLOWED_EXTERNAL_EMAILS = [
@@ -3323,11 +3053,9 @@ const ALLOWED_EXTERNAL_EMAILS = [
 const SHEET = '1FdCNEtrHDyVyy2E1yjAXwo_2qy14VIg_qsyo2rGp2m0';
 const AUTH_API = 'https://script.google.com/macros/s/AKfycbw0X5cBa4etRk9fHtSvINkVlhUPVkV88vXoiCrnoQR1vPT6l8ZA2w9NQVo6djszuy4n/exec';
 const DRIVE_FOLDER_ID = '15yJM0NmxtE91kHsD8FM-nUehppd0_VUu';
-const CACHE_KEY = 'cb_portal_cache_v2';
-const CACHE_TTL = 1000 * 60 * 30; // 30 minutes
 
 /* ═══════════════════════════════════════════════
-   GEMINI AI CONFIGURATION (WITH LIVE SEARCH)
+   GEMINI AI CONFIGURATION (SAME KEY, NO SUPABASE)
    ═══════════════════════════════════════════════ */
 const GEMINI_API_KEY  = 'AIzaSyABsSnuZxx7V-Qn8WktB0XmyVcAtL6OzC0';
 const GEMINI_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
@@ -3342,26 +3070,26 @@ const FALLBACK_TABS = {
 };
 
 function guessCategoryIcon(name) {
-  const n = name.toLowerCase();
-  if (/projector|cinema|beam/.test(n))               return '📽️';
+  const n = String(name || '').toLowerCase();
+  if (/projector|cinema|beam/.test(n))                return '📽️';
   if (/soundbar|speaker|home theatre|theater/.test(n)) return '🔊';
-  if (/tws|earbud|airpod|bud/.test(n))               return '🎧';
-  if (/audio|headphone|headset/.test(n))             return '🎵';
-  if (/lapel|mic|microphone|recorder/.test(n))       return '🎙️';
-  if (/watch|wearable|band|fitness/.test(n))         return '⌚';
-  if (/dash ?cam|dashboard cam|dash camera/.test(n)) return '📷';
-  if (/camera|cam|action/.test(n))                   return '📸';
-  if (/charger|cable|power|adapter/.test(n))         return '🔌';
-  if (/keyboard|key/.test(n))                        return '⌨️';
-  if (/mouse|trackpad/.test(n))                      return '🖱️';
-  if (/router|wifi|network/.test(n))                 return '📶';
-  if (/light|lamp|bulb|led/.test(n))                 return '💡';
-  if (/phone|mobile/.test(n))                        return '📱';
-  if (/tablet|ipad/.test(n))                         return '📲';
-  if (/tv|television|display|monitor/.test(n))       return '📺';
-  if (/game|console|controller/.test(n))             return '🎮';
-  if (/printer|scan/.test(n))                        return '🖨️';
-  if (/drone|fly/.test(n))                           return '🚁';
+  if (/tws|earbud|airpod|bud/.test(n))                return '🎧';
+  if (/audio|headphone|headset/.test(n))              return '🎵';
+  if (/lapel|mic|microphone|recorder/.test(n))        return '🎙️';
+  if (/watch|wearable|band|fitness/.test(n))          return '⌚';
+  if (/dash ?cam|dashboard cam|dash camera/.test(n))  return '📷';
+  if (/camera|cam|action/.test(n))                    return '📸';
+  if (/charger|cable|power|adapter/.test(n))          return '🔌';
+  if (/keyboard|key/.test(n))                         return '⌨️';
+  if (/mouse|trackpad/.test(n))                       return '🖱️';
+  if (/router|wifi|network/.test(n))                  return '📶';
+  if (/light|lamp|bulb|led/.test(n))                  return '💡';
+  if (/phone|mobile/.test(n))                         return '📱';
+  if (/tablet|ipad/.test(n))                          return '📲';
+  if (/tv|television|display|monitor/.test(n))        return '📺';
+  if (/game|console|controller/.test(n))              return '🎮';
+  if (/printer|scan/.test(n))                         return '🖨️';
+  if (/drone|fly/.test(n))                            return '🚁';
   return '📦';
 }
 
@@ -3385,16 +3113,16 @@ const BOOST_WORDS = {
   'never':2,'no':1.5,'fail':2,'failed':2,'failing':2,'broken':2
 };
 
-let db                     = {};
-let activeCategory         = null;
-let activeProduct          = null;
-let currentResults         = [];
-let forgotEmail            = '';
-let verifiedOtp            = '';
-let debounceTimer          = null;
-let productImageMap        = {};
-let loadingStageTimer      = null;
-let universalDebounceTimer = null;
+let db                      = {};
+let activeCategory          = null;
+let activeProduct           = null;
+let currentResults          = [];
+let forgotEmail             = '';
+let verifiedOtp             = '';
+let debounceTimer           = null;
+let productImageMap         = {};
+let loadingStageTimer       = null;
+let universalDebounceTimer  = null;
 let universalHighlightIndex = -1;
 let universalCurrentMatches = [];
 
@@ -3470,9 +3198,12 @@ function hideLoader() {
 }
 
 function esc(str) {
-  const d = document.createElement('div');
-  d.textContent = String(str || '');
-  return d.innerHTML;
+  return String(str || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
 function escAndLink(str) {
@@ -3714,10 +3445,6 @@ async function callAuthAPI(action, email, password, otp, newPassword) {
   return await res.json();
 }
 
-/* ═══════════════════════════════════════════════
-   STALE-WHILE-REVALIDATE DATA LOADING & SYNC
-   ═══════════════════════════════════════════════ */
-
 function loadSheet(gid) {
   return new Promise((resolve, reject) => {
     const cb = 'cb' + Math.random().toString(36).slice(2);
@@ -3736,71 +3463,48 @@ function loadSheet(gid) {
 }
 
 async function loadAllData(forceRefresh = false) {
-  if (!forceRefresh) {
-    const rawCache = localStorage.getItem(CACHE_KEY);
-    if (rawCache) {
-      try {
-        const cached = JSON.parse(rawCache);
-        if (cached && cached.TABS && cached.db && (Date.now() - cached.ts < CACHE_TTL)) {
-          TABS = cached.TABS;
-          ICONS = cached.ICONS || {};
-          CAT_NAMES = cached.CAT_NAMES || {};
-          db = cached.db;
-          productImageMap = cached.productImageMap || {};
-          renderCategoryCards();
-          // Silently revalidate in the background
-          refreshNetworkData(true).catch(() => {});
-          return;
-        }
-      } catch (e) {
-        localStorage.removeItem(CACHE_KEY);
+  const cached = localStorage.getItem('cb_portal_cache_v1');
+  if (cached && !forceRefresh) {
+    try {
+      const parsed = JSON.parse(cached);
+      if (Date.now() - parsed.ts < 1000 * 60 * 30 && parsed.TABS && Object.keys(parsed.TABS).length) {
+        TABS = parsed.TABS;
+        ICONS = parsed.ICONS;
+        CAT_NAMES = parsed.CAT_NAMES;
+        db = parsed.db;
+        productImageMap = parsed.productImageMap || {};
+        renderCategoryCards();
+        refreshDataFromNetwork().catch(() => {});
+        return;
       }
+    } catch (e) {
+      localStorage.removeItem('cb_portal_cache_v1');
     }
   }
-  await refreshNetworkData(false);
+  await refreshDataFromNetwork();
 }
 
-async function refreshNetworkData(isSilent) {
+async function refreshDataFromNetwork() {
   await discoverTabs();
   await Promise.all([loadSheetData(), loadDriveImages()]);
-  try {
-    localStorage.setItem(CACHE_KEY, JSON.stringify({
-      ts: Date.now(),
-      TABS,
-      ICONS,
-      CAT_NAMES,
-      db,
-      productImageMap
-    }));
-  } catch (e) {}
-
   renderCategoryCards();
   if (activeCategory) {
-    document.querySelectorAll('.cat-card').forEach(card => {
-      const sel = card.dataset.cat === activeCategory;
-      card.classList.toggle('active', sel);
-      card.setAttribute('aria-pressed', sel ? 'true' : 'false');
-    });
     renderProductCards(activeCategory);
-    if (activeProduct) {
-      renderQuickChips(activeCategory, activeProduct);
-    }
   }
+  try {
+    localStorage.setItem('cb_portal_cache_v1', JSON.stringify({
+      ts: Date.now(), TABS, ICONS, CAT_NAMES, db, productImageMap
+    }));
+  } catch (e) {}
 }
 
-async function syncSheetData() {
-  const btn = document.getElementById('syncBtn');
-  if (!btn || btn.classList.contains('spinning')) return;
-  btn.classList.add('spinning');
-  btn.disabled = true;
+async function syncPortalData() {
+  showToast('Syncing latest Sheet & Drive data…');
   try {
-    await loadAllData(true);
-    showToast('Database & images synced!');
+    await refreshDataFromNetwork();
+    showToast('Data synced successfully!');
   } catch (e) {
     showToast('Sync failed — check connection');
-  } finally {
-    btn.classList.remove('spinning');
-    btn.disabled = false;
   }
 }
 
@@ -3829,22 +3533,20 @@ async function discoverTabs() {
 }
 
 async function loadSheetData() {
-  const nextDb = {};
   const promises = Object.entries(TABS).map(async ([cat, gid]) => {
     try {
       const rows = await loadSheet(gid);
-      nextDb[cat] = [];
+      db[cat] = [];
       rows.forEach(r => {
         if (!r.c || !r.c[0] || !r.c[0].v) return;
         const products = String(r.c[0].v).split(/\n|,/).map(x => x.trim()).filter(Boolean);
-        const issue = r.c[1]?.v || '';
-        const steps = r.c[2]?.v || '';
-        products.forEach(p => nextDb[cat].push({ product: p, issue, steps }));
+        const issue = r.c[1] && r.c[1].v ? String(r.c[1].v) : '';
+        const steps = r.c[2] && r.c[2].v ? String(r.c[2].v) : '';
+        products.forEach(p => db[cat].push({ product: p, issue, steps }));
       });
-    } catch { nextDb[cat] = db[cat] || []; }
+    } catch { db[cat] = []; }
   });
   await Promise.all(promises);
-  db = nextDb;
 }
 
 async function loadDriveImages() {
@@ -3856,110 +3558,35 @@ async function loadDriveImages() {
     });
     const result = await res.json();
     if (result.ok && Array.isArray(result.files)) {
-      const nextMap = {};
+      productImageMap = {};
       result.files.forEach(file => {
         const productName = file.name.replace(/\.(png|jpg|jpeg|webp|gif|svg)$/i, '').trim();
-        nextMap[productName] = `https://drive.google.com/thumbnail?id=${file.id}&sz=w200`;
+        productImageMap[productName] = `https://drive.google.com/thumbnail?id=${file.id}&sz=w200`;
       });
-      productImageMap = nextMap;
     }
-  } catch {}
+  } catch { productImageMap = {}; }
 }
-
-/* ═══════════════════════════════════════════════
-   BREADCRUMB & QUICK CHIPS
-   ═══════════════════════════════════════════════ */
-
-function updateBreadcrumb() {
-  const bar   = document.getElementById('activeBreadcrumb');
-  const bcCat = document.getElementById('bcCat');
-  const bcSep = document.getElementById('bcSep');
-  const bcProd = document.getElementById('bcProd');
-  if (!bar) return;
-
-  if (!activeCategory) {
-    bar.classList.add('hidden');
-    return;
-  }
-
-  bar.classList.remove('hidden');
-  const icon = ICONS[activeCategory] || '📦';
-  const catLabel = CAT_NAMES[activeCategory] || activeCategory;
-  bcCat.innerHTML = `<span>${icon}</span> <span>${esc(catLabel)}</span>`;
-
-  if (activeProduct) {
-    bcSep.classList.remove('hidden');
-    bcProd.textContent = activeProduct;
-    bcProd.style.color = 'var(--accent2)';
-  } else {
-    bcSep.classList.remove('hidden');
-    bcProd.textContent = 'Select a model…';
-    bcProd.style.color = 'var(--muted2)';
-  }
-}
-
-function scrollToSelector() {
-  const target = document.getElementById('catSectionLabel') || document.getElementById('searchPanel');
-  smoothScrollTo(target, 90);
-}
-
-function renderQuickChips(cat, productName) {
-  const wrap = document.getElementById('quickChips');
-  if (!wrap) return;
-
-  if (!cat || !productName) {
-    wrap.classList.add('hidden');
-    wrap.innerHTML = '';
-    return;
-  }
-
-  const issues = [...new Set(
-    (db[cat] || [])
-      .filter(x => x.product === productName && x.issue)
-      .map(x => String(x.issue).trim())
-      .filter(Boolean)
-  )].slice(0, 6);
-
-  if (!issues.length) {
-    wrap.classList.add('hidden');
-    wrap.innerHTML = '';
-    return;
-  }
-
-  const currentSearch = clean(document.getElementById('search').value);
-  wrap.classList.remove('hidden');
-  wrap.innerHTML = `<div class="quick-chips-label">Quick Issues for ${esc(productName)}</div>` +
-    issues.map(iss => {
-      const isAct = currentSearch && clean(iss) === currentSearch;
-      return `<button type="button" class="quick-chip${isAct ? ' active' : ''}" onclick="selectQuickChip(this, '${esc(iss).replace(/'/g, "\\'")}')">${esc(iss)}</button>`;
-    }).join('');
-}
-
-function selectQuickChip(btn, issueText) {
-  document.querySelectorAll('.quick-chip').forEach(c => c.classList.remove('active'));
-  btn.classList.add('active');
-  const input = document.getElementById('search');
-  input.value = issueText;
-  findSolution();
-}
-
-/* ═══════════════════════════════════════════════
-   CATEGORIES & PRODUCTS
-   ═══════════════════════════════════════════════ */
 
 function renderCategoryCards() {
   const grid = document.getElementById('catGrid');
+  if (!grid) return;
   grid.innerHTML = Object.keys(TABS).map(cat => {
     const isSel = activeCategory === cat;
     return `
-      <div class="cat-card${isSel ? ' active' : ''}" data-cat="${esc(cat)}" onclick="selectCategory('${esc(cat).replace(/'/g, "\\'")}')" tabindex="0" role="button" aria-pressed="${isSel}"
-           onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectCategory('${esc(cat).replace(/'/g, "\\'")}');}">
+      <div class="cat-card${isSel ? ' active' : ''}" data-cat="${esc(cat)}"
+           onclick="window.selectCategoryFromEl(this)" tabindex="0" role="button" aria-pressed="${isSel}"
+           onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.selectCategoryFromEl(this);}">
         <div class="cat-check"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
         <div class="cat-icon-wrap"><span class="cat-icon">${ICONS[cat] || '📦'}</span></div>
         <div class="cat-name">${esc(CAT_NAMES[cat] || cat)}</div>
       </div>
     `;
   }).join('');
+}
+
+function selectCategoryFromEl(el) {
+  if (!el || !el.dataset.cat) return;
+  selectCategory(el.dataset.cat);
 }
 
 function selectCategory(cat) {
@@ -3970,9 +3597,9 @@ function selectCategory(cat) {
     card.classList.toggle('active', sel);
     card.setAttribute('aria-pressed', sel ? 'true' : 'false');
   });
+  const quickWrap = document.getElementById('quickChips');
+  if (quickWrap) { quickWrap.classList.add('hidden'); quickWrap.innerHTML = ''; }
   renderProductCards(cat);
-  renderQuickChips(null, null);
-  updateBreadcrumb();
   document.getElementById('result').innerHTML = `
     <div class="empty-hint">
       <div class="empty-hint-icon">💡</div>
@@ -3982,7 +3609,7 @@ function selectCategory(cat) {
 }
 
 function getProductBadge(name) {
-  const parts = name.replace(/[^a-zA-Z0-9\s]/g, '').trim().split(/\s+/).filter(Boolean);
+  const parts = String(name || '').replace(/[^a-zA-Z0-9\s]/g, '').trim().split(/\s+/).filter(Boolean);
   if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
   if (parts[0]) return parts[0].slice(0, 2).toUpperCase();
   return '••';
@@ -3993,8 +3620,8 @@ function buildProductIcon(productName) {
   const badge  = getProductBadge(productName);
   if (imgUrl) {
     return {
-      html: `<img src="${esc(imgUrl)}" alt="${esc(productName)}" loading="lazy"
-                onerror="this.parentElement.classList.remove('has-image');this.parentElement.textContent='${badge}';">`,
+      html: `<img src="${esc(imgUrl)}" alt="${esc(productName)}" data-badge="${esc(badge)}" loading="lazy"
+                 onerror="this.parentElement.classList.remove('has-image');this.parentElement.textContent=this.dataset.badge;">`,
       hasImage: true
     };
   }
@@ -4017,10 +3644,10 @@ function renderProductCards(cat) {
       const isActive = (activeProduct === p);
       return `
         <div class="product-card${isActive ? ' active' : ''}" data-prod="${esc(p)}"
-             style="animation-delay:${0.03 * i}s"
-             onclick="selectProduct(this,'${esc(p).replace(/'/g,"\\'")}')"
+             style="animation-delay:${0.025 * i}s"
+             onclick="window.selectProductFromEl(this)"
              tabindex="0" role="button" aria-pressed="${isActive}"
-             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectProduct(this,'${esc(p).replace(/'/g,"\\'")}');}">
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.selectProductFromEl(this);}">
           <div class="product-check"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
           <div class="product-icon${hasImage ? ' has-image' : ''}">${iconHTML}</div>
           <div class="product-info">
@@ -4038,28 +3665,63 @@ function renderProductCards(cat) {
   section.classList.add('show');
 }
 
+function selectProductFromEl(el) {
+  if (!el || !el.dataset.prod) return;
+  selectProduct(el, el.dataset.prod);
+}
+
+function renderQuickChips(cat, productName) {
+  const wrap = document.getElementById('quickChips');
+  if (!wrap) return;
+  const issues = [...new Set(
+    (db[cat] || [])
+      .filter(x => x.product === productName && x.issue)
+      .map(x => x.issue.trim())
+  )].slice(0, 6);
+
+  if (!issues.length) {
+    wrap.classList.add('hidden');
+    wrap.innerHTML = '';
+    return;
+  }
+
+  wrap.classList.remove('hidden');
+  wrap.innerHTML = `<div class="quick-chips-header">Common Issues for ${esc(productName)}</div>` +
+    issues.map(iss => `
+      <button type="button" class="quick-chip" data-issue="${esc(iss)}" onclick="window.selectQuickChip(this)">
+        ${esc(iss)}
+      </button>
+    `).join('');
+}
+
+function selectQuickChip(btn) {
+  if (!btn || !btn.dataset.issue) return;
+  document.querySelectorAll('.quick-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  const input = document.getElementById('search');
+  input.value = btn.dataset.issue;
+  findSolution(false);
+}
+
 function selectProduct(el, productName) {
   activeProduct = productName;
   document.querySelectorAll('.product-card').forEach(card => {
-    const sel = card === el;
+    const sel = card.dataset.prod === productName;
     card.classList.toggle('active', sel);
     card.setAttribute('aria-pressed', sel ? 'true' : 'false');
   });
 
-  updateBreadcrumb();
   renderQuickChips(activeCategory, productName);
 
-  // Auto-run search on product switch if #search already has text
-  const existingIssue = document.getElementById('search').value.trim();
-  if (existingIssue) {
-    findSolution();
+  if (document.getElementById('search').value.trim()) {
+    findSolution(true);
     return;
   }
 
   document.getElementById('result').innerHTML = `
     <div class="empty-hint">
       <div class="empty-hint-icon">🔍</div>
-      <div class="empty-hint-text">Pick a quick issue chip above or describe the issue to find step-by-step guidance.</div>
+      <div class="empty-hint-text">Click a common issue chip above or describe the problem to get step-by-step guidance.</div>
     </div>`;
   currentResults = [];
   setTimeout(() => {
@@ -4070,10 +3732,6 @@ function selectProduct(el, productName) {
     }
   }, 100);
 }
-
-/* ═══════════════════════════════════════════════
-   UNIVERSAL PRODUCT SEARCH
-   ═══════════════════════════════════════════════ */
 
 function buildAllProductsIndex() {
   const arr = []; const seen = new Set();
@@ -4150,12 +3808,6 @@ function runUniversalSearch(query) {
 
   universalCurrentMatches = scored;
 
-  // Power-user auto-select if there is only 1 exact/clear match
-  if (scored.length === 1 && (scored[0].lowName === q || q.length >= 4)) {
-    pickUniversalProduct(scored[0].category, scored[0].product);
-    return;
-  }
-
   if (!scored.length) {
     dropdown.innerHTML = `<div class="suggestion-empty"><span class="suggestion-empty-icon">🔎</span>No products match "<strong>${esc(query)}</strong>"</div>`;
     dropdown.classList.add('show'); return;
@@ -4172,10 +3824,10 @@ function runUniversalSearch(query) {
       const imgUrl = productImageMap[s.product] || null;
       const badge  = getProductBadge(s.product);
       const iconHTML = imgUrl
-        ? `<img src="${esc(imgUrl)}" alt="${esc(s.product)}" loading="lazy" onerror="this.outerHTML='${badge}'">`
-        : badge;
+        ? `<img src="${esc(imgUrl)}" alt="${esc(s.product)}" data-badge="${esc(badge)}" loading="lazy" onerror="this.outerHTML=this.dataset.badge">`
+        : esc(badge);
       return `
-        <div class="suggestion" data-i="${i}" onclick="pickUniversalProduct('${esc(s.category).replace(/'/g,"\\'")}','${esc(s.product).replace(/'/g,"\\'")}')">
+        <div class="suggestion" data-i="${i}" data-cat="${esc(s.category)}" data-prod="${esc(s.product)}" onclick="window.pickUniversalProductFromEl(this)">
           <div class="suggestion-icon">${iconHTML}</div>
           <div class="suggestion-info">
             <div class="suggestion-name">${highlight(s.product)}</div>
@@ -4186,6 +3838,11 @@ function runUniversalSearch(query) {
     }).join('');
 
   dropdown.classList.add('show');
+}
+
+function pickUniversalProductFromEl(el) {
+  if (!el) return;
+  pickUniversalProduct(el.dataset.cat, el.dataset.prod);
 }
 
 function hideUniversalDropdown() {
@@ -4210,26 +3867,22 @@ function pickUniversalProduct(category, productName) {
     card.setAttribute('aria-pressed', sel ? 'true' : 'false');
   });
   renderProductCards(category);
-  updateBreadcrumb();
   renderQuickChips(category, productName);
   hideUniversalDropdown();
   document.getElementById('universalSearch').value = '';
   document.getElementById('universalClear').classList.remove('show');
 
-  // Auto-run search if #search already has text
-  const existingIssue = document.getElementById('search').value.trim();
-  if (existingIssue) {
-    findSolution();
-    showToast(`Selected: ${productName}`);
-    return;
+  if (document.getElementById('search').value.trim()) {
+    findSolution(true);
+  } else {
+    document.getElementById('result').innerHTML = `
+      <div class="empty-hint">
+        <div class="empty-hint-icon">🔍</div>
+        <div class="empty-hint-text">Click a common issue chip above or describe the issue to find step-by-step guidance.</div>
+      </div>`;
+    currentResults = [];
   }
 
-  document.getElementById('result').innerHTML = `
-    <div class="empty-hint">
-      <div class="empty-hint-icon">🔍</div>
-      <div class="empty-hint-text">Pick a quick issue chip above or describe the issue to find step-by-step guidance.</div>
-    </div>`;
-  currentResults = [];
   setTimeout(() => {
     const issueBox = document.getElementById('issueSearchBox');
     if (issueBox) { smoothScrollTo(issueBox, 100); setTimeout(() => document.getElementById('search').focus(), 450); }
@@ -4241,10 +3894,6 @@ document.addEventListener('click', (e) => {
   const wrap = document.querySelector('.universal-search-wrap');
   if (wrap && !wrap.contains(e.target)) hideUniversalDropdown();
 });
-
-/* ═══════════════════════════════════════════════
-   AUTH & SESSION
-   ═══════════════════════════════════════════════ */
 
 async function login() {
   const e = document.getElementById('email').value.trim().toLowerCase();
@@ -4314,8 +3963,8 @@ function enterDashboard(email) {
   document.getElementById('universalSearch').value = '';
   document.getElementById('universalClear').classList.remove('show');
   document.getElementById('productSection').classList.remove('show');
-  updateBreadcrumb();
-  renderQuickChips(null, null);
+  const quickWrap = document.getElementById('quickChips');
+  if (quickWrap) { quickWrap.classList.add('hidden'); quickWrap.innerHTML = ''; }
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -4329,14 +3978,14 @@ function logout() {
     .forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
   document.getElementById('universalClear').classList.remove('show');
   hideUniversalDropdown();
+  const quickWrap = document.getElementById('quickChips');
+  if (quickWrap) { quickWrap.classList.add('hidden'); quickWrap.innerHTML = ''; }
   document.getElementById('result').innerHTML = `
     <div class="empty-hint">
       <div class="empty-hint-icon">💡</div>
       <div class="empty-hint-text">Choose a category and product above, then describe the issue.</div>
     </div>`;
   document.getElementById('productSection').classList.remove('show');
-  updateBreadcrumb();
-  renderQuickChips(null, null);
   setMsg(''); switchTab('signin');
   db = {}; TABS = {}; ICONS = {}; CAT_NAMES = {};
   activeCategory = null; activeProduct = null; currentResults = [];
@@ -4344,10 +3993,6 @@ function logout() {
   lastAiCategory = null; lastAiProduct = null; lastAiIssue = null;
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-
-/* ═══════════════════════════════════════════════
-   TROUBLESHOOTING SEARCH & STEP CHECKLISTS
-   ═══════════════════════════════════════════════ */
 
 function parseSteps(raw) {
   if (!raw) return [];
@@ -4391,7 +4036,7 @@ function parseSteps(raw) {
   const final = [];
   for (const para of joined) {
     if (/^https?:\/\/\S+$/i.test(para) || para.length < 80) { final.push(para); continue; }
-    const sentences = para.match(/[^.!?]+[.!?]+(?:\s|$)\vert{}[^.!?]+$/g);
+    const sentences = para.match(/[^.!?]+[.!?]+(?:\s|$)|[^.!?]+$/g);
     if (sentences && sentences.length > 1) {
       sentences.forEach(s => { const t = s.trim(); if (t.length > 3) final.push(t); });
     } else { final.push(para); }
@@ -4399,26 +4044,12 @@ function parseSteps(raw) {
   return final.filter(s => s.length > 1);
 }
 
-function toggleStepDone(el, event) {
-  if (event && event.target && event.target.tagName === 'A') return;
-  el.classList.toggle('done');
-  const numEl = el.querySelector('.step-num, .ai-step-num');
-  if (!numEl) return;
-  if (el.classList.contains('done')) {
-    if (!numEl.dataset.orig) numEl.dataset.orig = numEl.textContent;
-    numEl.textContent = '✓';
-  } else if (numEl.dataset.orig) {
-    numEl.textContent = numEl.dataset.orig;
-  }
-}
-
 function debouncedFind() {
   clearTimeout(debounceTimer);
-  debounceTimer = setTimeout(() => findSolution(), 650);
+  debounceTimer = setTimeout(() => findSolution(true), 350);
 }
 
-function findSolution() {
-  clearTimeout(debounceTimer);
+function findSolution(isLiveTyping = false) {
   const raw      = document.getElementById('search').value;
   const keywords = extractKeywords(raw);
   const phrase   = clean(raw);
@@ -4426,18 +4057,17 @@ function findSolution() {
   const prodVal  = activeProduct;
   const resultEl = document.getElementById('result');
 
-  // Sync active state on quick chips
-  document.querySelectorAll('.quick-chip').forEach(chip => {
-    chip.classList.toggle('active', clean(chip.textContent) === phrase);
-  });
-
-  if (!cat)     { resultEl.innerHTML = noResultHTML('Please pick a category card first.'); return; }
-  if (!prodVal) { resultEl.innerHTML = noResultHTML('Please select a product model.'); return; }
-  if (!keywords.length) { resultEl.innerHTML = noResultHTML('Please describe the issue you are facing.'); return; }
+  if (!cat)     { if (!isLiveTyping) resultEl.innerHTML = noResultHTML('Please pick a category card first.'); return; }
+  if (!prodVal) { if (!isLiveTyping) resultEl.innerHTML = noResultHTML('Please select a product model.'); return; }
+  if (!keywords.length) { if (!isLiveTyping) resultEl.innerHTML = noResultHTML('Please describe the issue you are facing.'); return; }
 
   const data = (db[cat] || []).filter(x => x.product === prodVal);
   if (!data.length) {
-    triggerAI(cat, prodVal, raw);
+    if (isLiveTyping) {
+      resultEl.innerHTML = askAIPromptHTML(cat, prodVal, raw);
+    } else {
+      triggerAI(cat, prodVal, raw);
+    }
     return;
   }
 
@@ -4480,15 +4110,49 @@ function findSolution() {
   validResults.sort((a, b) => b.score - a.score);
 
   if (!validResults.length) {
-    triggerAI(cat, prodVal, raw);
+    if (isLiveTyping) {
+      resultEl.innerHTML = askAIPromptHTML(cat, prodVal, raw);
+    } else {
+      triggerAI(cat, prodVal, raw);
+    }
     return;
   }
 
   currentResults = validResults;
-  renderResult(0);
+  renderResult(0, isLiveTyping);
 }
 
-function renderResult(activeIndex) {
+function askAIPromptHTML(cat, prodVal, raw) {
+  lastAiCategory = cat;
+  lastAiProduct  = prodVal;
+  lastAiIssue    = raw;
+  return `
+    <div class="ai-error-card">
+      <div class="ai-error-icon">✦</div>
+      <div class="ai-error-title">Not in Sheet — Ask Gemini AI</div>
+      <div class="ai-error-sub">
+        No exact match in the sheet database for "<strong>${esc(raw)}</strong>". Press <strong>Enter</strong> or click below to let Gemini AI practically search and build a custom solution for <strong>${esc(prodVal)}</strong>.
+      </div>
+      <button class="ai-retry-btn" type="button" onclick="window.retryLastAI()">
+        ✦ Search &amp; Generate Fix with AI
+      </button>
+    </div>`;
+}
+
+function toggleStepDone(el, event) {
+  if (event && event.target && event.target.tagName === 'A') return;
+  el.classList.toggle('done');
+  const numEl = el.querySelector('.step-num, .ai-step-num');
+  if (!numEl) return;
+  if (el.classList.contains('done')) {
+    if (!numEl.dataset.orig) numEl.dataset.orig = numEl.textContent;
+    numEl.textContent = '✓';
+  } else if (numEl.dataset.orig) {
+    numEl.textContent = numEl.dataset.orig;
+  }
+}
+
+function renderResult(activeIndex, skipScroll = false) {
   const resultEl = document.getElementById('result');
   if (!currentResults.length) return;
   const top   = currentResults[activeIndex];
@@ -4498,7 +4162,7 @@ function renderResult(activeIndex) {
   const icon  = ICONS[cat] || '📦';
 
   const stepsHTML = steps.map((s, i) => `
-    <div class="step" onclick="toggleStepDone(this, event)" title="Click to mark step as completed">
+    <div class="step" onclick="window.toggleStepDone(this, event)" title="Click to mark step as completed">
       <div class="step-num">${i + 1}</div>
       <div class="step-text">${escAndLink(s)}</div>
     </div>`).join('');
@@ -4524,24 +4188,26 @@ function renderResult(activeIndex) {
         ${stepsHTML}
       </div>
       <div class="copy-row">
-        <button class="btn-ghost" onclick="copySteps()">
+        <button class="btn-ghost" type="button" onclick="window.copySteps()">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="9" y="9" width="13" height="13" rx="2"/>
             <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
           </svg>
-          Copy Steps
+          Copy Raw Steps
         </button>
-        <button class="btn-ghost" onclick="copyCustomerReply()">
+        <button class="btn-ghost" type="button" onclick="window.copyCustomerReply()">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
           </svg>
-          Copy as Customer Reply
+          Copy Customer Reply
         </button>
       </div>
     </div>
     ${recommendHTML}
   `;
-  setTimeout(() => smoothScrollTo(resultEl, 90), 80);
+  if (!skipScroll) {
+    setTimeout(() => smoothScrollTo(resultEl, 90), 80);
+  }
 }
 
 function buildRecommendHTML(recs) {
@@ -4550,7 +4216,7 @@ function buildRecommendHTML(recs) {
   const items = recs.slice(0, 8).map(r => {
     const pct = Math.round((r.score / maxScore) * 100);
     return `
-      <button class="recommend-item" onclick="renderResult(${r.idx})">
+      <button class="recommend-item" type="button" onclick="window.renderResult(${r.idx}, false)">
         <div class="recommend-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"/>
@@ -4589,10 +4255,6 @@ function noResultHTML(sub) {
     </div>`;
 }
 
-/* ═══════════════════════════════════════════════
-   DUAL COPY MODES (RAW STEPS & CUSTOMER REPLY)
-   ═══════════════════════════════════════════════ */
-
 function copySteps() {
   const steps = document.querySelectorAll('.step-text, .ai-step-text');
   if (!steps.length) return;
@@ -4600,3 +4262,352 @@ function copySteps() {
   navigator.clipboard.writeText(text)
     .then(() => showToast('Resolution steps copied!'))
     .catch(() => showToast('Copy failed — try manually'));
+}
+
+function copyCustomerReply() {
+  const steps = document.querySelectorAll('.step-text, .ai-step-text');
+  if (!steps.length) return;
+  const prod = activeProduct || 'your Crossbeats device';
+  const body = Array.from(steps).map((s, i) => `Step ${i + 1}: ${s.textContent.trim()}`).join('\n\n');
+  const message = `Hi there,\n\nThank you for reaching out to Crossbeats Support! Please try the following troubleshooting steps for your ${prod}:\n\n${body}\n\nPlease let us know if the issue persists after trying these steps — we're happy to help!\n\nBest regards,\nCrossbeats Support Team`;
+  navigator.clipboard.writeText(message)
+    .then(() => showToast('Customer reply copied!'))
+    .catch(() => showToast('Copy failed — try manually'));
+}
+
+/* ═══════════════════════════════════════════════════════════
+   GEMINI AI ENGINE (SAME API KEY + PRACTICAL WEB SEARCH)
+   ═══════════════════════════════════════════════════════════ */
+function buildAIContext(category, product) {
+  const entries    = (db[category] || []).filter(x => x.product === product);
+  const catEntries = (db[category] || []).slice(0, 20);
+
+  let knowledgeBlock = '';
+
+  if (entries.length > 0) {
+    knowledgeBlock += `\nKnown issues and resolutions for ${product}:\n`;
+    entries.forEach((e, i) => {
+      if (e.issue && e.steps) {
+        knowledgeBlock += `\nIssue ${i + 1}: ${e.issue}\nResolution: ${e.steps}\n`;
+      }
+    });
+  }
+
+  if (catEntries.length > 0) {
+    knowledgeBlock += `\nAdditional ${category} troubleshooting context:\n`;
+    catEntries.slice(0, 10).forEach((e) => {
+      if (e.issue && e.steps && e.product !== product) {
+        knowledgeBlock += `- ${e.product}: ${e.issue} -> ${e.steps.split('\n')[0]}\n`;
+      }
+    });
+  }
+
+  return knowledgeBlock;
+}
+
+function retryLastAI() {
+  if (!lastAiCategory || !lastAiProduct || !lastAiIssue) return;
+  triggerAI(lastAiCategory, lastAiProduct, lastAiIssue);
+}
+
+async function callGeminiWithFallback(fullPrompt) {
+  const basePayload = {
+    contents: [{ parts: [{ text: fullPrompt }] }],
+    generationConfig: {
+      temperature: 0.5,
+      maxOutputTokens: 800,
+      topP: 0.9
+    }
+  };
+
+  // First attempt: with Google Search grounding enabled so Gemini practically searches for the product/issue
+  try {
+    const searchRes = await fetch(`${GEMINI_ENDPOINT}?key=${GEMINI_API_KEY}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        ...basePayload,
+        tools: [{ google_search: {} }]
+      })
+    });
+    if (searchRes.ok) {
+      const searchData = await searchRes.json();
+      const text = (searchData?.candidates?.[0]?.content?.parts || []).map(p => p.text || '').join('\n').trim();
+      if (text && text.length >= 20) return text;
+    }
+  } catch (e) {
+    // Fallback to standard generation if search grounding tool isn't enabled on this key tier
+  }
+
+  // Fallback attempt: standard Gemini 2.0 Flash generation using the same API key
+  const res = await fetch(`${GEMINI_ENDPOINT}?key=${GEMINI_API_KEY}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(basePayload)
+  });
+
+  if (!res.ok) {
+    const errBody = await res.text();
+    console.error('Gemini API error:', res.status, errBody);
+    throw new Error(`Gemini API error: ${res.status}`);
+  }
+
+  const data = await res.json();
+  return (data?.candidates?.[0]?.content?.parts || []).map(p => p.text || '').join('\n').trim();
+}
+
+async function triggerAI(category, product, issueText) {
+  const resultEl = document.getElementById('result');
+
+  lastAiCategory = category;
+  lastAiProduct  = product;
+  lastAiIssue    = issueText;
+
+  resultEl.innerHTML = `
+    <div class="ai-loading-card">
+      <div class="ai-loader-wrap">
+        <div class="ai-loader-ring"></div>
+        <div class="ai-loader-ring"></div>
+        <div class="ai-loader-ring"></div>
+        <div class="ai-loader-core">✦</div>
+      </div>
+      <div class="ai-loading-title">Gemini AI is searching &amp; analyzing…</div>
+      <div class="ai-loading-sub">No exact match found in the sheet. Gemini AI is searching Crossbeats product specs &amp; ${esc(category)} diagnostics to build a practical solution for <strong style="color:var(--ai-bright)">${esc(product)}</strong>.</div>
+      <div class="ai-typing-bar"><span></span><span></span><span></span></div>
+    </div>`;
+
+  setTimeout(() => smoothScrollTo(resultEl, 90), 80);
+
+  try {
+    const context = buildAIContext(category, product);
+    const catName = CAT_NAMES[category] || category;
+
+    const systemPrompt = `You are a senior Crossbeats Product Support Engineer. Crossbeats manufactures consumer electronics including projectors (Lumex series, etc.), soundbars, TWS earbuds, audio gear, lapel microphones, smart watches, and dash cameras.
+
+Your job: practically diagnose the customer's reported issue for the exact Crossbeats product model and provide clear, accurate, step-by-step troubleshooting guidance.
+
+STRICT RULES:
+- Respond with ONLY numbered steps (1. 2. 3. etc.) — nothing else
+- Each step must be concise, specific to the hardware/software of this product category, and immediately actionable (1-2 short sentences)
+- Provide between 4 and 7 steps
+- NO introduction, NO conclusion, NO markdown headers outside the numbered steps
+- Never say "I" or "As an AI"
+- Order steps logically from simplest physical/connection checks to deeper settings/firmware checks, and mention factory reset or service center replacement ONLY as the final step
+- Use both your practical product knowledge/search and the internal knowledge base below
+
+INTERNAL KNOWLEDGE BASE:
+${context}`;
+
+    const userMessage = `Product: Crossbeats ${product}
+Category: ${catName}
+Customer's reported issue: ${issueText}
+
+Generate numbered troubleshooting steps for this exact issue now.`;
+
+    const fullPrompt = `${systemPrompt}\n\n${userMessage}`;
+    const aiText = await callGeminiWithFallback(fullPrompt);
+
+    if (!aiText || aiText.length < 20) throw new Error('Empty AI response');
+
+    renderAIResult(category, product, issueText, aiText);
+
+  } catch (err) {
+    console.error('AI error:', err);
+    renderAIError(category, product, issueText);
+  }
+}
+
+function renderAIResult(category, product, issueText, rawText) {
+  const resultEl = document.getElementById('result');
+  const steps    = parseAISteps(rawText);
+  const catIcon  = ICONS[category] || '📦';
+
+  if (!steps.length) {
+    renderAIError(category, product, issueText);
+    return;
+  }
+
+  const stepsHTML = steps.map((s, i) => `
+    <div class="ai-step" onclick="window.toggleStepDone(this, event)" title="Click to mark step as completed">
+      <div class="ai-step-num">${i + 1}</div>
+      <div class="ai-step-text">${escAndLink(s)}</div>
+    </div>`).join('');
+
+  resultEl.innerHTML = `
+    <div class="ai-result-card">
+      <div class="ai-header">
+        <div class="ai-icon-wrap">${catIcon}</div>
+        <div>
+          <div class="ai-badge">
+            <div class="ai-badge-dot"></div>
+            ✦ Gemini AI Practical Diagnosis
+          </div>
+          <div class="ai-product-name">${esc(product)}</div>
+          <div class="ai-issue-tag">${esc(issueText)}</div>
+        </div>
+      </div>
+
+      <div class="ai-steps-section">
+        <div class="ai-steps-label">AI-Suggested Resolution Steps (Click step to check off)</div>
+        ${stepsHTML}
+      </div>
+
+      <div class="ai-disclaimer">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 8v4M12 16h.01"/>
+        </svg>
+        <span>This solution was <strong>searched and generated by Google Gemini AI</strong> because no exact match was found in the Google Sheet. Verify steps before sharing with the customer.</span>
+      </div>
+
+      <div class="ai-copy-row">
+        <button class="btn-ghost-ai" type="button" onclick="window.copySteps()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2"/>
+            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+          </svg>
+          Copy Raw Steps
+        </button>
+        <button class="btn-ghost-ai" type="button" onclick="window.copyCustomerReply()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+          </svg>
+          Copy Customer Reply
+        </button>
+      </div>
+    </div>`;
+
+  setTimeout(() => smoothScrollTo(resultEl, 90), 80);
+}
+
+function renderAIError(category, product, issueText) {
+  lastAiCategory = category;
+  lastAiProduct  = product;
+  lastAiIssue    = issueText;
+  const resultEl = document.getElementById('result');
+  resultEl.innerHTML = `
+    <div class="ai-error-card">
+      <div class="ai-error-icon">🤖</div>
+      <div class="ai-error-title">AI Unavailable</div>
+      <div class="ai-error-sub">
+        No troubleshoot was found in the database and the Gemini AI assistant could not be reached right now.
+        Please check your connection or click below to retry.
+      </div>
+      <button class="ai-retry-btn" type="button" onclick="window.retryLastAI()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="23 4 23 10 17 10"/>
+          <path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/>
+        </svg>
+        Retry Gemini AI
+      </button>
+    </div>`;
+  setTimeout(() => smoothScrollTo(resultEl, 90), 80);
+}
+
+function parseAISteps(raw) {
+  if (!raw) return [];
+  const cleanedRaw = String(raw).replace(/\*\*/g, '').replace(/\r\n?/g, '\n');
+  const lines = cleanedRaw.split('\n');
+  const steps = [];
+
+  const numberedPattern = /^\s*(?:step\s*)?\d+[\.\)\:\-]\s+(.+)/i;
+  const bulletPattern   = /^\s*[•\*\-►▪]\s+(.+)/;
+
+  let buffer = null;
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed) { if (buffer) { steps.push(buffer); buffer = null; } continue; }
+
+    const numMatch    = numberedPattern.exec(line);
+    const bulletMatch = bulletPattern.exec(line);
+
+    if (numMatch || bulletMatch) {
+      if (buffer) steps.push(buffer);
+      buffer = (numMatch ? numMatch[1] : bulletMatch[1]).trim();
+    } else if (buffer !== null) {
+      buffer += ' ' + trimmed;
+    } else {
+      if (trimmed.length > 15) steps.push(trimmed);
+    }
+  }
+
+  if (buffer) steps.push(buffer);
+
+  if (!steps.length && cleanedRaw.trim().length > 30) {
+    const sentences = cleanedRaw.match(/[^.!?]+[.!?]+(?:\s|$)\vert{}[^.!?]+$/g) || [];
+    sentences.forEach(s => { const t = s.trim(); if (t.length > 15) steps.push(t); });
+  }
+
+  return steps.filter(s => s.length > 5).slice(0, 8);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   EXPOSE ALL HANDLERS ON WINDOW TO PREVENT REFERENCE ERRORS
+   ═══════════════════════════════════════════════════════════ */
+Object.assign(window, {
+  toggleTheme,
+  switchTab,
+  showForgotStep1,
+  showForgotStep2,
+  showForgotStep3,
+  cancelForgot,
+  requestOTP,
+  verifyOTP,
+  resetPassword,
+  login,
+  signup,
+  logout,
+  syncPortalData,
+  selectCategory,
+  selectCategoryFromEl,
+  selectProduct,
+  selectProductFromEl,
+  selectQuickChip,
+  onUniversalSearchInput,
+  onUniversalSearchFocus,
+  onUniversalSearchKey,
+  clearUniversalSearch,
+  pickUniversalProduct,
+  pickUniversalProductFromEl,
+  debouncedFind,
+  findSolution,
+  renderResult,
+  toggleStepDone,
+  copySteps,
+  copyCustomerReply,
+  triggerAI,
+  retryLastAI
+});
+
+window.addEventListener('DOMContentLoaded', async () => {
+  const subtitleEl = document.getElementById('loadingSubtitleText');
+  if (subtitleEl) subtitleEl.style.transition = 'opacity .25s ease';
+
+  const saved = sessionStorage.getItem('cb_user');
+  if (saved) {
+    showLoader('Welcome back', ['Restoring your session','Discovering categories','Loading product catalog','Fetching product images']);
+    try {
+      await loadAllData(); hideLoader(); enterDashboard(saved);
+    } catch (e) {
+      console.error('Session restore failed:', e);
+      hideLoader(); sessionStorage.removeItem('cb_user');
+    }
+  }
+});
+
+document.addEventListener('keydown', (e) => {
+  const dashVisible = !document.getElementById('dashView').classList.contains('hidden');
+  if (!dashVisible) return;
+
+  if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+    e.preventDefault();
+    document.getElementById('universalSearch').focus();
+  } else if (e.key === 'Escape') {
+    const search = document.getElementById('search');
+    if (document.activeElement === search) { search.blur(); e.preventDefault(); }
+  }
+});
+</script>
+</body>
+</html>
