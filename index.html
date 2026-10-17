@@ -7,6 +7,16 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
 
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes rotateGradient {
+  to { --angle: 360deg; }
+}
+
 :root {
   --bg: #050505;
   --surface: #0c0c0e;
@@ -731,6 +741,44 @@ body::after {
   animation: pulse 2s infinite;
 }
 
+/* ── TOPBAR SYNC DATA BUTTON ── */
+.sync-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(255,255,255,.02);
+  border: 1.5px solid var(--border);
+  color: var(--muted2);
+  border-radius: var(--r-sm);
+  padding: 9px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: border-color .25s ease, color .25s ease, background .25s ease, transform .25s ease;
+}
+
+:root.light .sync-btn {
+  background: rgba(0,0,0,.03);
+}
+
+.sync-btn:hover {
+  border-color: rgba(255,106,0,.45);
+  color: var(--accent);
+  background: rgba(255,106,0,.06);
+  transform: translateY(-1px);
+}
+
+.sync-btn svg {
+  width: 14px;
+  height: 14px;
+  transition: transform .5s ease;
+}
+
+.sync-btn.spinning svg {
+  animation: spin .8s linear infinite;
+}
+
 .logout-btn {
   background: rgba(255,255,255,.02);
   border: 1.5px solid var(--border);
@@ -794,6 +842,84 @@ body::after {
   margin-bottom: 26px;
   font-weight: 300;
   line-height: 1.5;
+}
+
+/* ── ACTIVE SELECTION BREADCRUMB BAR ── */
+.active-breadcrumb {
+  position: sticky;
+  top: 14px;
+  z-index: 45;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 16px;
+  margin-bottom: 22px;
+  background: rgba(18,18,22,.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,106,0,.3);
+  border-radius: var(--r);
+  box-shadow: 0 10px 30px rgba(0,0,0,.45), 0 0 20px rgba(255,106,0,.08);
+  animation: fadeUp .3s var(--ease) both;
+}
+
+:root.light .active-breadcrumb {
+  background: rgba(255,255,255,.94);
+  box-shadow: 0 10px 30px rgba(0,0,0,.08), 0 0 20px rgba(255,106,0,.06);
+}
+
+.bc-path {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--txt);
+  flex-wrap: wrap;
+}
+
+.bc-cat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted2);
+}
+
+.bc-sep {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.bc-prod {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  color: var(--accent2);
+}
+
+.bc-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bc-change-btn {
+  padding: 5px 11px;
+  background: rgba(255,106,0,.1);
+  border: 1px solid rgba(255,106,0,.25);
+  border-radius: 8px;
+  color: var(--accent);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease, transform .2s ease;
+}
+
+.bc-change-btn:hover {
+  background: rgba(255,106,0,.18);
+  border-color: var(--accent);
+  transform: translateY(-1px);
 }
 
 .section-label {
@@ -978,7 +1104,7 @@ body::after {
 
 .universal-input {
   width: 100%;
-  padding: 15px 46px 15px 48px;
+  padding: 15px 96px 15px 48px;
   background: rgba(0,0,0,.35);
   border: 1.5px solid var(--border);
   border-radius: var(--r);
@@ -1014,6 +1140,31 @@ body::after {
 .universal-input:focus ~ .universal-icon { opacity: .8; color: var(--accent); }
 .universal-icon svg { width: 18px; height: 18px; stroke: var(--txt); }
 
+.kbd-hint {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 4px 8px;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--muted2);
+  background: rgba(255,255,255,.05);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  pointer-events: none;
+  transition: opacity .2s ease;
+}
+
+:root.light .kbd-hint {
+  background: rgba(0,0,0,.04);
+}
+
+.universal-input:focus ~ .kbd-hint {
+  opacity: 0;
+}
+
 .universal-clear {
   position: absolute;
   right: 12px;
@@ -1029,6 +1180,7 @@ body::after {
   align-items: center;
   justify-content: center;
   transition: background .2s ease, color .2s ease;
+  z-index: 2;
 }
 
 :root.light .universal-clear {
@@ -1037,6 +1189,7 @@ body::after {
 
 .universal-clear:hover { background: rgba(255,106,0,.15); color: var(--accent); }
 .universal-clear.show { display: flex; }
+.universal-clear.show ~ .kbd-hint { display: none; }
 .universal-clear svg { width: 12px; height: 12px; stroke: currentColor; stroke-width: 2.5; }
 
 .universal-dropdown {
@@ -1201,7 +1354,7 @@ body::after {
   transition: max-height .5s ease, opacity .35s ease, margin-bottom .35s ease;
 }
 
-.product-section.show { max-height: 1500px; opacity: 1; }
+.product-section.show { max-height: 2000px; opacity: 1; }
 
 .product-grid {
   display: grid;
@@ -1281,6 +1434,7 @@ body::after {
 .product-card.active .product-name { color: var(--accent2); font-weight: 700; }
 .product-card.active .product-check { opacity: 1; transform: scale(1); }
 
+/* ── TRUE ANIMATED CONIC BORDER (@property) ── */
 .product-card.active::after {
   content: '';
   position: absolute;
@@ -1288,7 +1442,7 @@ body::after {
   border-radius: var(--r);
   padding: 1.5px;
   background: conic-gradient(
-    from 0deg,
+    from var(--angle),
     transparent 0deg,
     var(--accent) 60deg,
     var(--accent-bright) 90deg,
@@ -1302,10 +1456,8 @@ body::after {
           mask-composite: exclude;
   pointer-events: none;
   z-index: 3;
-  animation: borderSpin 3s linear infinite;
+  animation: rotateGradient 3s linear infinite;
 }
-
-@keyframes borderSpin { to { transform: rotate(360deg); } }
 
 .product-icon {
   width: 54px; height: 54px;
@@ -1442,6 +1594,50 @@ body::after {
   font-size: 13px;
   font-weight: 300;
   grid-column: 1 / -1;
+}
+
+/* ── QUICK ISSUE CHIPS ── */
+.quick-chips-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+  animation: fadeUp .35s var(--ease) both;
+}
+
+.quick-chips-label {
+  width: 100%;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted2);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  margin-bottom: 2px;
+}
+
+.quick-chip {
+  padding: 7px 14px;
+  background: rgba(255,255,255,.03);
+  border: 1.5px solid var(--border);
+  border-radius: 50px;
+  color: var(--muted2);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color .2s ease, color .2s ease, background .2s ease, transform .2s ease;
+}
+
+:root.light .quick-chip {
+  background: rgba(0,0,0,.03);
+}
+
+.quick-chip:hover,
+.quick-chip.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(255,106,0,.08);
+  transform: translateY(-1px);
 }
 
 .search-box { position: relative; margin-bottom: 22px; }
@@ -1682,6 +1878,8 @@ body::after {
   animation: aiBadgePulse 3s ease-in-out infinite;
 }
 
+:root.light .ai-badge { color: var(--ai-dim); }
+
 @keyframes aiBadgePulse {
   0%,100% { box-shadow: 0 4px 16px rgba(167,139,250,.2), 0 0 30px rgba(167,139,250,.1); }
   50% { box-shadow: 0 4px 24px rgba(167,139,250,.4), 0 0 50px rgba(167,139,250,.2); }
@@ -1723,6 +1921,8 @@ body::after {
   color: var(--ai-bright);
 }
 
+:root.light .ai-issue-tag { color: var(--ai-dim); }
+
 .ai-issue-tag::before {
   content: '';
   width: 5px; height: 5px;
@@ -1762,9 +1962,11 @@ body::after {
   border: 1px solid rgba(167,139,250,.1);
   border-radius: var(--r);
   margin-bottom: 11px;
-  transition: border-color .25s ease, background .25s ease, transform .25s ease, box-shadow .25s ease;
+  transition: border-color .25s ease, background .25s ease, transform .25s ease, box-shadow .25s ease, opacity .25s ease;
   animation: fadeUp .4s var(--ease) both;
   position: relative;
+  cursor: pointer;
+  user-select: none;
 }
 
 .ai-step:hover {
@@ -1805,7 +2007,10 @@ body::after {
   color: var(--ai-bright);
   flex-shrink: 0;
   box-shadow: 0 2px 10px rgba(167,139,250,.25), inset 0 1px 1px rgba(255,255,255,.1);
+  transition: background .25s ease, color .25s ease, border-color .25s ease;
 }
+
+:root.light .ai-step-num { color: var(--ai-dim); }
 
 .ai-step-text {
   font-size: 14px;
@@ -1832,9 +2037,57 @@ body::after {
   font-weight: 400;
 }
 
+:root.light .ai-disclaimer { color: var(--ai-dim); }
+
 .ai-disclaimer svg { width: 14px; height: 14px; flex-shrink: 0; margin-top: 1px; stroke: var(--ai); opacity: .7; }
 
-.ai-copy-row { padding: 16px 30px 26px; }
+.ai-sources {
+  margin: 14px 30px 0;
+  padding: 12px 16px;
+  background: rgba(167,139,250,.03);
+  border: 1px solid rgba(167,139,250,.1);
+  border-radius: var(--r-sm);
+  font-size: 11px;
+  color: var(--muted2);
+}
+
+.ai-sources-title {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--ai-bright);
+  margin-bottom: 6px;
+}
+
+:root.light .ai-sources-title { color: var(--ai-dim); }
+
+.ai-sources-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ai-source-link {
+  color: var(--accent2);
+  text-decoration: none;
+  background: rgba(255,157,74,.08);
+  border: 1px solid rgba(255,157,74,.2);
+  padding: 3px 9px;
+  border-radius: 50px;
+  transition: background .2s ease, color .2s ease;
+}
+
+.ai-source-link:hover {
+  background: rgba(255,157,74,.16);
+  color: var(--accent);
+}
+
+.ai-copy-row {
+  padding: 16px 30px 26px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
 
 .btn-ghost-ai {
   display: inline-flex;
@@ -1845,7 +2098,7 @@ body::after {
   background: rgba(167,139,250,.04);
   border: 1.5px solid rgba(167,139,250,.2);
   border-radius: var(--r-sm);
-  color: rgba(167,139,250,.7);
+  color: rgba(167,139,250,.85);
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   font-weight: 500;
@@ -1853,6 +2106,8 @@ body::after {
   transition: border-color .25s ease, color .25s ease, background .25s ease, transform .25s ease;
   width: 100%;
 }
+
+:root.light .btn-ghost-ai { color: var(--ai-dim); }
 
 .btn-ghost-ai:hover {
   border-color: rgba(167,139,250,.5);
@@ -1940,13 +2195,15 @@ body::after {
   letter-spacing: -.2px;
 }
 
+:root.light .ai-loading-title { color: var(--ai-dim); }
+
 .ai-loading-sub {
   font-size: 13px;
   color: var(--muted2);
   text-align: center;
   font-weight: 300;
   line-height: 1.5;
-  max-width: 300px;
+  max-width: 340px;
 }
 
 .ai-typing-bar {
@@ -2002,7 +2259,7 @@ body::after {
   font-size: 13px;
   color: var(--muted);
   font-weight: 300;
-  max-width: 320px;
+  max-width: 340px;
   line-height: 1.5;
 }
 
@@ -2022,6 +2279,8 @@ body::after {
   transition: background .25s ease, border-color .25s ease, transform .25s ease;
   margin-top: 4px;
 }
+
+:root.light .ai-retry-btn { color: var(--ai-dim); }
 
 .ai-retry-btn:hover {
   background: rgba(167,139,250,.12);
@@ -2060,9 +2319,11 @@ body::after {
   border: 1px solid var(--border-soft);
   border-radius: var(--r);
   margin-bottom: 11px;
-  transition: border-color .25s ease, background .25s ease, transform .25s ease, box-shadow .25s ease;
+  transition: border-color .25s ease, background .25s ease, transform .25s ease, box-shadow .25s ease, opacity .25s ease;
   animation: fadeUp .4s var(--ease) both;
   position: relative;
+  cursor: pointer;
+  user-select: none;
 }
 
 :root.light .step {
@@ -2094,6 +2355,28 @@ body::after {
 
 .step:hover::before { height: 65%; }
 
+/* ── INTERACTIVE STEP CHECKLIST COMPLETED STATE ── */
+.step.done,
+.ai-step.done {
+  opacity: .58;
+  border-color: rgba(0,230,138,.28);
+  background: rgba(0,230,138,.04);
+}
+
+.step.done .step-num,
+.ai-step.done .ai-step-num {
+  background: var(--success);
+  border-color: var(--success);
+  color: #000;
+  box-shadow: 0 2px 10px rgba(0,230,138,.35);
+}
+
+.step.done .step-text,
+.ai-step.done .ai-step-text {
+  text-decoration: line-through;
+  text-decoration-color: rgba(138,138,154,.45);
+}
+
 .step-num {
   width: 28px; height: 28px;
   background: linear-gradient(145deg, var(--accent), var(--accent-dim));
@@ -2106,6 +2389,7 @@ body::after {
   color: #000;
   flex-shrink: 0;
   box-shadow: 0 2px 10px rgba(255,106,0,.35), inset 0 1px 1px rgba(255,255,255,.3);
+  transition: background .25s ease, color .25s ease, box-shadow .25s ease;
 }
 
 .step-text {
@@ -2118,7 +2402,8 @@ body::after {
   word-break: break-word;
 }
 
-.step-text a {
+.step-text a,
+.ai-step-text a {
   color: var(--accent2);
   text-decoration: none;
   border-bottom: 1px dashed rgba(255,157,74,.4);
@@ -2126,9 +2411,20 @@ body::after {
   word-break: break-all;
 }
 
-.step-text a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.step-text a:hover,
+.ai-step-text a:hover { color: var(--accent); border-bottom-color: var(--accent); }
 
-.copy-row { padding: 0 30px 26px; }
+/* ── DUAL COPY BUTTONS ── */
+.copy-row {
+  padding: 0 30px 26px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.copy-row .btn-ghost {
+  margin-top: 0;
+}
 
 .recommend-section {
   background: rgba(12,12,14,.94);
@@ -2623,7 +2919,8 @@ body::after {
   .login-card { padding: 28px 20px 24px; }
   .result-header { padding: 20px 18px 16px; flex-direction: column; align-items: flex-start; }
   .result-steps { padding: 20px 18px 16px; }
-  .copy-row { padding: 0 18px 20px; }
+  .copy-row, .ai-copy-row { padding: 0 18px 20px; grid-template-columns: 1fr; }
+  .ai-copy-row { padding-top: 16px; }
   .recommend-section { padding: 20px 18px; }
   .recommend-item { padding: 12px 14px; }
   .topbar { padding: 14px 18px; }
@@ -2637,8 +2934,9 @@ body::after {
   .ai-header { padding: 20px 18px 16px; flex-direction: column; align-items: flex-start; }
   .ai-steps-section { padding: 20px 18px 16px; }
   .ai-disclaimer { margin: 0 18px 0; }
-  .ai-copy-row { padding: 16px 18px 20px; }
+  .ai-sources { margin: 14px 18px 0; }
   .theme-toggle-wrap { top: 12px; right: 12px; }
+  .kbd-hint { display: none; }
 }
 
 @media (max-width: 380px) {
@@ -2871,6 +3169,14 @@ body::after {
       </div>
       <div class="topbar-right">
         <div class="pill">Live</div>
+        <button class="sync-btn" id="syncBtn" onclick="syncSheetData()" title="Sync latest Google Sheet rows & Drive images">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 4 23 10 17 10"/>
+            <polyline points="1 20 1 14 7 14"/>
+            <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+          </svg>
+          <span>Sync Data</span>
+        </button>
         <button class="logout-btn" onclick="logout()">Log out</button>
       </div>
     </div>
@@ -2884,7 +3190,19 @@ body::after {
       </div>
       <div class="panel-sub">Pick a category, choose your product, then describe the issue to find the right fix instantly.</div>
 
-      <div class="section-label">Product Category</div>
+      <!-- ACTIVE SELECTION BREADCRUMB BAR -->
+      <div class="active-breadcrumb hidden" id="activeBreadcrumb">
+        <div class="bc-path">
+          <span class="bc-cat" id="bcCat"></span>
+          <span class="bc-sep" id="bcSep">›</span>
+          <span class="bc-prod" id="bcProd">Select a product</span>
+        </div>
+        <div class="bc-actions">
+          <button type="button" class="bc-change-btn" onclick="scrollToSelector()">Change</button>
+        </div>
+      </div>
+
+      <div class="section-label" id="catSectionLabel">Product Category</div>
       <div class="cat-grid" id="catGrid"></div>
 
       <div class="universal-divider"><span>OR search any product directly</span></div>
@@ -2905,6 +3223,7 @@ body::after {
             <path d="M18 6L6 18M6 6l12 12"/>
           </svg>
         </button>
+        <span class="kbd-hint">/ or Ctrl+K</span>
         <div class="universal-dropdown" id="universalDropdown"></div>
       </div>
 
@@ -2915,6 +3234,9 @@ body::after {
         </div>
         <div class="product-grid" id="productGrid"></div>
       </div>
+
+      <!-- ZERO-TYPING QUICK ISSUE CHIPS -->
+      <div id="quickChips" class="quick-chips-wrap hidden"></div>
 
       <div class="search-box" id="issueSearchBox">
         <label for="search">Describe the Issue</label>
@@ -3001,12 +3323,14 @@ const ALLOWED_EXTERNAL_EMAILS = [
 const SHEET = '1FdCNEtrHDyVyy2E1yjAXwo_2qy14VIg_qsyo2rGp2m0';
 const AUTH_API = 'https://script.google.com/macros/s/AKfycbw0X5cBa4etRk9fHtSvINkVlhUPVkV88vXoiCrnoQR1vPT6l8ZA2w9NQVo6djszuy4n/exec';
 const DRIVE_FOLDER_ID = '15yJM0NmxtE91kHsD8FM-nUehppd0_VUu';
+const CACHE_KEY = 'cb_portal_cache_v2';
+const CACHE_TTL = 1000 * 60 * 30; // 30 minutes
 
 /* ═══════════════════════════════════════════════
-   GEMINI AI CONFIGURATION
+   GEMINI AI CONFIGURATION (WITH LIVE SEARCH)
    ═══════════════════════════════════════════════ */
-const GEMINI_API_KEY      = 'AIzaSyABsSnuZxx7V-Qn8WktB0XmyVcAtL6OzC0';
-const GEMINI_ENDPOINT     = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+const GEMINI_API_KEY  = 'AIzaSyABsSnuZxx7V-Qn8WktB0XmyVcAtL6OzC0';
+const GEMINI_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
 
 const FALLBACK_TABS = {
   "Projectors":    "1298694583",
@@ -3041,8 +3365,8 @@ function guessCategoryIcon(name) {
   return '📦';
 }
 
-let TABS     = {};
-let ICONS    = {};
+let TABS      = {};
+let ICONS     = {};
 let CAT_NAMES = {};
 
 const STOP_WORDS = new Set([
@@ -3061,16 +3385,16 @@ const BOOST_WORDS = {
   'never':2,'no':1.5,'fail':2,'failed':2,'failing':2,'broken':2
 };
 
-let db               = {};
-let activeCategory   = null;
-let activeProduct    = null;
-let currentResults   = [];
-let forgotEmail      = '';
-let verifiedOtp      = '';
-let debounceTimer    = null;
-let productImageMap  = {};
-let loadingStageTimer = null;
-let universalDebounceTimer  = null;
+let db                     = {};
+let activeCategory         = null;
+let activeProduct          = null;
+let currentResults         = [];
+let forgotEmail            = '';
+let verifiedOtp            = '';
+let debounceTimer          = null;
+let productImageMap        = {};
+let loadingStageTimer      = null;
+let universalDebounceTimer = null;
 let universalHighlightIndex = -1;
 let universalCurrentMatches = [];
 
@@ -3390,22 +3714,94 @@ async function callAuthAPI(action, email, password, otp, newPassword) {
   return await res.json();
 }
 
+/* ═══════════════════════════════════════════════
+   STALE-WHILE-REVALIDATE DATA LOADING & SYNC
+   ═══════════════════════════════════════════════ */
+
 function loadSheet(gid) {
   return new Promise((resolve, reject) => {
     const cb = 'cb' + Math.random().toString(36).slice(2);
-    const timeout = setTimeout(() => { delete window[cb]; reject(new Error('Timed out')); }, 12000);
-    window[cb] = (j) => { clearTimeout(timeout); delete window[cb]; resolve(j.table ? j.table.rows || [] : []); };
     const s = document.createElement('script');
-    s.onerror = () => { clearTimeout(timeout); delete window[cb]; reject(new Error('Load failed')); };
+    const cleanup = () => {
+      clearTimeout(timeout);
+      delete window[cb];
+      if (s.parentNode) s.remove();
+    };
+    const timeout = setTimeout(() => { cleanup(); reject(new Error('Timed out')); }, 12000);
+    window[cb] = (j) => { cleanup(); resolve(j.table ? j.table.rows || [] : []); };
+    s.onerror = () => { cleanup(); reject(new Error('Load failed')); };
     s.src = `https://docs.google.com/spreadsheets/d/${SHEET}/gviz/tq?gid=${gid}&tqx=responseHandler:${cb}`;
     document.body.appendChild(s);
   });
 }
 
-async function loadAllData() {
+async function loadAllData(forceRefresh = false) {
+  if (!forceRefresh) {
+    const rawCache = localStorage.getItem(CACHE_KEY);
+    if (rawCache) {
+      try {
+        const cached = JSON.parse(rawCache);
+        if (cached && cached.TABS && cached.db && (Date.now() - cached.ts < CACHE_TTL)) {
+          TABS = cached.TABS;
+          ICONS = cached.ICONS || {};
+          CAT_NAMES = cached.CAT_NAMES || {};
+          db = cached.db;
+          productImageMap = cached.productImageMap || {};
+          renderCategoryCards();
+          // Silently revalidate in the background
+          refreshNetworkData(true).catch(() => {});
+          return;
+        }
+      } catch (e) {
+        localStorage.removeItem(CACHE_KEY);
+      }
+    }
+  }
+  await refreshNetworkData(false);
+}
+
+async function refreshNetworkData(isSilent) {
   await discoverTabs();
   await Promise.all([loadSheetData(), loadDriveImages()]);
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify({
+      ts: Date.now(),
+      TABS,
+      ICONS,
+      CAT_NAMES,
+      db,
+      productImageMap
+    }));
+  } catch (e) {}
+
   renderCategoryCards();
+  if (activeCategory) {
+    document.querySelectorAll('.cat-card').forEach(card => {
+      const sel = card.dataset.cat === activeCategory;
+      card.classList.toggle('active', sel);
+      card.setAttribute('aria-pressed', sel ? 'true' : 'false');
+    });
+    renderProductCards(activeCategory);
+    if (activeProduct) {
+      renderQuickChips(activeCategory, activeProduct);
+    }
+  }
+}
+
+async function syncSheetData() {
+  const btn = document.getElementById('syncBtn');
+  if (!btn || btn.classList.contains('spinning')) return;
+  btn.classList.add('spinning');
+  btn.disabled = true;
+  try {
+    await loadAllData(true);
+    showToast('Database & images synced!');
+  } catch (e) {
+    showToast('Sync failed — check connection');
+  } finally {
+    btn.classList.remove('spinning');
+    btn.disabled = false;
+  }
 }
 
 async function discoverTabs() {
@@ -3433,20 +3829,22 @@ async function discoverTabs() {
 }
 
 async function loadSheetData() {
+  const nextDb = {};
   const promises = Object.entries(TABS).map(async ([cat, gid]) => {
     try {
       const rows = await loadSheet(gid);
-      db[cat] = [];
+      nextDb[cat] = [];
       rows.forEach(r => {
         if (!r.c || !r.c[0] || !r.c[0].v) return;
         const products = String(r.c[0].v).split(/\n|,/).map(x => x.trim()).filter(Boolean);
         const issue = r.c[1]?.v || '';
         const steps = r.c[2]?.v || '';
-        products.forEach(p => db[cat].push({ product: p, issue, steps }));
+        products.forEach(p => nextDb[cat].push({ product: p, issue, steps }));
       });
-    } catch { db[cat] = []; }
+    } catch { nextDb[cat] = db[cat] || []; }
   });
   await Promise.all(promises);
+  db = nextDb;
 }
 
 async function loadDriveImages() {
@@ -3458,25 +3856,110 @@ async function loadDriveImages() {
     });
     const result = await res.json();
     if (result.ok && Array.isArray(result.files)) {
-      productImageMap = {};
+      const nextMap = {};
       result.files.forEach(file => {
         const productName = file.name.replace(/\.(png|jpg|jpeg|webp|gif|svg)$/i, '').trim();
-        productImageMap[productName] = `https://drive.google.com/thumbnail?id=${file.id}&sz=w200`;
+        nextMap[productName] = `https://drive.google.com/thumbnail?id=${file.id}&sz=w200`;
       });
+      productImageMap = nextMap;
     }
-  } catch { productImageMap = {}; }
+  } catch {}
 }
+
+/* ═══════════════════════════════════════════════
+   BREADCRUMB & QUICK CHIPS
+   ═══════════════════════════════════════════════ */
+
+function updateBreadcrumb() {
+  const bar   = document.getElementById('activeBreadcrumb');
+  const bcCat = document.getElementById('bcCat');
+  const bcSep = document.getElementById('bcSep');
+  const bcProd = document.getElementById('bcProd');
+  if (!bar) return;
+
+  if (!activeCategory) {
+    bar.classList.add('hidden');
+    return;
+  }
+
+  bar.classList.remove('hidden');
+  const icon = ICONS[activeCategory] || '📦';
+  const catLabel = CAT_NAMES[activeCategory] || activeCategory;
+  bcCat.innerHTML = `<span>${icon}</span> <span>${esc(catLabel)}</span>`;
+
+  if (activeProduct) {
+    bcSep.classList.remove('hidden');
+    bcProd.textContent = activeProduct;
+    bcProd.style.color = 'var(--accent2)';
+  } else {
+    bcSep.classList.remove('hidden');
+    bcProd.textContent = 'Select a model…';
+    bcProd.style.color = 'var(--muted2)';
+  }
+}
+
+function scrollToSelector() {
+  const target = document.getElementById('catSectionLabel') || document.getElementById('searchPanel');
+  smoothScrollTo(target, 90);
+}
+
+function renderQuickChips(cat, productName) {
+  const wrap = document.getElementById('quickChips');
+  if (!wrap) return;
+
+  if (!cat || !productName) {
+    wrap.classList.add('hidden');
+    wrap.innerHTML = '';
+    return;
+  }
+
+  const issues = [...new Set(
+    (db[cat] || [])
+      .filter(x => x.product === productName && x.issue)
+      .map(x => String(x.issue).trim())
+      .filter(Boolean)
+  )].slice(0, 6);
+
+  if (!issues.length) {
+    wrap.classList.add('hidden');
+    wrap.innerHTML = '';
+    return;
+  }
+
+  const currentSearch = clean(document.getElementById('search').value);
+  wrap.classList.remove('hidden');
+  wrap.innerHTML = `<div class="quick-chips-label">Quick Issues for ${esc(productName)}</div>` +
+    issues.map(iss => {
+      const isAct = currentSearch && clean(iss) === currentSearch;
+      return `<button type="button" class="quick-chip${isAct ? ' active' : ''}" onclick="selectQuickChip(this, '${esc(iss).replace(/'/g, "\\'")}')">${esc(iss)}</button>`;
+    }).join('');
+}
+
+function selectQuickChip(btn, issueText) {
+  document.querySelectorAll('.quick-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  const input = document.getElementById('search');
+  input.value = issueText;
+  findSolution();
+}
+
+/* ═══════════════════════════════════════════════
+   CATEGORIES & PRODUCTS
+   ═══════════════════════════════════════════════ */
 
 function renderCategoryCards() {
   const grid = document.getElementById('catGrid');
-  grid.innerHTML = Object.keys(TABS).map(cat => `
-    <div class="cat-card" data-cat="${esc(cat)}" onclick="selectCategory('${esc(cat)}')" tabindex="0" role="button" aria-pressed="false"
-         onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectCategory('${esc(cat)}');}">
-      <div class="cat-check"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-      <div class="cat-icon-wrap"><span class="cat-icon">${ICONS[cat] || '📦'}</span></div>
-      <div class="cat-name">${esc(CAT_NAMES[cat] || cat)}</div>
-    </div>
-  `).join('');
+  grid.innerHTML = Object.keys(TABS).map(cat => {
+    const isSel = activeCategory === cat;
+    return `
+      <div class="cat-card${isSel ? ' active' : ''}" data-cat="${esc(cat)}" onclick="selectCategory('${esc(cat).replace(/'/g, "\\'")}')" tabindex="0" role="button" aria-pressed="${isSel}"
+           onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectCategory('${esc(cat).replace(/'/g, "\\'")}');}">
+        <div class="cat-check"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="cat-icon-wrap"><span class="cat-icon">${ICONS[cat] || '📦'}</span></div>
+        <div class="cat-name">${esc(CAT_NAMES[cat] || cat)}</div>
+      </div>
+    `;
+  }).join('');
 }
 
 function selectCategory(cat) {
@@ -3488,6 +3971,8 @@ function selectCategory(cat) {
     card.setAttribute('aria-pressed', sel ? 'true' : 'false');
   });
   renderProductCards(cat);
+  renderQuickChips(null, null);
+  updateBreadcrumb();
   document.getElementById('result').innerHTML = `
     <div class="empty-hint">
       <div class="empty-hint-icon">💡</div>
@@ -3509,7 +3994,7 @@ function buildProductIcon(productName) {
   if (imgUrl) {
     return {
       html: `<img src="${esc(imgUrl)}" alt="${esc(productName)}" loading="lazy"
-               onerror="this.parentElement.classList.remove('has-image');this.parentElement.textContent='${badge}';">`,
+                onerror="this.parentElement.classList.remove('has-image');this.parentElement.textContent='${badge}';">`,
       hasImage: true
     };
   }
@@ -3560,10 +4045,21 @@ function selectProduct(el, productName) {
     card.classList.toggle('active', sel);
     card.setAttribute('aria-pressed', sel ? 'true' : 'false');
   });
+
+  updateBreadcrumb();
+  renderQuickChips(activeCategory, productName);
+
+  // Auto-run search on product switch if #search already has text
+  const existingIssue = document.getElementById('search').value.trim();
+  if (existingIssue) {
+    findSolution();
+    return;
+  }
+
   document.getElementById('result').innerHTML = `
     <div class="empty-hint">
       <div class="empty-hint-icon">🔍</div>
-      <div class="empty-hint-text">Now describe the issue to find step-by-step guidance.</div>
+      <div class="empty-hint-text">Pick a quick issue chip above or describe the issue to find step-by-step guidance.</div>
     </div>`;
   currentResults = [];
   setTimeout(() => {
@@ -3574,6 +4070,10 @@ function selectProduct(el, productName) {
     }
   }, 100);
 }
+
+/* ═══════════════════════════════════════════════
+   UNIVERSAL PRODUCT SEARCH
+   ═══════════════════════════════════════════════ */
 
 function buildAllProductsIndex() {
   const arr = []; const seen = new Set();
@@ -3650,6 +4150,12 @@ function runUniversalSearch(query) {
 
   universalCurrentMatches = scored;
 
+  // Power-user auto-select if there is only 1 exact/clear match
+  if (scored.length === 1 && (scored[0].lowName === q || q.length >= 4)) {
+    pickUniversalProduct(scored[0].category, scored[0].product);
+    return;
+  }
+
   if (!scored.length) {
     dropdown.innerHTML = `<div class="suggestion-empty"><span class="suggestion-empty-icon">🔎</span>No products match "<strong>${esc(query)}</strong>"</div>`;
     dropdown.classList.add('show'); return;
@@ -3704,13 +4210,24 @@ function pickUniversalProduct(category, productName) {
     card.setAttribute('aria-pressed', sel ? 'true' : 'false');
   });
   renderProductCards(category);
+  updateBreadcrumb();
+  renderQuickChips(category, productName);
   hideUniversalDropdown();
   document.getElementById('universalSearch').value = '';
   document.getElementById('universalClear').classList.remove('show');
+
+  // Auto-run search if #search already has text
+  const existingIssue = document.getElementById('search').value.trim();
+  if (existingIssue) {
+    findSolution();
+    showToast(`Selected: ${productName}`);
+    return;
+  }
+
   document.getElementById('result').innerHTML = `
     <div class="empty-hint">
       <div class="empty-hint-icon">🔍</div>
-      <div class="empty-hint-text">Now describe the issue to find step-by-step guidance.</div>
+      <div class="empty-hint-text">Pick a quick issue chip above or describe the issue to find step-by-step guidance.</div>
     </div>`;
   currentResults = [];
   setTimeout(() => {
@@ -3724,6 +4241,10 @@ document.addEventListener('click', (e) => {
   const wrap = document.querySelector('.universal-search-wrap');
   if (wrap && !wrap.contains(e.target)) hideUniversalDropdown();
 });
+
+/* ═══════════════════════════════════════════════
+   AUTH & SESSION
+   ═══════════════════════════════════════════════ */
 
 async function login() {
   const e = document.getElementById('email').value.trim().toLowerCase();
@@ -3780,8 +4301,8 @@ async function signup() {
 }
 
 function enterDashboard(email) {
-  const isDev  = email === DEV;
-  const name   = isDev ? 'Developer' : email.split('@')[0];
+  const isDev   = email === DEV;
+  const name    = isDev ? 'Developer' : email.split('@')[0];
   const initial = isDev ? 'D' : email.charAt(0).toUpperCase();
   document.getElementById('welcomeName').textContent  = name;
   document.getElementById('topbarAvatar').textContent = initial;
@@ -3793,6 +4314,8 @@ function enterDashboard(email) {
   document.getElementById('universalSearch').value = '';
   document.getElementById('universalClear').classList.remove('show');
   document.getElementById('productSection').classList.remove('show');
+  updateBreadcrumb();
+  renderQuickChips(null, null);
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -3812,6 +4335,8 @@ function logout() {
       <div class="empty-hint-text">Choose a category and product above, then describe the issue.</div>
     </div>`;
   document.getElementById('productSection').classList.remove('show');
+  updateBreadcrumb();
+  renderQuickChips(null, null);
   setMsg(''); switchTab('signin');
   db = {}; TABS = {}; ICONS = {}; CAT_NAMES = {};
   activeCategory = null; activeProduct = null; currentResults = [];
@@ -3819,6 +4344,10 @@ function logout() {
   lastAiCategory = null; lastAiProduct = null; lastAiIssue = null;
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+/* ═══════════════════════════════════════════════
+   TROUBLESHOOTING SEARCH & STEP CHECKLISTS
+   ═══════════════════════════════════════════════ */
 
 function parseSteps(raw) {
   if (!raw) return [];
@@ -3862,7 +4391,7 @@ function parseSteps(raw) {
   const final = [];
   for (const para of joined) {
     if (/^https?:\/\/\S+$/i.test(para) || para.length < 80) { final.push(para); continue; }
-    const sentences = para.match(/[^.!?]+[.!?]+(?:\s|$)|[^.!?]+$/g);
+    const sentences = para.match(/[^.!?]+[.!?]+(?:\s|$)\vert{}[^.!?]+$/g);
     if (sentences && sentences.length > 1) {
       sentences.forEach(s => { const t = s.trim(); if (t.length > 3) final.push(t); });
     } else { final.push(para); }
@@ -3870,18 +4399,37 @@ function parseSteps(raw) {
   return final.filter(s => s.length > 1);
 }
 
+function toggleStepDone(el, event) {
+  if (event && event.target && event.target.tagName === 'A') return;
+  el.classList.toggle('done');
+  const numEl = el.querySelector('.step-num, .ai-step-num');
+  if (!numEl) return;
+  if (el.classList.contains('done')) {
+    if (!numEl.dataset.orig) numEl.dataset.orig = numEl.textContent;
+    numEl.textContent = '✓';
+  } else if (numEl.dataset.orig) {
+    numEl.textContent = numEl.dataset.orig;
+  }
+}
+
 function debouncedFind() {
   clearTimeout(debounceTimer);
-  debounceTimer = setTimeout(() => findSolution(), 500);
+  debounceTimer = setTimeout(() => findSolution(), 650);
 }
 
 function findSolution() {
+  clearTimeout(debounceTimer);
   const raw      = document.getElementById('search').value;
   const keywords = extractKeywords(raw);
   const phrase   = clean(raw);
   const cat      = activeCategory;
   const prodVal  = activeProduct;
   const resultEl = document.getElementById('result');
+
+  // Sync active state on quick chips
+  document.querySelectorAll('.quick-chip').forEach(chip => {
+    chip.classList.toggle('active', clean(chip.textContent) === phrase);
+  });
 
   if (!cat)     { resultEl.innerHTML = noResultHTML('Please pick a category card first.'); return; }
   if (!prodVal) { resultEl.innerHTML = noResultHTML('Please select a product model.'); return; }
@@ -3950,7 +4498,7 @@ function renderResult(activeIndex) {
   const icon  = ICONS[cat] || '📦';
 
   const stepsHTML = steps.map((s, i) => `
-    <div class="step">
+    <div class="step" onclick="toggleStepDone(this, event)" title="Click to mark step as completed">
       <div class="step-num">${i + 1}</div>
       <div class="step-text">${escAndLink(s)}</div>
     </div>`).join('');
@@ -3972,7 +4520,7 @@ function renderResult(activeIndex) {
         </div>
       </div>
       <div class="result-steps">
-        <div class="steps-label">Resolution Steps</div>
+        <div class="steps-label">Resolution Steps (Click step to check off)</div>
         ${stepsHTML}
       </div>
       <div class="copy-row">
@@ -3981,7 +4529,13 @@ function renderResult(activeIndex) {
             <rect x="9" y="9" width="13" height="13" rx="2"/>
             <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
           </svg>
-          Copy Resolution Steps
+          Copy Steps
+        </button>
+        <button class="btn-ghost" onclick="copyCustomerReply()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+          </svg>
+          Copy as Customer Reply
         </button>
       </div>
     </div>
@@ -4035,273 +4589,14 @@ function noResultHTML(sub) {
     </div>`;
 }
 
+/* ═══════════════════════════════════════════════
+   DUAL COPY MODES (RAW STEPS & CUSTOMER REPLY)
+   ═══════════════════════════════════════════════ */
+
 function copySteps() {
   const steps = document.querySelectorAll('.step-text, .ai-step-text');
   if (!steps.length) return;
-  const text = Array.from(steps).map((s, i) => `${i + 1}. ${s.textContent}`).join('\n');
+  const text = Array.from(steps).map((s, i) => `${i + 1}. ${s.textContent.trim()}`).join('\n');
   navigator.clipboard.writeText(text)
     .then(() => showToast('Resolution steps copied!'))
     .catch(() => showToast('Copy failed — try manually'));
-}
-
-/* ═══════════════════════════════════════════════════════════
-   GEMINI AI ENGINE
-   Same logic as before — just uses Gemini API
-   ═══════════════════════════════════════════════════════════ */
-
-function buildAIContext(category, product) {
-  const entries    = (db[category] || []).filter(x => x.product === product);
-  const catEntries = (db[category] || []).slice(0, 20);
-
-  let knowledgeBlock = '';
-
-  if (entries.length > 0) {
-    knowledgeBlock += `\nKnown issues and resolutions for ${product}:\n`;
-    entries.forEach((e, i) => {
-      if (e.issue && e.steps) {
-        knowledgeBlock += `\nIssue ${i + 1}: ${e.issue}\nResolution: ${e.steps}\n`;
-      }
-    });
-  }
-
-  if (catEntries.length > 0) {
-    knowledgeBlock += `\nAdditional ${category} troubleshooting context:\n`;
-    catEntries.slice(0, 10).forEach((e) => {
-      if (e.issue && e.steps && e.product !== product) {
-        knowledgeBlock += `- ${e.product}: ${e.issue} → ${e.steps.split('\n')[0]}\n`;
-      }
-    });
-  }
-
-  return knowledgeBlock;
-}
-
-async function triggerAI(category, product, issueText) {
-  const resultEl = document.getElementById('result');
-
-  lastAiCategory = category;
-  lastAiProduct  = product;
-  lastAiIssue    = issueText;
-
-  resultEl.innerHTML = `
-    <div class="ai-loading-card">
-      <div class="ai-loader-wrap">
-        <div class="ai-loader-ring"></div>
-        <div class="ai-loader-ring"></div>
-        <div class="ai-loader-ring"></div>
-        <div class="ai-loader-core">✦</div>
-      </div>
-      <div class="ai-loading-title">AI is thinking…</div>
-      <div class="ai-loading-sub">No exact match found in the database. Our AI is analyzing all known ${esc(category)} troubleshooting data to generate a custom solution for your <strong style="color:var(--ai-bright)">${esc(product)}</strong>.</div>
-      <div class="ai-typing-bar"><span></span><span></span><span></span></div>
-    </div>`;
-
-  setTimeout(() => smoothScrollTo(resultEl, 90), 80);
-
-  try {
-    const context = buildAIContext(category, product);
-    const catName = CAT_NAMES[category] || category;
-
-    const systemPrompt = `You are an expert Crossbeats support technician. Crossbeats makes consumer electronics: projectors, soundbars, TWS earbuds, audio products, lapel mics, smart watches, dash cameras, and more.
-
-Your job: give clear, accurate, step-by-step troubleshooting guidance.
-
-STRICT RULES:
-- Respond with ONLY numbered steps (1. 2. 3. etc.) — nothing else
-- Each step must be concise but actionable (1-2 short sentences)
-- Provide between 4 and 7 steps
-- NO introduction, NO conclusion, NO explanation outside the steps
-- Never say "I" or "As an AI"
-- Focus on practical fixes a support agent can walk a customer through
-- Always mention factory reset only as a LAST resort step
-- Use the knowledge base below as your primary reference
-
-KNOWLEDGE BASE:
-${context}`;
-
-    const userMessage = `Product: ${product}
-Category: ${catName}
-Customer's reported issue: ${issueText}
-
-Generate numbered troubleshooting steps for this exact issue now.`;
-
-    const fullPrompt = `${systemPrompt}\n\n${userMessage}`;
-
-    const response = await fetch(`${GEMINI_ENDPOINT}?key=${GEMINI_API_KEY}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [
-          {
-            parts: [{ text: fullPrompt }]
-          }
-        ],
-        generationConfig: {
-          temperature: 0.6,
-          maxOutputTokens: 800,
-          topP: 0.9
-        }
-      })
-    });
-
-    if (!response.ok) {
-      const errBody = await response.text();
-      console.error('Gemini API error:', response.status, errBody);
-      throw new Error(`Gemini API error: ${response.status}`);
-    }
-
-    const data    = await response.json();
-    const aiText  = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
-
-    console.log('✅ Gemini AI Response:', aiText);
-
-    if (!aiText || aiText.trim().length < 20) throw new Error('Empty AI response');
-
-    renderAIResult(category, product, issueText, aiText.trim());
-
-  } catch (err) {
-    console.error('AI error:', err);
-    renderAIError(category, product, issueText);
-  }
-}
-
-function renderAIResult(category, product, issueText, rawText) {
-  const resultEl = document.getElementById('result');
-  const steps    = parseAISteps(rawText);
-  const catIcon  = ICONS[category] || '📦';
-
-  if (!steps.length) {
-    renderAIError(category, product, issueText);
-    return;
-  }
-
-  const stepsHTML = steps.map((s, i) => `
-    <div class="ai-step">
-      <div class="ai-step-num">${i + 1}</div>
-      <div class="ai-step-text">${escAndLink(s)}</div>
-    </div>`).join('');
-
-  resultEl.innerHTML = `
-    <div class="ai-result-card">
-      <div class="ai-header">
-        <div class="ai-icon-wrap">${catIcon}</div>
-        <div>
-          <div class="ai-badge">
-            <div class="ai-badge-dot"></div>
-            ✦ AI Generated Response
-          </div>
-          <div class="ai-product-name">${esc(product)}</div>
-          <div class="ai-issue-tag">${esc(issueText)}</div>
-        </div>
-      </div>
-
-      <div class="ai-steps-section">
-        <div class="ai-steps-label">AI-Suggested Resolution Steps</div>
-        ${stepsHTML}
-      </div>
-
-      <div class="ai-disclaimer">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"/>
-          <path d="M12 8v4M12 16h.01"/>
-        </svg>
-        <span>This response was <strong>generated by AI (Google Gemini)</strong> because no exact match was found in the Crossbeats knowledge base. Steps are based on general product knowledge and similar troubleshoots. Verify before sharing with customers.</span>
-      </div>
-
-      <div class="ai-copy-row">
-        <button class="btn-ghost-ai" onclick="copySteps()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="9" y="9" width="13" height="13" rx="2"/>
-            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
-          </svg>
-          Copy AI Steps
-        </button>
-      </div>
-    </div>`;
-
-  setTimeout(() => smoothScrollTo(resultEl, 90), 80);
-}
-
-function renderAIError(category, product, issueText) {
-  const resultEl = document.getElementById('result');
-  resultEl.innerHTML = `
-    <div class="ai-error-card">
-      <div class="ai-error-icon">🤖</div>
-      <div class="ai-error-title">AI Unavailable</div>
-      <div class="ai-error-sub">
-        No troubleshoot was found in the database and the AI assistant could not be reached right now.
-        This may be a temporary network issue. Please try again or rephrase your issue description.
-      </div>
-      <button class="ai-retry-btn" onclick="triggerAI('${esc(category).replace(/'/g,"\\'")}','${esc(product).replace(/'/g,"\\'")}','${esc(issueText).replace(/'/g,"\\'")}')">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="23 4 23 10 17 10"/>
-          <path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/>
-        </svg>
-        Retry AI
-      </button>
-    </div>`;
-  setTimeout(() => smoothScrollTo(resultEl, 90), 80);
-}
-
-function parseAISteps(raw) {
-  if (!raw) return [];
-  const lines  = raw.replace(/\r\n?/g, '\n').split('\n');
-  const steps  = [];
-
-  const numberedPattern = /^\s*\d+[\.\)]\s+(.+)/;
-  const bulletPattern   = /^\s*[•\*\-►▪]\s+(.+)/;
-
-  let buffer = null;
-
-  for (const line of lines) {
-    const trimmed = line.trim();
-    if (!trimmed) { if (buffer) { steps.push(buffer); buffer = null; } continue; }
-
-    const numMatch    = numberedPattern.exec(line);
-    const bulletMatch = bulletPattern.exec(line);
-
-    if (numMatch || bulletMatch) {
-      if (buffer) steps.push(buffer);
-      buffer = (numMatch ? numMatch[1] : bulletMatch[1]).trim();
-    } else if (buffer !== null) {
-      buffer += ' ' + trimmed;
-    } else {
-      if (trimmed.length > 15) steps.push(trimmed);
-    }
-  }
-
-  if (buffer) steps.push(buffer);
-
-  if (!steps.length && raw.trim().length > 30) {
-    const sentences = raw.match(/[^.!?]+[.!?]+(?:\s|$)|[^.!?]+$/g) || [];
-    sentences.forEach(s => { const t = s.trim(); if (t.length > 15) steps.push(t); });
-  }
-
-  return steps.filter(s => s.length > 5).slice(0, 8);
-}
-
-window.addEventListener('DOMContentLoaded', async () => {
-  const subtitleEl = document.getElementById('loadingSubtitleText');
-  if (subtitleEl) subtitleEl.style.transition = 'opacity .25s ease';
-
-  const saved = sessionStorage.getItem('cb_user');
-  if (saved) {
-    showLoader('Welcome back', ['Restoring your session','Discovering categories','Loading product catalog','Fetching product images']);
-    try {
-      await loadAllData(); hideLoader(); enterDashboard(saved);
-    } catch (e) {
-      console.error('Session restore failed:', e);
-      hideLoader(); sessionStorage.removeItem('cb_user');
-    }
-  }
-});
-
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && !document.getElementById('dashView').classList.contains('hidden')) {
-    const search = document.getElementById('search');
-    if (document.activeElement === search) { search.blur(); e.preventDefault(); }
-  }
-});
-</script>
-</body>
-</html>
