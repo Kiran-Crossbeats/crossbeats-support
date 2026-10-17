@@ -14,11 +14,11 @@
 }
 
 :root {
-  --bg: #060608;
-  --surface: #0e0e12;
-  --surface-solid: #0e0e12;
-  --surface2: #14141a;
-  --surface-card: rgba(14,14,18,0.92);
+  --bg: #070709;
+  --surface: #0e0e13;
+  --surface-solid: #0e0e13;
+  --surface2: #14141c;
+  --surface-card: rgba(14,14,19,0.92);
   --border: rgba(255,255,255,.07);
   --border-soft: rgba(255,255,255,.04);
   --border-focus: rgba(255,106,0,.45);
@@ -27,9 +27,9 @@
   --accent-bright: #ff8c33;
   --accent2: #ff9d4a;
   --accent-glow: rgba(255,106,0,.35);
-  --txt: #f3eff5;
-  --muted: #525260;
-  --muted2: #8f8fa2;
+  --txt: #f4eff6;
+  --muted: #555566;
+  --muted2: #9292a6;
   --danger: #ff4d4d;
   --warning: #ffb547;
   --success: #00e68a;
@@ -37,8 +37,8 @@
   --ai-dim: #6d28d9;
   --ai-bright: #c084fc;
   --ai-glow: rgba(139,92,246,.35);
-  --ai-bg: rgba(139,92,246,.05);
-  --ai-border: rgba(139,92,246,.22);
+  --ai-bg: rgba(139,92,246,.06);
+  --ai-border: rgba(139,92,246,.25);
   --r-sm: 12px;
   --r: 16px;
   --r-lg: 24px;
@@ -49,7 +49,7 @@
 }
 
 :root.light {
-  --bg: #f6f6f9;
+  --bg: #f5f5f8;
   --surface: #ffffff;
   --surface-solid: #ffffff;
   --surface2: #f0f0f4;
@@ -57,7 +57,7 @@
   --border: rgba(0,0,0,.08);
   --border-soft: rgba(0,0,0,.05);
   --border-focus: rgba(255,106,0,.4);
-  --txt: #151522;
+  --txt: #141420;
   --muted: #b4b4c2;
   --muted2: #656578;
   --ai-bg: rgba(139,92,246,.06);
@@ -149,10 +149,7 @@ body::after {
   outline: none;
 }
 
-.theme-toggle:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
+.theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 :root.light .theme-toggle {
   background: rgba(255,106,0,.1);
@@ -303,9 +300,7 @@ body::after {
   position: relative;
 }
 
-:root.light .tab-switcher {
-  background: rgba(0,0,0,.06);
-}
+:root.light .tab-switcher { background: rgba(0,0,0,.06); }
 
 .tab-btn {
   flex: 1;
@@ -383,12 +378,8 @@ body::after {
   -webkit-appearance: none;
 }
 
-:root.light .field input {
-  background: rgba(0,0,0,.04);
-}
-
+:root.light .field input { background: rgba(0,0,0,.04); }
 .field input::placeholder { color: var(--muted); }
-
 .field input:focus {
   border-color: var(--accent);
   background: rgba(255,106,0,.04);
@@ -431,7 +422,6 @@ body::after {
 }
 
 :root.light .otp-input { background: rgba(0,0,0,.04); }
-
 .otp-input:focus {
   border-color: var(--accent2);
   background: rgba(255,157,74,.04);
@@ -2026,12 +2016,7 @@ body::after {
               <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
             </svg>
           </span>
-          <div class="field-hint">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
-            </svg>
-            Minimum 8 characters
-          </div>
+          <div class="field-hint">Minimum 8 characters</div>
         </div>
         <button class="forgot-link" type="button" onclick="window.showForgotStep1()">Forgot password?</button>
         <button class="btn" id="loginBtn" type="button" onclick="window.login()">
@@ -2078,9 +2063,7 @@ body::after {
       <!-- FORGOT PASSWORD STEPS -->
       <div class="auth-form hidden" id="forgotStep1">
         <button class="back-link" type="button" onclick="window.cancelForgot()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
-          </svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           Back to sign in
         </button>
         <div class="login-headline">Reset password</div>
@@ -2171,7 +2154,7 @@ body::after {
         </svg>
         Diagnostic Troubleshooting Finder
       </div>
-      <div class="panel-sub">Select product category &amp; model, then search the query. If not matched in standard docs, Gemini AI automatically diagnoses and generates online-grounded fixes.</div>
+      <div class="panel-sub">Select product category &amp; model, then search the query. If the right keyword is not found in standard docs, Gemini AI automatically triggers online-grounded diagnostics.</div>
 
       <div class="section-label">Product Category</div>
       <div class="cat-grid" id="catGrid"></div>
@@ -2209,7 +2192,7 @@ body::after {
       <div class="search-box" id="issueSearchBox">
         <label for="search">Describe Customer Issue</label>
         <input id="search" type="text"
-               placeholder="e.g. error code E03, battery draining, audio lag, screen blinking…"
+               placeholder="e.g. no sound, battery draining, screen blinking, error code E03…"
                autocomplete="off"
                oninput="window.debouncedFind()"
                onkeydown="if(event.key==='Enter')window.findSolution(false)">
@@ -2221,7 +2204,7 @@ body::after {
       </div>
 
       <button class="btn" id="findBtn" type="button" onclick="window.findSolution(false)">
-        <span id="findBtnText">Find Resolution</span>
+        <span id="findBtnText">Find Solution</span>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M5 12h14M12 5l7 7-7 7"/>
         </svg>
@@ -2285,10 +2268,6 @@ const DRIVE_FOLDER_ID = '15yJM0NmxtE91kHsD8FM-nUehppd0_VUu';
 
 /* GEMINI AI CONFIGURATION WITH GOOGLE SEARCH GROUNDING */
 const GEMINI_API_KEY = 'AIzaSyABsSnuZxx7V-Qn8WktB0XmyVcAtL6OzC0';
-const GEMINI_MODELS = [
-  'gemini-2.0-flash',
-  'gemini-1.5-flash'
-];
 
 const FALLBACK_TABS = {
   "Projectors":    "1298694583",
@@ -2316,6 +2295,7 @@ let TABS = {};
 let ICONS = {};
 let CAT_NAMES = {};
 
+/* Non-meaningful stop words — note: 'no', 'not', 'dead', 'off' are preserved as problem keywords */
 const STOP_WORDS = new Set([
   'the','a','an','is','it','to','of','in','on','at','for','and','or','but','if',
   'how','why','what','when','where','who','which','my','your','his','her','its',
@@ -2323,14 +2303,22 @@ const STOP_WORDS = new Set([
   'those','am','are','was','were','be','been','being','do','does','did','have',
   'has','had','can','could','will','would','should','shall','may','might','must',
   'about','from','with','as','by','too','very','so','just','only','also','some',
-  'any','no','not','please','help','need','want','get','got','make','made',
-  'let','know','tell','show','give','find','use','using','plz','pls'
+  'any','please','help','need','want','get','got','make','made',
+  'let','know','tell','show','give','find','use','using','plz','pls','problem','issue'
 ]);
 
-const BOOST_WORDS = {
-  'not':2.5,'cant':2.5,'cannot':2.5,'wont':2.5,'doesnt':2.5,'dont':2.5,
-  'never':2,'no':1.8,'fail':2.2,'failed':2.2,'failing':2.2,'broken':2.2,
-  'error':3,'code':2.5,'blinking':2.5,'flashing':2.5,'buzzing':2.5
+/* Support domain synonyms so related terms match the right issue */
+const SYNONYMS = {
+  'sound': ['audio','speaker','volume','mute','hear','listen','voice'],
+  'audio': ['sound','speaker','volume','mute','voice'],
+  'display': ['screen','picture','video','image','visual','flicker','black','blank'],
+  'screen': ['display','picture','video','image','visual','flicker','black','blank'],
+  'focus': ['blur','blurry','sharpness','lens','keystone'],
+  'blur': ['focus','blurry','sharpness','lens','keystone'],
+  'power': ['turn on','start','boot','switch on','dead','charge','charging'],
+  'charge': ['charging','battery','power','drain','backup'],
+  'pair': ['connect','connection','bluetooth','bt','sync','disconnect'],
+  'heat': ['heating','warm','hot','temperature']
 };
 
 let db = {};
@@ -2649,7 +2637,7 @@ function loadSheet(gid) {
 }
 
 async function loadAllData(forceRefresh = false) {
-  const cached = localStorage.getItem('cb_portal_cache_v2');
+  const cached = localStorage.getItem('cb_portal_cache_v3');
   if (cached && !forceRefresh) {
     try {
       const parsed = JSON.parse(cached);
@@ -2664,7 +2652,7 @@ async function loadAllData(forceRefresh = false) {
         return;
       }
     } catch (e) {
-      localStorage.removeItem('cb_portal_cache_v2');
+      localStorage.removeItem('cb_portal_cache_v3');
     }
   }
   await refreshDataFromNetwork();
@@ -2676,7 +2664,7 @@ async function refreshDataFromNetwork() {
   renderCategoryCards();
   if (activeCategory) renderProductCards(activeCategory);
   try {
-    localStorage.setItem('cb_portal_cache_v2', JSON.stringify({
+    localStorage.setItem('cb_portal_cache_v3', JSON.stringify({
       ts: Date.now(), TABS, ICONS, CAT_NAMES, db, productImageMap
     }));
   } catch (e) {}
@@ -2730,6 +2718,7 @@ async function loadSheetData() {
             issue,
             steps,
             cleanIssue: clean(issue),
+            issueWords: new Set(clean(issue).split(/\s+/).filter(Boolean)),
             cleanSteps: clean(steps)
           });
         });
@@ -3225,14 +3214,14 @@ function parseSteps(raw) {
 
 function debouncedFind() {
   clearTimeout(debounceTimer);
-  debounceTimer = setTimeout(() => findSolution(true), 280);
+  debounceTimer = setTimeout(() => findSolution(false), 380);
 }
 
-/* ═══════════════════════════════════════════════════════════
-   CORE FIND SOLUTION: SHEET MATCH vs AI ROUTING
-   ═══════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════════
+   PRECISE ISSUE MATCHING ENGINE: PREVENTS FALSE STEP-MATCHES & INVOKES AI
+   ═══════════════════════════════════════════════════════════════════════ */
 function findSolution(isLiveTyping = false) {
-  const raw = document.getElementById('search').value;
+  const raw = document.getElementById('search').value.trim();
   const keywords = extractKeywords(raw);
   const phrase = clean(raw);
   const cat = activeCategory;
@@ -3247,56 +3236,58 @@ function findSolution(isLiveTyping = false) {
     if (!isLiveTyping) resultEl.innerHTML = noResultHTML('Please choose a product model.');
     return;
   }
-  if (!keywords.length) {
+  if (!raw || !keywords.length) {
     if (!isLiveTyping) resultEl.innerHTML = noResultHTML('Please describe the issue faced by the customer.');
     return;
   }
 
   const allProductData = (db[cat] || []).filter(x => x.product === prodVal);
-  const phraseWords = phrase.split(/\s+/).filter(Boolean);
+  if (!allProductData.length) {
+    triggerAI(cat, prodVal, raw, []);
+    return;
+  }
 
+  // Expand query keywords with technical synonyms (sound -> audio, volume, speaker)
+  const expandedQueryTokens = new Set(keywords);
+  keywords.forEach(k => {
+    (SYNONYMS[k] || []).forEach(syn => expandedQueryTokens.add(syn));
+  });
+
+  // Score each troubleshoot strictly evaluating ISSUE-LEVEL relevance
   const scored = allProductData.map((x, originalIdx) => {
     const issText = x.cleanIssue || clean(x.issue);
+    const issWords = x.issueWords || new Set(issText.split(/\s+/).filter(Boolean));
     const stpText = x.cleanSteps || clean(x.steps);
-    const issWords = issText.split(/\s+/).filter(Boolean);
-    const stpWords = new Set(stpText.split(/\s+/));
-    const issWordsSet = new Set(issWords);
 
-    let score = 0;
-    let titleMatchedCount = 0;
+    let issueMatchedCount = 0;
     let stepMatchedCount = 0;
 
-    keywords.forEach(w => {
-      const boost = BOOST_WORDS[w] || 1;
-      if (issWordsSet.has(w)) {
-        score += 35 * boost;
-        titleMatchedCount++;
-      } else if (issText.includes(w)) {
-        score += 20 * boost;
-        titleMatchedCount++;
-      } else if (stpWords.has(w)) {
-        score += 8 * boost;
-        stepMatchedCount++;
-      } else if (stpText.includes(w)) {
-        score += 4 * boost;
+    expandedQueryTokens.forEach(token => {
+      if (issWords.has(token) || issText.includes(token)) {
+        issueMatchedCount++;
+      } else if (stpText.includes(token)) {
         stepMatchedCount++;
       }
     });
 
-    if (phrase && issText.includes(phrase)) {
-      score += 120;
-      if (issText === phrase) score += 500;
-      const extraWords = Math.abs(issWords.length - phraseWords.length);
-      if (extraWords <= 1) score += 200;
+    let score = 0;
+    const isDirectPhraseInIssue = phrase && issText.includes(phrase);
+
+    if (isDirectPhraseInIssue) {
+      score += 300;
+      if (issText === phrase) score += 400;
     }
 
-    const titleCoverage = keywords.length > 0 ? (titleMatchedCount / keywords.length) : 0;
-    score += titleCoverage * 40;
+    if (issueMatchedCount > 0) {
+      score += issueMatchedCount * 60;
+      // Steps provide a small bonus ONLY IF issue title is already relevant
+      score += stepMatchedCount * 4;
+    }
 
     return {
       item: x,
       score,
-      titleMatchedCount,
+      issueMatchedCount,
       stepMatchedCount,
       originalIdx
     };
@@ -3304,73 +3295,38 @@ function findSolution(isLiveTyping = false) {
 
   scored.sort((a, b) => b.score - a.score);
 
-  // A genuine sheet match requires either a direct phrase match OR significant keyword match in the issue title
+  // A TRUE sheet match requires the ISSUE TITLE to contain the keyword or phrase
   const topCandidate = scored[0];
-  const isDirectSheetMatch = topCandidate && topCandidate.score >= 45 && (
-    topCandidate.titleMatchedCount >= Math.min(2, keywords.length) ||
-    (phrase && (topCandidate.item.cleanIssue || '').includes(phrase))
+  const isGenuineSheetMatch = topCandidate && topCandidate.score >= 50 && (
+    topCandidate.issueMatchedCount >= 1 || (phrase && (topCandidate.item.cleanIssue || '').includes(phrase))
   );
 
-  // Recommendations: gather other issues for this product to keep as recommended list
+  // Gather recommended troubleshoots from the catalog to keep below
   let recommendations = [];
-  if (isDirectSheetMatch) {
-    recommendations = scored.filter(r => r !== topCandidate && r.score > 0).slice(0, 6);
+  if (isGenuineSheetMatch) {
+    recommendations = scored.filter(r => r !== topCandidate && r.issueMatchedCount > 0).slice(0, 5);
   } else {
-    // If not matching, use partial matches OR top common issues from sheet
-    recommendations = scored.filter(r => r.score > 0).slice(0, 6);
-    if (!recommendations.length) {
-      recommendations = allProductData.slice(0, 5).map((x, idx) => ({ item: x, score: 50, originalIdx: idx }));
-    }
+    // If query doesn't match the sheet, list cataloged issues for this product so agent keeps reference
+    recommendations = allProductData.slice(0, 5).map((x, idx) => ({ item: x, score: 0, originalIdx: idx }));
   }
 
-  /* ── ROUTE 1: EXACT/STRONG MATCH FOUND IN SHEET ── */
-  if (isDirectSheetMatch) {
+  /* ── CASE 1: RIGHT KEYWORD MATCH FOUND IN SHEET ── */
+  if (isGenuineSheetMatch) {
     currentResults = scored;
     renderResult(0, isLiveTyping);
     return;
   }
 
-  /* ── ROUTE 2: NOT FOUND IN TROUBLESHOOT SHEET -> INVOKE GEMINI AI ──
-     Keeps recommended troubleshoots below, with AI answer above! */
+  /* ── CASE 2: RIGHT KEYWORD NOT FOUND IN SHEET -> AUTOMATICALLY TRIGGER GEMINI AI ──
+     Keeps recommended troubleshoots intact below, with AI answer above! */
   currentResults = scored;
-
-  if (isLiveTyping) {
-    renderAskAIBanner(cat, prodVal, raw, recommendations);
-  } else {
-    triggerAI(cat, prodVal, raw, recommendations);
-  }
-}
-
-function renderAskAIBanner(cat, prodVal, raw, recommendations) {
-  lastAiCategory = cat;
-  lastAiProduct = prodVal;
-  lastAiIssue = raw;
-
-  const recommendHTML = buildRecommendHTML(recommendations);
-  const resultEl = document.getElementById('result');
-
-  resultEl.innerHTML = `
-    <div class="result-card" style="border-color:var(--ai-border);background:var(--surface-card);box-shadow:0 12px 40px rgba(139,92,246,.08)">
-      <div style="padding:28px 30px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px">
-        <div style="width:48px;height:48px;border-radius:14px;background:var(--ai-bg);border:1px solid var(--ai-border);display:grid;place-items:center;font-size:22px;color:var(--ai-bright)">✦</div>
-        <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--txt)">Not found in standard sheets — Press Enter for Gemini AI</div>
-        <div style="font-size:13.5px;color:var(--muted2);max-width:440px;line-height:1.5">
-          No direct troubleshoot matched "<strong>${esc(raw)}</strong>" in the reference sheet. Press <strong>Enter</strong> or click below to let Gemini AI search online specs and generate a practical resolution.
-        </div>
-        <button class="btn" style="max-width:280px;background:linear-gradient(145deg,var(--ai),var(--ai-dim));color:#fff;box-shadow:0 6px 20px rgba(139,92,246,.35)" type="button" onclick="window.triggerAI('${esc(cat)}','${esc(prodVal)}',document.getElementById('search').value, window.getCurrentRecommendations())">
-          <span>Search &amp; Fix with Gemini AI</span>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </button>
-      </div>
-    </div>
-    ${recommendHTML}
-  `;
+  triggerAI(cat, prodVal, raw, recommendations);
 }
 
 function getCurrentRecommendations() {
   const cat = activeCategory;
   const prod = activeProduct;
-  return (db[cat] || []).filter(x => x.product === prod).slice(0, 5).map((x, idx) => ({ item: x, score: 50, originalIdx: idx }));
+  return (db[cat] || []).filter(x => x.product === prod).slice(0, 5).map((x, idx) => ({ item: x, score: 0, originalIdx: idx }));
 }
 
 function toggleStepDone(el, event) {
@@ -3411,7 +3367,7 @@ function renderResult(activeIndex, skipScroll = false) {
       <div class="step-text">${escAndLink(s)}</div>
     </div>`).join('');
 
-  const recommendations = currentResults.filter((_, idx) => idx !== activeIndex).slice(0, 6);
+  const recommendations = currentResults.filter((_, idx) => idx !== activeIndex).slice(0, 5);
   const recommendHTML = buildRecommendHTML(recommendations);
 
   resultEl.innerHTML = `
@@ -3422,7 +3378,7 @@ function renderResult(activeIndex, skipScroll = false) {
           <div>
             <div class="best-match-badge">
               <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              Sheet Match
+              Best Match
             </div>
             <div class="result-product">${esc(x.product)}</div>
             <div class="result-issue">${esc(x.issue)}</div>
@@ -3434,7 +3390,7 @@ function renderResult(activeIndex, skipScroll = false) {
       </div>
       <div class="result-steps">
         <div class="steps-header-row">
-          <div class="steps-label">Resolution Checklist</div>
+          <div class="steps-label">Resolution Steps (Click step to check off)</div>
           <span class="step-progress-badge">0 of ${steps.length} Completed</span>
         </div>
         ${stepsHTML}
@@ -3465,10 +3421,8 @@ function renderResult(activeIndex, skipScroll = false) {
 
 function buildRecommendHTML(recs) {
   if (!recs || !recs.length) return '';
-  const maxScore = (currentResults[0] && currentResults[0].score) || 100;
 
   const items = recs.map(r => {
-    const pct = Math.min(100, Math.max(30, Math.round(((r.score || 50) / maxScore) * 100)));
     const targetIdx = currentResults.indexOf(r);
     const clickHandler = targetIdx >= 0 ? `window.renderResult(${targetIdx}, false)` : `window.selectQuickIssue('${esc(r.item.issue)}')`;
     return `
@@ -3480,8 +3434,7 @@ function buildRecommendHTML(recs) {
         </div>
         <div class="recommend-content">
           <div class="recommend-label">
-            <span>Reference Issue</span>
-            <span class="recommend-score">${pct}% Match</span>
+            <span>Cataloged Issue</span>
           </div>
           <div class="recommend-text">${esc(r.item.issue)}</div>
         </div>
@@ -3497,7 +3450,7 @@ function buildRecommendHTML(recs) {
         </svg>
         Recommended Troubleshoots (From Sheet)
       </div>
-      <div class="recommend-sub">Other reference issues cataloged for this product. Click any item to load its resolution steps.</div>
+      <div class="recommend-sub">Other reference issues cataloged for this product. Click any to view resolution steps.</div>
       <div class="recommend-list">${items}</div>
     </div>`;
 }
@@ -3541,70 +3494,65 @@ function copyCustomerReply() {
   if (!steps.length) return;
   const prod = activeProduct || 'Crossbeats device';
   const body = Array.from(steps).map((s, i) => `Step ${i + 1}: ${s.textContent.trim()}`).join('\n\n');
-  const message = `Hi there,\n\nThank you for contacting Crossbeats Support! Please follow these troubleshooting steps for your ${prod}:\n\n${body}\n\nPlease let us know if the issue persists after attempting these steps — we are glad to assist you further!\n\nWarm regards,\nCrossbeats Support Team`;
+  const message = `Hi there,\n\nThank you for reaching out to Crossbeats Support! Please try the following troubleshooting steps for your ${prod}:\n\n${body}\n\nPlease let us know if the issue persists after attempting these steps — we are happy to assist further!\n\nBest regards,\nCrossbeats Support Team`;
   navigator.clipboard.writeText(message)
     .then(() => showToast('Customer reply copied!'))
     .catch(() => showToast('Copy failed'));
 }
 
-/* ═══════════════════════════════════════════════════════════
-   GEMINI AI ENGINE: WEB SEARCH GROUNDING & SMART FALLBACKS
-   ═══════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════════
+   GEMINI AI ENGINE: WEB SEARCH GROUNDING WITH MULTI-TIER FALLBACKS
+   ═══════════════════════════════════════════════════════════════════════ */
 function buildAIContext(category, product) {
   const entries = (db[category] || []).filter(x => x.product === product);
   let knowledgeBlock = '';
 
   if (entries.length > 0) {
     knowledgeBlock += `\nInternal known issues for ${product}:\n`;
-    entries.slice(0, 10).forEach((e, i) => {
-      if (e.issue && e.steps) knowledgeBlock += `Issue: ${e.issue}\nFix: ${e.steps.slice(0, 200)}\n\n`;
+    entries.slice(0, 8).forEach((e) => {
+      if (e.issue && e.steps) knowledgeBlock += `Issue: ${e.issue}\nFix: ${e.steps.slice(0, 180)}\n\n`;
     });
   }
   return knowledgeBlock;
 }
 
 async function callGemini(fullPrompt, signal) {
-  // Cascading attempts:
-  // 1. Gemini 2.0 Flash with Google Search Tool
-  // 2. Gemini 2.0 Flash standard
-  // 3. Gemini 1.5 Flash
   const attempts = [
+    // 1. Gemini 2.0 Flash with Google Search Grounding Tool
     {
-      model: 'gemini-2.0-flash',
-      useSearch: true
+      url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+      body: {
+        contents: [{ parts: [{ text: fullPrompt }] }],
+        tools: [{ googleSearch: {} }],
+        generationConfig: { temperature: 0.35, maxOutputTokens: 900, topP: 0.95 }
+      }
     },
+    // 2. Gemini 2.0 Flash standard (no tools)
     {
-      model: 'gemini-2.0-flash',
-      useSearch: false
+      url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+      body: {
+        contents: [{ parts: [{ text: fullPrompt }] }],
+        generationConfig: { temperature: 0.35, maxOutputTokens: 900, topP: 0.95 }
+      }
     },
+    // 3. Gemini 1.5 Flash standard
     {
-      model: 'gemini-1.5-flash',
-      useSearch: false
+      url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,
+      body: {
+        contents: [{ parts: [{ text: fullPrompt }] }],
+        generationConfig: { temperature: 0.35, maxOutputTokens: 900, topP: 0.95 }
+      }
     }
   ];
 
   let lastError = null;
 
-  for (const config of attempts) {
+  for (const ep of attempts) {
     try {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/${config.model}:generateContent?key=${GEMINI_API_KEY}`;
-      const payload = {
-        contents: [{ parts: [{ text: fullPrompt }] }],
-        generationConfig: {
-          temperature: 0.35,
-          maxOutputTokens: 900,
-          topP: 0.95
-        }
-      };
-
-      if (config.useSearch) {
-        payload.tools = [{ googleSearch: {} }];
-      }
-
-      const res = await fetch(url, {
+      const res = await fetch(ep.url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(ep.body),
         signal
       });
 
@@ -3654,7 +3602,7 @@ async function triggerAI(category, product, issueText, recommendations = []) {
       </div>
       <div class="ai-loading-title">Gemini AI is researching &amp; analyzing…</div>
       <div class="ai-loading-sub">
-        Query not found in standard sheet. Gemini is checking product hardware diagnostics &amp; specifications for <strong style="color:var(--ai-bright)">${esc(product)}</strong>.
+        No exact troubleshoot for "<strong>${esc(issueText)}</strong>" in the sheet. Gemini is analyzing product diagnostics &amp; specifications for <strong style="color:var(--ai-bright)">${esc(product)}</strong>.
       </div>
       <div class="ai-typing-bar"><span></span><span></span><span></span></div>
     </div>
@@ -3667,9 +3615,9 @@ async function triggerAI(category, product, issueText, recommendations = []) {
     const context = buildAIContext(category, product);
     const catName = CAT_NAMES[category] || category;
 
-    const fullPrompt = `You are a Senior Principal Hardware & Technical Diagnostics Engineer at Crossbeats. Crossbeats produces consumer technology including smartwatches, audio wearables, projectors (e.g. Lumex series), soundbars, microphones, and dash cams.
+    const fullPrompt = `You are a Senior Principal Hardware & Technical Diagnostics Engineer at Crossbeats (an electronics brand manufacturing smartwatches, audio devices, projectors like Lumex series, soundbars, mics, and dash cams).
 
-A customer has contacted support with an issue that is NOT in the standard troubleshooting sheets.
+A customer reported an issue that is NOT in the standard troubleshooting sheets.
 Product: Crossbeats ${product}
 Category: ${catName}
 Reported Customer Issue: "${issueText}"
@@ -3678,7 +3626,7 @@ INTERNAL REFERENCE CONTEXT:
 ${context}
 
 TASK:
-1. Search and think about the exact product specifications, hardware components, power, firmware, and connectivity.
+1. Search and think about the exact product specifications, hardware components, power, firmware, and connectivity for Crossbeats ${product}.
 2. Provide a 1-sentence diagnostic root cause under "DIAGNOSIS:".
 3. Provide 4 to 6 numbered, highly practical troubleshooting steps under "STEPS:".
 4. Order steps logically: simple physical/connection checks first, settings/firmware checks next, and mention service/replacement only as the last step.
@@ -3801,7 +3749,7 @@ function renderAIResult(category, product, issueText, rawText, recommendations =
 
       <div class="ai-steps-section">
         <div class="steps-header-row">
-          <div class="steps-label">AI Diagnostic Resolution Steps</div>
+          <div class="steps-label">AI Diagnostic Resolution Steps (Click step to check off)</div>
           <span class="step-progress-badge">0 of ${steps.length} Completed</span>
         </div>
         ${stepsHTML}
@@ -3846,7 +3794,7 @@ function renderAIError(category, product, issueText, recommendations = []) {
         <div class="no-result-icon">🤖</div>
         <div class="no-result-title">AI Assistant Temporarily Busy</div>
         <div class="no-result-sub">
-          The query was not in the database and Gemini AI could not be reached right now. Please check your network and retry.
+          The query was not found in the database and Gemini AI could not be reached right now. Please check your network and retry.
         </div>
         <button class="btn" style="max-width:220px;margin-top:10px" type="button" onclick="window.retryLastAI()">
           <span>Retry Gemini AI</span>
